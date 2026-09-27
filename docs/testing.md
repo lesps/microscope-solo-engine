@@ -2,15 +2,15 @@
 
 The suite has six layers. Each one catches a kind of bug the others miss.
 
-| Layer | Tool | Where | Runs on |
-| --- | --- | --- | --- |
-| Engine unit and table-driven tests | Vitest (node) | `src/engine/__tests__/` | every PR |
-| Property tests | fast-check | `invariants.property.test.ts`, `src/export/import.property.test.ts` | every PR (fixed seed); nightly (random seeds, 2000 runs) |
-| Golden tests | Vitest file snapshots | `tests/golden.test.ts`, `tests/__snapshots__/` | every PR |
-| Persistence and store | Vitest + fake-indexeddb | `src/persistence/`, `src/store/` | every PR |
-| Components and screens | Vitest (jsdom) + Testing Library | `src/ui/**/*.test.tsx` | every PR |
-| End to end | Playwright (Chromium) against the production build | `tests/e2e/` | every PR |
-| Mutation testing | Stryker | `src/engine/` | nightly |
+| Layer                              | Tool                                               | Where                                                               | Runs on                                                  |
+| ---------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------- |
+| Engine unit and table-driven tests | Vitest (node)                                      | `src/engine/__tests__/`                                             | every PR                                                 |
+| Property tests                     | fast-check                                         | `invariants.property.test.ts`, `src/export/import.property.test.ts` | every PR (fixed seed); nightly (random seeds, 2000 runs) |
+| Golden tests                       | Vitest file snapshots                              | `tests/golden.test.ts`, `tests/__snapshots__/`                      | every PR                                                 |
+| Persistence and store              | Vitest + fake-indexeddb                            | `src/persistence/`, `src/store/`                                    | every PR                                                 |
+| Components and screens             | Vitest (jsdom) + Testing Library                   | `src/ui/**/*.test.tsx`                                              | every PR                                                 |
+| End to end                         | Playwright (Chromium) against the production build | `tests/e2e/`                                                        | every PR                                                 |
+| Mutation testing                   | Stryker                                            | `src/engine/`                                                       | nightly                                                  |
 
 ## Commands
 
