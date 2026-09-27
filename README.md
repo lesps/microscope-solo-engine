@@ -22,7 +22,7 @@ deck are original (CC0). The in-app rules follow this project's own wording
 
 - **Library** lists your games: new, duplicate, export, import, delete, export all.
 - **New game** picks Lens or Chronicle and a preset (Pure Lens, Default, High Friction), then walks
-  through setup: premise, Bookends, Palette, seats, First Pass, dials.
+  through setup: start, premise, Bookends, Palette, seats, First Pass, dials.
 - **Table** is the play screen: standing context on the left, the timeline in the middle, and a turn
   panel on the right that always shows the next action and every roll behind it.
 - **Scene editor** is a full-screen drafting mode with the Question pinned, spread, reversal,
@@ -32,6 +32,23 @@ deck are original (CC0). The in-app rules follow this project's own wording
 
 Keyboard: `N` next step, `R` roll/draw, `O` oracle, `E` open editor, `Esc` close,
 `Cmd/Ctrl+Z` undo within the open turn (undo never removes a roll).
+
+### Starting a game
+
+Setup opens on **Start** when an enabled pack has startup content:
+
+- **Start from a seed**: pick a category, then a seed, answer a few multiple-choice questions and
+  choose how the history begins and ends. The Premise, Bookends and Palette come prefilled from
+  your answers; edit anything before committing it.
+- **Roll a generator**: roll several tables into a Big Picture prompt ("the hoarding of salt
+  starves the old dynasty"), swap two parts for a second reading, reroll as often as you like,
+  then write your own Big Picture from it.
+- **Start blank**: write the premise yourself.
+
+The bundled _Startup sample_ pack has one original seed and one generator. Seeds and generators
+are modeled on how Microscope Explorer by Ben Robbins presents its starting points; Explorer's own
+content is not included (see [docs/content-packs.md](docs/content-packs.md) for building a
+personal pack from your copy).
 
 ### Content packs
 

@@ -13,14 +13,14 @@ test('an invalid pack shows per-entry errors and installs nothing; a valid one i
     .getByRole('list', { name: 'Installed packs' })
     .getByRole('listitem')
     .filter({ has: page.getByRole('checkbox') });
-  await expect(installed).toHaveCount(1);
+  await expect(installed).toHaveCount(2);
   await page
     .getByLabel('Import content pack')
     .setInputFiles(path.join(root, 'tests/fixtures/packs/malformed.json'));
   const alert = page.getByRole('alert');
   await expect(alert).toContainText('The pack was not installed');
   await expect(alert).toContainText('tables[1].entries[0].text: must not be empty');
-  await expect(installed).toHaveCount(1);
+  await expect(installed).toHaveCount(2);
 
   const doc = fs.readFileSync(path.join(root, 'docs/content-packs.md'), 'utf8');
   const example = doc.split('## Worked example')[1]!.match(/```json\n([\s\S]*?)```/)![1]!;
@@ -28,7 +28,7 @@ test('an invalid pack shows per-entry errors and installs nothing; a valid one i
   fs.writeFileSync(file, example);
   await page.getByLabel('Import content pack').setInputFiles(file);
   await expect(page.getByText('Pack installed and enabled.')).toBeVisible();
-  await expect(installed).toHaveCount(2);
+  await expect(installed).toHaveCount(3);
   await expect(page.getByRole('list', { name: 'Installed packs' })).toContainText('Harbor towns');
 });
 

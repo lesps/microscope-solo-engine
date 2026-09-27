@@ -45,16 +45,6 @@ export const gameFileSchema = z
           path: ['events', i, 'seq'],
           message: `expected seq ${i + 1}`,
         });
-      const payload = payloadSchemas[e.type].safeParse(e.payload);
-      if (!payload.success) {
-        for (const issue of payload.error.issues.slice(0, 3)) {
-          ctx.addIssue({
-            code: 'custom',
-            path: ['events', i, 'payload', ...issue.path],
-            message: issue.message,
-          });
-        }
-      }
       if (e.gameId !== f.gameId)
         ctx.addIssue({
           code: 'custom',
@@ -110,9 +100,25 @@ export type ParsedGame =
   { ok: true; file: GameFile; state: Game } | { ok: false; errors: string[] };
 
 /** Validates shape, then replays the log and checks invariants. `migrate` upgrades older schemas. */
+/** Payload errors for a (migrated) log, as `events.<i>.payload.<path>: message`. */
+export function payloadErrors(events: readonly GameEvent[]): string[] {
+  return events.flatMap((e, i) => {
+    const r = payloadSchemas[e.type].safeParse(e.payload);
+    return r.success
+      ? []
+      : r.error.issues
+          .slice(0, 3)
+          .map((issue) => `${['events', i, 'payload', ...issue.path].join('.')}: ${issue.message}`);
+  });
+}
+
+/**
+ * Validates the envelope, migrates the log to the current schema, validates every payload, then
+ * replays and checks invariants. `migrate` is required so an old file is never read unmigrated.
+ */
 export function parseGameFile(
   input: unknown,
-  migrate: (v: number, e: GameEvent[]) => GameEvent[] = (_v, e) => e,
+  migrate: (v: number, e: GameEvent[]) => GameEvent[],
 ): ParsedGame {
   const r = gameFileSchema.safeParse(input);
   if (!r.success) {
@@ -125,6 +131,8 @@ export function parseGameFile(
   }
   try {
     const events = migrate(r.data.schemaVersion, r.data.events as unknown as GameEvent[]);
+    const invalid = payloadErrors(events);
+    if (invalid.length) return { ok: false, errors: invalid.slice(0, 20) };
     const state = replay(events);
     const violations = checkInvariants(state, events);
     if (violations.length) return { ok: false, errors: violations };

@@ -8,7 +8,7 @@ export type PlacementBias = 'uniform' | 'early' | 'late' | 'sparse';
 export type DriftMode = 'preference' | 'random' | 'counter-trend';
 export type RngState = [number, number, number, number];
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 export type ModedMechanic =
   | 'tone'
@@ -20,7 +20,8 @@ export type ModedMechanic =
   | 'palette.roll'
   | 'legacy.evict'
   | 'legacy.explore'
-  | 'scene.reversal';
+  | 'scene.reversal'
+  | 'seed.answers';
 
 export type OverridableMechanic = ModedMechanic;
 
@@ -50,7 +51,7 @@ export interface TableEntry {
   weight?: number;
   range?: [number, number];
 }
-export type TableCategory = 'domain' | 'wordPair' | 'palette' | 'reversal' | 'focus';
+export type TableCategory = 'domain' | 'wordPair' | 'palette' | 'reversal' | 'focus' | 'generator';
 export interface ListTable {
   id: Id;
   name: string;
@@ -84,10 +85,85 @@ export interface Deck {
   name: string;
   cards: Card[];
 }
+// ---- Startup content (seeds and generators, grouped into categories) ----
+
+export type PickRule = 'one' | 'two' | 'oneOrTwo';
+export interface StartupGroup {
+  id: Id;
+  name: string;
+  description?: string;
+}
+export interface SeedQuestion {
+  id: Id;
+  text: string;
+  pick: PickRule;
+  allowCustom: boolean;
+  options: { id: Id; text: string }[];
+}
+export interface BookendQuestion {
+  text: string;
+  options: { id: Id; text: string; title?: string }[];
+}
+export interface Seed {
+  id: Id;
+  title: string;
+  group?: Id;
+  ruleset: Ruleset | 'any';
+  pitch: string;
+  bigPicture?: string;
+  subject?: Subject;
+  questions: SeedQuestion[];
+  startBookend: BookendQuestion;
+  endBookend: BookendQuestion;
+  palette?: { yes: string[]; no: string[] };
+  note?: string;
+}
+export interface Generator {
+  id: Id;
+  name: string;
+  group?: Id;
+  description?: string;
+  parts: { id: Id; label: string; tableId: Id }[];
+  template: string;
+  swap?: [Id, Id];
+}
+/** Where a piece of startup content came from; added when packs are merged into content. */
+export interface FromPack {
+  packId: Id;
+  packName: string;
+}
+
 export interface Content {
   tables: Record<Id, Table>;
   decks: Record<Id, Deck>;
+  groups: Record<Id, StartupGroup & FromPack>;
+  seeds: Record<Id, Seed & FromPack>;
+  generators: Record<Id, Generator & FromPack>;
 }
+
+export interface StartupBookend {
+  title?: string;
+  text: string;
+}
+export interface SeedStartup extends FromPack {
+  kind: 'seed';
+  seedId: Id;
+  title: string;
+  pitch: string;
+  bigPictureDraft?: string;
+  subject?: Subject;
+  note?: string;
+  notes: { question: string; answers: string[] }[];
+  bookends: { start: StartupBookend; end: StartupBookend };
+  palette?: { yes: string[]; no: string[] };
+}
+export interface GeneratorStartup extends FromPack {
+  kind: 'generator';
+  generatorId: Id;
+  name: string;
+  reading: string;
+}
+export type Startup = SeedStartup | GeneratorStartup;
 
 // ---- Domain ----
 
@@ -292,6 +368,14 @@ export interface Game {
   nextSeatIndex: number;
   turn?: OpenTurn;
   pendingRoundRolls: RolledValues;
+  startup?: Startup;
+  /** Rolled seed answers: question id, or 'start' / 'end', to option id. */
+  pendingSeed?: { seedId: Id; rolled: Record<string, Id> };
+  pendingGenerator?: {
+    generatorId: Id;
+    parts: { id: Id; label: string; text: string }[];
+    swap?: [Id, Id];
+  };
   seq: number;
 }
 
@@ -370,6 +454,8 @@ export interface EventPayloads {
   OverrideUsed: { mechanic: OverridableMechanic; rolled: unknown; chosen: unknown; targetId?: Id };
   ProseRevised: { entryId: Id; prose: string };
   Retconned: { targetId: Id; field: string; before: unknown; after: unknown; reason: string };
+  SeedApplied: { startup: SeedStartup };
+  GeneratorReadingAccepted: { startup: GeneratorStartup };
 }
 
 export type EventType = keyof EventPayloads;
@@ -406,6 +492,8 @@ export const EVENT_TYPES = [
   'OverrideUsed',
   'ProseRevised',
   'Retconned',
+  'SeedApplied',
+  'GeneratorReadingAccepted',
 ] as const satisfies readonly EventType[];
 
 // Compile-time check that EVENT_TYPES lists every event type.

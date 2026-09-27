@@ -1,7 +1,15 @@
 import { ulid } from 'ulid';
 import { createStore } from 'zustand/vanilla';
-import { STARTER_PACK, buildContent, collisions, validatePack, type PackError } from '../content';
 import {
+  BUNDLED_PACKS,
+  buildContent,
+  collisions,
+  normalizePack,
+  validatePack,
+  type PackError,
+} from '../content';
+import {
+  emptyContent,
   execute,
   initialGame,
   replay,
@@ -139,20 +147,21 @@ export function createAppStore(deps: AppDeps) {
       buildContent(packs.filter((p) => p.enabled).map((p) => p.pack));
 
     const loadPacks = async () => {
-      let packs = await db.packs.toArray();
-      if (!packs.some((p) => p.id === STARTER_PACK.id)) {
-        const starter: InstalledPack = {
-          id: STARTER_PACK.id,
-          pack: STARTER_PACK,
-          enabled: true,
-          installedAt: now(),
-        };
-        await db.packs.put(starter);
-        packs = [starter, ...packs];
-      } else {
-        // Keep the bundled starter pack current with the app build.
-        packs = packs.map((p) => (p.id === STARTER_PACK.id ? { ...p, pack: STARTER_PACK } : p));
+      const stored = new Map((await db.packs.toArray()).map((p) => [p.id, p]));
+      const packs: InstalledPack[] = [];
+      // Bundled packs come first (so their ids win), refreshed from the build on every load.
+      for (const pack of BUNDLED_PACKS) {
+        const row = stored.get(pack.id);
+        if (row) packs.push({ ...row, pack });
+        else {
+          const installed: InstalledPack = { id: pack.id, pack, enabled: true, installedAt: now() };
+          await db.packs.put(installed);
+          packs.push(installed);
+        }
+        stored.delete(pack.id);
       }
+      // Packs stored before pack schema 2 lack the startup arrays; normalize them in memory.
+      for (const row of stored.values()) packs.push({ ...row, pack: normalizePack(row.pack) });
       set({ packs, content: enabledContent(packs) });
     };
 
@@ -170,7 +179,7 @@ export function createAppStore(deps: AppDeps) {
     return {
       ready: false,
       packs: [],
-      content: { tables: {}, decks: {} },
+      content: emptyContent(),
       games: [],
       storage: { status: 'unsupported' },
       backup: DEFAULT_BACKUP,
@@ -394,8 +403,8 @@ export function createAppStore(deps: AppDeps) {
       async importPack(input) {
         const r = validatePack(input);
         if (!r.ok) return r;
-        if (r.pack.id === STARTER_PACK.id)
-          return { ok: false, errors: [{ path: 'id', message: 'the starter pack is built in' }] };
+        if (BUNDLED_PACKS.some((p) => p.id === r.pack.id))
+          return { ok: false, errors: [{ path: 'id', message: 'bundled packs are built in' }] };
         const clash = collisions(
           r.pack,
           get().packs.map((p) => p.pack),
@@ -425,7 +434,7 @@ export function createAppStore(deps: AppDeps) {
       },
 
       async removePack(id) {
-        if (id === STARTER_PACK.id) return;
+        if (BUNDLED_PACKS.some((p) => p.id === id)) return;
         await db.packs.delete(id);
         await loadPacks();
       },

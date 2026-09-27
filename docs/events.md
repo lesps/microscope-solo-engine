@@ -147,17 +147,19 @@ is a fact and needed its own event.
 `result` is 1..`sides`. Weighted draws roll one die whose size is the total weight. `value` is the
 interpreted result the reducer records as a pending roll, by purpose:
 
-| purpose                           | value                                      | recorded as                            |
-| --------------------------------- | ------------------------------------------ | -------------------------------------- |
-| `tone`                            | `'light' \| 'dark'`                        | `turn.rolled.tone`                     |
-| `entryType`                       | `'period' \| 'event' \| 'scene'`           | `turn.rolled.entryType`                |
-| `placement`                       | `{ kind, placement: { parentId, index } }` | `turn.rolled.placement`                |
-| `scene.reversal`                  | `{ source, text }`                         | `turn.rolled.reversal`                 |
-| `cohesion`                        | `boolean` (pass)                           | `pendingRoundRolls.cohesion`           |
-| `focus`                           | `{ text, source }`                         | `pendingRoundRolls.focus`              |
-| `legacy.evict` / `legacy.explore` | Legacy id                                  | `pendingRoundRolls.evict` / `.explore` |
-| `palette`                         | `{ text, tableId, rerolled }`              | `pendingPalette`                       |
-| `prompt.*`                        | `{ kind, text }`                           | `turn.prompts`                         |
+| purpose                           | value                                                                                   | recorded as                                        |
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `tone`                            | `'light' \| 'dark'`                                                                     | `turn.rolled.tone`                                 |
+| `entryType`                       | `'period' \| 'event' \| 'scene'`                                                        | `turn.rolled.entryType`                            |
+| `placement`                       | `{ kind, placement: { parentId, index } }`                                              | `turn.rolled.placement`                            |
+| `scene.reversal`                  | `{ source, text }`                                                                      | `turn.rolled.reversal`                             |
+| `cohesion`                        | `boolean` (pass)                                                                        | `pendingRoundRolls.cohesion`                       |
+| `focus`                           | `{ text, source }`                                                                      | `pendingRoundRolls.focus`                          |
+| `legacy.evict` / `legacy.explore` | Legacy id                                                                               | `pendingRoundRolls.evict` / `.explore`             |
+| `palette`                         | `{ text, tableId, rerolled }`                                                           | `pendingPalette`                                   |
+| `prompt.*`                        | `{ kind, text }`                                                                        | `turn.prompts`                                     |
+| `seed.answer`                     | `{ seedId, optionId }` (`targetId` = question id, `start` or `end`)                     | `pendingSeed.rolled[targetId]`                     |
+| `generator.part`                  | `{ generatorId, partId, label, index, count, swap? }` (`tableId`, `text` = rolled line) | `pendingGenerator.parts` (reset when `index` is 0) |
 
 Other purposes (`focus.source`, `table.pick`, `oracle`, `oracle.qualifier`, `drift.*`,
 `prompt.wordPair.action`) are informational. `rng` is the generator state after the draw.
@@ -194,3 +196,23 @@ from the remaining pile. `purpose: 'scene.spread'` with `targetId` and `role` (`
 entry (`title`, `tone`; Scenes also `question`, `answer`, `setting`), a Legacy (`text`), a
 character (`name`, `description`, `immortal`) or the game (`bigPicture`). Counts toward
 `stats.retcons`.
+
+## Startup
+
+Both events are only accepted before the Bookends exist. They carry every text resolved from the
+pack, so a game replays and exports the same with the pack disabled or removed.
+
+### `SeedApplied`
+
+`{ startup: { kind: 'seed', packId, packName, seedId, title, pitch, bigPictureDraft?, subject?, note?, notes: { question, answers[] }[], bookends: { start: { title?, text }, end: { title?, text } }, palette?: { yes[], no[] } } }`
+
+Sets `game.startup` and clears `pendingSeed`. Applying again before the Bookends replaces the
+startup. Under `seed.answers: prompt`, each answer that leaves out its rolled option is preceded by
+an `OverrideUsed` (`mechanic: 'seed.answers'`, `targetId` = question id, `start` or `end`).
+
+### `GeneratorReadingAccepted`
+
+`{ startup: { kind: 'generator', packId, packName, generatorId, name, reading } }`
+
+Sets `game.startup` and clears `pendingGenerator`. `reading` is the generator's template filled
+from the rolled parts, with the swap pair exchanged if the player chose it.

@@ -1,7 +1,8 @@
 import { z } from 'zod';
-import type { Card, Deck, Table } from '../engine';
+import type { Card, Deck, Generator, Seed, StartupGroup, Table } from '../engine';
 
-export const PACK_SCHEMA_VERSION = 1;
+/** The version written. Version 1 packs are still accepted and normalized to this. */
+export const PACK_SCHEMA_VERSION = 2;
 
 const text = z.string().trim().min(1, 'must not be empty').max(200, 'at most 200 characters');
 const id = z
@@ -25,7 +26,7 @@ const listTable = z
   .object({
     id,
     name: text,
-    category: z.enum(['domain', 'palette', 'reversal', 'focus']),
+    category: z.enum(['domain', 'palette', 'reversal', 'focus', 'generator']),
     die: z.number().int().min(1).max(1000).optional(),
     entries: z.array(tableEntrySchema).min(1, 'a table needs entries'),
   })
@@ -94,9 +95,98 @@ export const deckSchema = z
     });
   });
 
+const short = (max: number) =>
+  z.string().trim().min(1, 'must not be empty').max(max, `at most ${max} characters`);
+
+export const groupSchema = z
+  .object({ id, name: short(60), description: z.string().max(300).optional() })
+  .strict();
+
+const questionSchema = z
+  .object({
+    id,
+    text: short(140),
+    pick: z.enum(['one', 'two', 'oneOrTwo']).default('one'),
+    allowCustom: z.boolean().default(true),
+    options: z
+      .array(z.object({ id, text: short(200) }).strict())
+      .min(2, '2–8 options')
+      .max(8, '2–8 options'),
+  })
+  .strict();
+
+const bookendQuestionSchema = z
+  .object({
+    text: short(140),
+    options: z
+      .array(z.object({ id, text: short(200), title: short(60).optional() }).strict())
+      .min(2, '2–6 options')
+      .max(6, '2–6 options'),
+  })
+  .strict();
+
+const paletteList = z.array(short(60)).max(6, 'at most 6 items').default([]);
+
+export const seedSchema = z
+  .object({
+    id,
+    title: short(60),
+    group: id.optional(),
+    ruleset: z.enum(['lens', 'chronicle', 'any']).default('lens'),
+    pitch: short(800),
+    bigPicture: short(200).optional(),
+    subject: z
+      .object({
+        name: short(60),
+        description: short(200),
+        traits: z.array(short(60)).min(3, '3–5 traits').max(5, '3–5 traits'),
+      })
+      .strict()
+      .optional(),
+    questions: z.array(questionSchema).max(6, 'at most 6 questions').default([]),
+    startBookend: bookendQuestionSchema,
+    endBookend: bookendQuestionSchema,
+    palette: z.object({ yes: paletteList, no: paletteList }).strict().optional(),
+    note: short(600).optional(),
+  })
+  .strict();
+
+export const generatorSchema = z
+  .object({
+    id,
+    name: short(60),
+    group: id.optional(),
+    description: z.string().max(300).optional(),
+    parts: z
+      .array(z.object({ id, label: short(40), tableId: id }).strict())
+      .min(2, '2–6 parts')
+      .max(6, '2–6 parts'),
+    template: short(200),
+    swap: z.tuple([id, id]).optional(),
+  })
+  .strict();
+
+type Ctx = z.RefinementCtx;
+type Path = (string | number)[];
+
+function uniqueIds(ctx: Ctx, items: { id: string }[], path: Path, kind: string) {
+  const seen = new Set<string>();
+  items.forEach((x, i) => {
+    if (seen.has(x.id))
+      ctx.addIssue({
+        code: 'custom',
+        path: [...path, i, 'id'],
+        message: `duplicate ${kind} id "${x.id}"`,
+      });
+    seen.add(x.id);
+  });
+}
+
+const PLACEHOLDER = /\{([^{}]*)\}/g;
+
 export const packSchema = z
   .object({
-    schemaVersion: z.literal(PACK_SCHEMA_VERSION),
+    schemaVersion: z.union([z.literal(1), z.literal(PACK_SCHEMA_VERSION)]),
     id,
     name: text,
     version: z.string().min(1).max(20),
@@ -105,6 +195,9 @@ export const packSchema = z
     license: z.string().max(200).optional(),
     tables: z.array(tableSchema).default([]),
     decks: z.array(deckSchema).default([]),
+    groups: z.array(groupSchema).optional(),
+    seeds: z.array(seedSchema).optional(),
+    generators: z.array(generatorSchema).optional(),
   })
   .strict()
   .superRefine((p, ctx) => {
@@ -176,9 +269,126 @@ export const packSchema = z
         });
       deckIds.add(d.id);
     });
-  });
 
-export type Pack = z.infer<typeof packSchema>;
+    if (p.schemaVersion === 1) {
+      for (const key of ['groups', 'seeds', 'generators'] as const) {
+        if (p[key] !== undefined)
+          ctx.addIssue({ code: 'custom', path: [key], message: `${key} need schemaVersion 2` });
+      }
+    }
+    const groups = p.groups ?? [];
+    const seeds = p.seeds ?? [];
+    const generators = p.generators ?? [];
+    if (!p.tables.length && !p.decks.length && !seeds.length && !generators.length) {
+      ctx.addIssue({
+        code: 'custom',
+        path: [],
+        message: 'a pack needs at least one table, deck, seed or generator',
+      });
+    }
+    uniqueIds(ctx, groups, ['groups'], 'group');
+    uniqueIds(ctx, seeds, ['seeds'], 'seed');
+    uniqueIds(ctx, generators, ['generators'], 'generator');
+    const groupIds = new Set(groups.map((g) => g.id));
+    const unknownGroup = (group: string | undefined, path: Path) => {
+      if (group !== undefined && !groupIds.has(group))
+        ctx.addIssue({ code: 'custom', path, message: `unknown group "${group}"` });
+    };
+
+    seeds.forEach((s, i) => {
+      unknownGroup(s.group, ['seeds', i, 'group']);
+      if (s.ruleset === 'chronicle' && !s.subject)
+        ctx.addIssue({
+          code: 'custom',
+          path: ['seeds', i, 'subject'],
+          message: 'a chronicle seed needs a subject',
+        });
+      if (s.ruleset === 'lens' && s.subject)
+        ctx.addIssue({
+          code: 'custom',
+          path: ['seeds', i, 'subject'],
+          message: 'only chronicle seeds have a subject',
+        });
+      uniqueIds(ctx, s.questions, ['seeds', i, 'questions'], 'question');
+      s.questions.forEach((q, j) => {
+        uniqueIds(ctx, q.options, ['seeds', i, 'questions', j, 'options'], 'option');
+        if (q.pick === 'two' && q.options.length < 3)
+          ctx.addIssue({
+            code: 'custom',
+            path: ['seeds', i, 'questions', j, 'pick'],
+            message: 'pick "two" needs at least 3 options',
+          });
+      });
+      uniqueIds(ctx, s.startBookend.options, ['seeds', i, 'startBookend', 'options'], 'option');
+      uniqueIds(ctx, s.endBookend.options, ['seeds', i, 'endBookend', 'options'], 'option');
+    });
+
+    const tablesById = new Map(p.tables.map((t) => [t.id, t]));
+    generators.forEach((g, i) => {
+      unknownGroup(g.group, ['generators', i, 'group']);
+      uniqueIds(ctx, g.parts, ['generators', i, 'parts'], 'part');
+      const partIds = new Set(g.parts.map((x) => x.id));
+      g.parts.forEach((part, j) => {
+        const t = tablesById.get(part.tableId);
+        const path = ['generators', i, 'parts', j, 'tableId'];
+        if (!t)
+          ctx.addIssue({
+            code: 'custom',
+            path,
+            message: `no generator table "${part.tableId}" in this pack`,
+          });
+        else if (t.category !== 'generator')
+          ctx.addIssue({
+            code: 'custom',
+            path,
+            message: `table "${t.id}" is not a generator table`,
+          });
+      });
+      const used = [...g.template.matchAll(PLACEHOLDER)].map((m) => m[1]!);
+      for (const u of new Set(used)) {
+        if (!partIds.has(u))
+          ctx.addIssue({
+            code: 'custom',
+            path: ['generators', i, 'template'],
+            message: `"{${u}}" is not a part`,
+          });
+      }
+      for (const part of partIds) {
+        if (used.filter((u) => u === part).length !== 1)
+          ctx.addIssue({
+            code: 'custom',
+            path: ['generators', i, 'template'],
+            message: `part "${part}" must appear exactly once`,
+          });
+      }
+      if (g.swap) {
+        const [a, b] = g.swap;
+        for (const x of [a, b]) {
+          if (!partIds.has(x))
+            ctx.addIssue({
+              code: 'custom',
+              path: ['generators', i, 'swap'],
+              message: `"${x}" is not a part`,
+            });
+        }
+        if (a === b)
+          ctx.addIssue({
+            code: 'custom',
+            path: ['generators', i, 'swap'],
+            message: 'swap names two different parts',
+          });
+      }
+    });
+  })
+  .transform((p) => ({
+    ...p,
+    schemaVersion: PACK_SCHEMA_VERSION,
+    groups: p.groups ?? [],
+    seeds: p.seeds ?? [],
+    generators: p.generators ?? [],
+  }));
+
+export type Pack = z.output<typeof packSchema>;
 
 export interface PackError {
   path: string;
@@ -193,6 +403,21 @@ export function formatPath(path: (string | number)[]): string {
 }
 
 export type PackValidation = { ok: true; pack: Pack } | { ok: false; errors: PackError[] };
+
+/** Problems that don't block installing a pack but are worth showing. */
+export function packWarnings(pack: Pack): PackError[] {
+  const used = new Set(pack.generators.flatMap((g) => g.parts.map((part) => part.tableId)));
+  return pack.tables.flatMap((t, i) =>
+    t.category === 'generator' && !used.has(t.id)
+      ? [
+          {
+            path: `tables[${i}]`,
+            message: `generator table "${t.id}" is not used by any generator`,
+          },
+        ]
+      : [],
+  );
+}
 
 export function validatePack(input: unknown): PackValidation {
   const r = packSchema.safeParse(input);
@@ -211,3 +436,21 @@ type Assert<T extends true> = T;
 export type _TableFits = Assert<z.infer<typeof tableSchema> extends Table ? true : false>;
 export type _CardFits = Assert<z.infer<typeof cardSchema> extends Card ? true : false>;
 export type _DeckFits = Assert<z.infer<typeof deckSchema> extends Deck ? true : false>;
+export type _GroupFits = Assert<z.output<typeof groupSchema> extends StartupGroup ? true : false>;
+export type _SeedFits = Assert<z.output<typeof seedSchema> extends Seed ? true : false>;
+export type _GeneratorFits = Assert<
+  z.output<typeof generatorSchema> extends Generator ? true : false
+>;
+
+/** Brings a pack stored under schema 1 up to the schema-2 shape (the startup arrays default empty). */
+export function normalizePack(
+  pack: Pack | (Omit<Pack, 'groups' | 'seeds' | 'generators'> & Partial<Pack>),
+): Pack {
+  return {
+    ...pack,
+    schemaVersion: PACK_SCHEMA_VERSION,
+    groups: pack.groups ?? [],
+    seeds: pack.seeds ?? [],
+    generators: pack.generators ?? [],
+  } as Pack;
+}

@@ -59,6 +59,11 @@ const MECHANICS: { key: ModedMechanic; label: string; help: string }[] = [
     label: 'Scene reversal',
     help: 'One mid-Scene complication; enforced means it must be placed.',
   },
+  {
+    key: 'seed.answers',
+    label: 'Seed answers',
+    help: 'When starting from a seed, the dice pick the answers instead of you.',
+  },
 ];
 
 const MODE_LABEL: Record<Mode, string> = {

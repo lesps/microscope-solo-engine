@@ -4,6 +4,7 @@ import { wordCount } from './lint';
 import { effectiveOdds, qualifierFor } from './oracle';
 import { weightedSlots } from './placement';
 import { apply } from './reducer';
+import { fillTemplate } from './startup';
 import { rollDie, seedToState } from './rng';
 import { clampDial, defaultSettings, focusModeFor } from './settings';
 import {
@@ -28,6 +29,9 @@ import type {
   GameEvent,
   Id,
   ListTable,
+  Seed,
+  SeedStartup,
+  StartupBookend,
   Mode,
   OverridableMechanic,
   Period,
@@ -134,7 +138,20 @@ export type Command =
   | { type: 'ExploreLegacy'; legacyId?: Id }
   | { type: 'EndRound'; mood?: -1 | 0 | 1; cohesion?: -1 | 0 | 1 }
   | { type: 'ReviseProse'; entryId: Id; prose: string }
-  | { type: 'Retcon'; targetId: Id; field: string; after: unknown; reason: string };
+  | { type: 'Retcon'; targetId: Id; field: string; after: unknown; reason: string }
+  | { type: 'RollSeedAnswer'; seedId: Id; questionId: string }
+  | {
+      type: 'ApplySeed';
+      seedId: Id;
+      answers: Record<Id, SeedAnswer>;
+      start: BookendAnswer;
+      end: BookendAnswer;
+    }
+  | { type: 'RollGenerator'; generatorId: Id }
+  | { type: 'AcceptGeneratorReading'; swapped: boolean };
+
+export type SeedAnswer = { optionIds: Id[] } | { custom: string };
+export type BookendAnswer = { optionId: Id } | { custom: { title?: string; text: string } };
 
 export type CommandType = Command['type'];
 
@@ -151,7 +168,9 @@ export type RejectionCode =
   | 'illegal-placement'
   | 'cap-reached'
   | 'content-missing'
-  | 'chronicle';
+  | 'chronicle'
+  | 'setup-advanced'
+  | 'unknown-content';
 
 export interface Rejection {
   code: RejectionCode;
@@ -218,14 +237,15 @@ class Tx {
   rollWith<T>(
     purpose: string,
     sides: number,
-    f: (r: number) => { value: T; text?: string; tableId?: Id },
+    f: (r: number) => { value: T; text?: string; tableId?: Id; targetId?: Id },
   ): T {
     const [result, rng] = rollDie(this.g.rng, sides);
-    const { value, text, tableId } = f(result);
+    const { value, text, tableId, targetId } = f(result);
     const payload: EventPayloads['RollMade'] = { purpose, sides, result, rng };
     if (value !== undefined) payload.value = value;
     if (text !== undefined) payload.text = text;
     if (tableId !== undefined) payload.tableId = tableId;
+    if (targetId !== undefined) payload.targetId = targetId;
     this.emit('RollMade', payload);
     return value;
   }
@@ -742,7 +762,9 @@ const handlers: Handlers = {
     const title = requireText(c.title, 80, 'game title');
     const settings = c.settings ?? {
       ...defaultSettings(),
-      activeTables: Object.keys(tx.env.content.tables),
+      activeTables: Object.values(tx.env.content.tables)
+        .filter((t) => t.category !== 'generator')
+        .map((t) => t.id),
     };
     const seats = c.seats ?? [
       { id: tx.env.newId(), name: 'You', kind: 'player', tables: [], placementBias: 'uniform' },
@@ -1479,7 +1501,188 @@ const handlers: Handlers = {
     );
     tx.emit('Retconned', { targetId: c.targetId, field: c.field, before, after, reason });
   },
+
+  RollSeedAnswer: (tx, c) => {
+    startupOpen(tx.g);
+    const seed = seedFor(tx, c.seedId);
+    check(
+      mode(tx.g, 'seed.answers') !== 'off',
+      'wrong-phase',
+      'seed answers are chosen, not rolled',
+    );
+    const options = seedOptions(seed, c.questionId);
+    check(options, 'invalid', `seed ${seed.id} has no question ${c.questionId}`);
+    tx.rollWith('seed.answer', options.length, (r) => {
+      const o = options[r - 1]!;
+      return { value: { seedId: seed.id, optionId: o.id }, text: o.text, targetId: c.questionId };
+    });
+  },
+
+  ApplySeed: (tx, c) => {
+    const g = tx.g;
+    startupOpen(g);
+    const seed = seedFor(tx, c.seedId);
+    check(
+      seed.ruleset === 'any' || seed.ruleset === g.ruleset,
+      'invalid',
+      `“${seed.title}” is a ${seed.ruleset} seed`,
+    );
+    const m = mode(g, 'seed.answers');
+    const rolled = g.pendingSeed?.seedId === seed.id ? g.pendingSeed.rolled : {};
+    for (const qid of Object.keys(c.answers)) {
+      check(
+        seed.questions.some((q) => q.id === qid),
+        'invalid',
+        `seed ${seed.id} has no question ${qid}`,
+      );
+    }
+    const notes = seed.questions.map((q) => {
+      const a = c.answers[q.id];
+      check(a, 'invalid', `answer “${q.text}”`);
+      if ('custom' in a) {
+        check(q.allowCustom, 'invalid', `“${q.text}” takes one of its options`);
+        const text = requireText(a.custom, 200, 'answer');
+        honorSeedRoll(tx, m, rolled[q.id], [], q.id, { custom: text });
+        return { question: q.text, answers: [text] };
+      }
+      const ids = a.optionIds;
+      check(new Set(ids).size === ids.length, 'invalid', 'an option is picked twice');
+      const allowed = { one: [1], two: [2], oneOrTwo: [1, 2] }[q.pick];
+      check(
+        allowed.includes(ids.length),
+        'invalid',
+        `“${q.text}”: pick ${q.pick === 'oneOrTwo' ? 'one or two' : q.pick}`,
+      );
+      const texts = ids.map((id) => {
+        const o = q.options.find((x) => x.id === id);
+        check(o, 'invalid', `“${q.text}” has no option ${id}`);
+        return o.text;
+      });
+      honorSeedRoll(tx, m, rolled[q.id], ids, q.id, ids);
+      return { question: q.text, answers: texts };
+    });
+    const bookend = (which: 'start' | 'end'): StartupBookend => {
+      const a = c[which];
+      const question = which === 'start' ? seed.startBookend : seed.endBookend;
+      if ('custom' in a) {
+        const text = requireText(a.custom.text, 200, `${which} Bookend`);
+        const title = a.custom.title?.trim()
+          ? requireText(a.custom.title, MAX.title, `${which} Bookend title`)
+          : undefined;
+        honorSeedRoll(tx, m, rolled[which], [], which, { custom: text });
+        return title ? { title, text } : { text };
+      }
+      const o = question.options.find((x) => x.id === a.optionId);
+      check(o, 'invalid', `the ${which} Bookend has no option ${a.optionId}`);
+      honorSeedRoll(tx, m, rolled[which], [o.id], which, o.id);
+      return o.title ? { title: o.title, text: o.text } : { text: o.text };
+    };
+    const startup: SeedStartup = {
+      kind: 'seed',
+      packId: seed.packId,
+      packName: seed.packName,
+      seedId: seed.id,
+      title: seed.title,
+      pitch: seed.pitch,
+      notes,
+      bookends: { start: bookend('start'), end: bookend('end') },
+    };
+    if (seed.bigPicture) startup.bigPictureDraft = seed.bigPicture;
+    if (seed.subject) startup.subject = seed.subject;
+    if (seed.note) startup.note = seed.note;
+    if (seed.palette) startup.palette = seed.palette;
+    tx.emit('SeedApplied', { startup });
+  },
+
+  RollGenerator: (tx, c) => {
+    startupOpen(tx.g);
+    const gen = tx.env.content.generators[c.generatorId];
+    check(gen, 'unknown-content', `generator ${c.generatorId} is not installed`);
+    const tables = gen.parts.map((part) => {
+      const t = tx.env.content.tables[part.tableId];
+      check(
+        t && t.category === 'generator',
+        'unknown-content',
+        `generator table ${part.tableId} is not installed`,
+      );
+      return t;
+    });
+    gen.parts.forEach((part, index) => {
+      tx.rollTable('generator.part', tables[index]!, () => ({
+        generatorId: gen.id,
+        partId: part.id,
+        label: part.label,
+        index,
+        count: gen.parts.length,
+        ...(gen.swap ? { swap: gen.swap } : {}),
+      }));
+    });
+  },
+
+  AcceptGeneratorReading: (tx, c) => {
+    startupOpen(tx.g);
+    const pending = tx.g.pendingGenerator;
+    check(pending, 'roll-required', 'roll the generator first');
+    const gen = tx.env.content.generators[pending.generatorId];
+    check(gen, 'unknown-content', `generator ${pending.generatorId} is not installed`);
+    if (c.swapped) check(pending.swap, 'invalid', `${gen.name} has no swap`);
+    const reading = fillTemplate(gen.template, pending.parts, c.swapped ? pending.swap : undefined);
+    tx.emit('GeneratorReadingAccepted', {
+      startup: {
+        kind: 'generator',
+        packId: gen.packId,
+        packName: gen.packName,
+        generatorId: gen.id,
+        name: gen.name,
+        reading,
+      },
+    });
+  },
 };
+
+/** Startup content is chosen before the Bookends; after that the premise is set. */
+function startupOpen(g: Game) {
+  check(
+    periods(g).length < 2 && !inPlay(g),
+    'setup-advanced',
+    'the startup is chosen before the Bookends',
+  );
+}
+
+function seedFor(tx: Tx, id: Id) {
+  const seed = tx.env.content.seeds[id];
+  check(seed, 'unknown-content', `seed ${id} is not installed`);
+  return seed;
+}
+
+function seedOptions(seed: Seed, questionId: string): { id: Id; text: string }[] | undefined {
+  if (questionId === 'start') return seed.startBookend.options;
+  if (questionId === 'end') return seed.endBookend.options;
+  return seed.questions.find((q) => q.id === questionId)?.options;
+}
+
+/** Resolves a seed answer against its roll under the seed.answers mode. */
+function honorSeedRoll(
+  tx: Tx,
+  m: Mode,
+  rolledId: Id | undefined,
+  picked: Id[],
+  targetId: string,
+  chosen: unknown,
+) {
+  if (m === 'off') return;
+  if (m === 'enforce') {
+    check(rolledId !== undefined, 'roll-required', `roll “${targetId}” first`);
+    check(
+      picked.includes(rolledId),
+      'enforced',
+      'seed answers are enforced: keep the rolled option',
+    );
+    return;
+  }
+  if (rolledId !== undefined && !picked.includes(rolledId))
+    tx.override('seed.answers', rolledId, chosen, targetId);
+}
 
 function pickTable(tx: Tx, tables: Table[]): Table {
   const idx = tx.roll('table.pick', tables.length, { text: tables.map((t) => t.name).join(' / ') });

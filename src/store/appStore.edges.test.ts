@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 import { describe, expect, it, vi } from 'vitest';
-import { STARTER_PACK } from '../content';
+import { STARTER_PACK, STARTUP_SAMPLE_PACK } from '../content';
 import { SoloDB } from '../persistence';
 import * as repo from '../persistence/repo';
 import { createAppStore } from './appStore';
@@ -94,13 +94,18 @@ describe('store edge cases', () => {
     const store = await make();
     expect(await store.getState().importPack({ ...STARTER_PACK })).toEqual({
       ok: false,
-      errors: [{ path: 'id', message: 'the starter pack is built in' }],
+      errors: [{ path: 'id', message: 'bundled packs are built in' }],
     });
     const clash = await store.getState().importPack({ ...STARTER_PACK, id: 'copy' });
     expect(clash.ok).toBe(false);
     if (!clash.ok) expect(clash.errors[0]!.message).toMatch(/already used by an installed pack/);
     await store.getState().removePack('starter');
-    expect(store.getState().packs.map((p) => p.id)).toEqual(['starter']);
+    await store.getState().removePack('startup-sample');
+    expect(store.getState().packs.map((p) => p.id)).toEqual(['starter', 'startup-sample']);
+    expect(await store.getState().importPack({ ...STARTUP_SAMPLE_PACK })).toEqual({
+      ok: false,
+      errors: [{ path: 'id', message: 'bundled packs are built in' }],
+    });
   });
 
   it('keeps the stored starter pack current with the build and persistence requests once', async () => {
@@ -143,5 +148,54 @@ describe('store edge cases', () => {
     await store.getState().createGame({ title: 'T', ruleset: 'lens' });
     expect(selectStep(store.getState().current!.state)).toBe('setup');
     expect(selectWarnings(store.getState().current!.state)).toEqual([]);
+  });
+
+  it('the startup sample can be disabled, which removes its seeds and generators from content', async () => {
+    const db = new SoloDB(`edges-${++n}`);
+    const deps = {
+      db,
+      requestPersist: async () => 'persisted' as const,
+      storage: async () => ({ status: 'persisted' as const }),
+    };
+    const store = createAppStore(deps);
+    await store.getState().init();
+    expect(store.getState().content.seeds['salt-road']).toBeDefined();
+    await store.getState().setPackEnabled('startup-sample', false);
+    expect(store.getState().content.seeds['salt-road']).toBeUndefined();
+    expect(store.getState().content.generators.crossroads).toBeUndefined();
+    const reloaded = createAppStore(deps);
+    await reloaded.getState().init();
+    expect(reloaded.getState().packs.find((p) => p.id === 'startup-sample')!.enabled).toBe(false);
+  });
+
+  it('a pack stored under schema 1 is normalized on load', async () => {
+    const db = new SoloDB(`edges-${++n}`);
+    const {
+      groups: _g,
+      seeds: _s,
+      generators: _gen,
+      ...v1
+    } = {
+      ...STARTER_PACK,
+      id: 'old',
+      name: 'Old',
+      tables: [{ id: 'old.t', name: 'T', category: 'domain' as const, entries: [{ text: 'x' }] }],
+      decks: [],
+    };
+    await db.packs.put({
+      id: 'old',
+      pack: { ...v1, schemaVersion: 1 } as never,
+      enabled: true,
+      installedAt: 'x',
+    });
+    const store = createAppStore({
+      db,
+      requestPersist: async () => 'persisted',
+      storage: async () => ({ status: 'persisted' }),
+    });
+    await store.getState().init();
+    const old = store.getState().packs.find((p) => p.id === 'old')!.pack;
+    expect(old).toMatchObject({ schemaVersion: 2, groups: [], seeds: [], generators: [] });
+    expect(store.getState().content.tables['old.t']).toBeDefined();
   });
 });

@@ -1,0 +1,613 @@
+{
+ "id": "game1",
+ "schemaVersion": 2,
+ "title": "Test history",
+ "ruleset": "lens",
+ "seed": "00112233445566778899aabbccddeeff",
+ "rng": [
+  2503514493,
+  3986899828,
+  3275403615,
+  3437096742
+ ],
+ "createdAt": "2026-01-01T00:00:01.000Z",
+ "bigPicture": "A river city rises and drowns.",
+ "palette": {
+  "yes": [
+   {
+    "id": "id000011",
+    "text": "bridges",
+    "rolled": false
+   }
+  ],
+  "no": [
+   {
+    "id": "id000013",
+    "text": "dragons",
+    "rolled": false
+   }
+  ]
+ },
+ "paletteRolled": 0,
+ "dials": {
+  "mood": 5,
+  "cohesion": 4
+ },
+ "dialsSet": true,
+ "settings": {
+  "modes": {
+   "tone": "enforce",
+   "cohesion": "enforce",
+   "focus.source": "off",
+   "focus.sourcePhantom": "enforce",
+   "entryType": "off",
+   "placement": "prompt",
+   "palette.roll": "prompt",
+   "legacy.evict": "off",
+   "legacy.explore": "prompt",
+   "scene.reversal": "prompt",
+   "seed.answers": "prompt"
+  },
+  "drift": "counter-trend",
+  "chaos": false,
+  "cohesionCap": 8,
+  "entryTypeWeights": {
+   "period": 25,
+   "event": 50,
+   "scene": 25
+  },
+  "focusSourceWeights": {
+   "legacy": 50,
+   "domain": 30,
+   "deck": 20
+  },
+  "activeTables": [
+   "starter.domains",
+   "starter.seeds",
+   "starter.pairs",
+   "starter.palette",
+   "starter.reversals"
+  ],
+  "deck": {
+   "reversals": true,
+   "toneFromPip": false
+  },
+  "oracle": {
+   "qualifiers": true
+  },
+  "scene": {
+   "budget": "warn",
+   "pause": false,
+   "pauseSeconds": 60,
+   "defaultBudget": {
+    "min": 300,
+    "max": 900
+   }
+  },
+  "paletteRollCount": 2
+ },
+ "seats": [
+  {
+   "id": "id000001",
+   "name": "You",
+   "kind": "player",
+   "tables": [],
+   "placementBias": "uniform"
+  },
+  {
+   "id": "id000002",
+   "name": "The Stranger",
+   "kind": "phantom",
+   "tables": [],
+   "placementBias": "sparse"
+  }
+ ],
+ "entries": {
+  "id000008": {
+   "id": "id000008",
+   "kind": "period",
+   "bookend": "start",
+   "title": "Fishers settle the delta",
+   "tone": "light",
+   "order": "a0",
+   "prose": "",
+   "revisions": [],
+   "createdInRound": 0,
+   "seatId": "id000001",
+   "locked": true
+  },
+  "id000009": {
+   "id": "id000009",
+   "kind": "period",
+   "bookend": "end",
+   "title": "The sea takes the towers",
+   "tone": "dark",
+   "order": "a1",
+   "prose": "",
+   "revisions": [],
+   "createdInRound": 0,
+   "seatId": "id000001",
+   "locked": true
+  },
+  "id000015": {
+   "id": "id000015",
+   "title": "First pass period 0",
+   "tone": "light",
+   "order": "a0V",
+   "prose": "",
+   "revisions": [],
+   "createdInRound": 0,
+   "seatId": "id000001",
+   "locked": true,
+   "firstPass": true,
+   "kind": "period"
+  },
+  "id000017": {
+   "id": "id000017",
+   "title": "First pass event 1",
+   "tone": "dark",
+   "order": "a0",
+   "prose": "",
+   "revisions": [],
+   "createdInRound": 0,
+   "seatId": "id000002",
+   "locked": true,
+   "firstPass": true,
+   "kind": "event",
+   "periodId": "id000008"
+  },
+  "id000025": {
+   "id": "id000025",
+   "title": "event 2",
+   "tone": "light",
+   "order": "Zz",
+   "prose": "",
+   "revisions": [
+    {
+     "seq": 18,
+     "at": "2026-01-01T00:00:18.000Z",
+     "prose": ""
+    }
+   ],
+   "createdInRound": 1,
+   "seatId": "id000001",
+   "locked": true,
+   "focus": "focus 1",
+   "kind": "event",
+   "periodId": "id000008",
+   "playProse": ""
+  },
+  "id000032": {
+   "id": "id000032",
+   "title": "period 3",
+   "tone": "light",
+   "order": "a0l",
+   "prose": "prose for period 3",
+   "revisions": [
+    {
+     "seq": 25,
+     "at": "2026-01-01T00:00:25.000Z",
+     "prose": "prose for period 3"
+    }
+   ],
+   "createdInRound": 1,
+   "seatId": "id000002",
+   "locked": true,
+   "focus": "focus 1",
+   "kind": "period",
+   "playProse": "prose for period 3"
+  },
+  "id000040": {
+   "id": "id000040",
+   "title": "event 4",
+   "tone": "light",
+   "order": "a0",
+   "prose": "",
+   "revisions": [
+    {
+     "seq": 31,
+     "at": "2026-01-01T00:00:31.000Z",
+     "prose": ""
+    }
+   ],
+   "createdInRound": 1,
+   "seatId": "id000001",
+   "locked": true,
+   "focus": "focus 1",
+   "kind": "event",
+   "periodId": "id000015",
+   "playProse": ""
+  },
+  "id000051": {
+   "id": "id000051",
+   "title": "event 6",
+   "tone": "light",
+   "order": "a0",
+   "prose": "prose for event 6",
+   "revisions": [
+    {
+     "seq": 41,
+     "at": "2026-01-01T00:00:41.000Z",
+     "prose": "prose for event 6"
+    }
+   ],
+   "createdInRound": 1,
+   "seatId": "id000002",
+   "locked": true,
+   "legacyId": "id000044",
+   "kind": "event",
+   "periodId": "id000009",
+   "playProse": "prose for event 6"
+  },
+  "id000066": {
+   "id": "id000066",
+   "title": "period 7",
+   "tone": "dark",
+   "order": "a0d",
+   "prose": "prose for period 7",
+   "revisions": [
+    {
+     "seq": 55,
+     "at": "2026-01-01T00:00:55.000Z",
+     "prose": "prose for period 7"
+    }
+   ],
+   "createdInRound": 2,
+   "seatId": "id000001",
+   "locked": true,
+   "focus": "A gift that became a burden",
+   "kind": "period",
+   "playProse": "prose for period 7"
+  },
+  "id000074": {
+   "id": "id000074",
+   "title": "event 8",
+   "tone": "dark",
+   "order": "a0",
+   "prose": "",
+   "revisions": [
+    {
+     "seq": 61,
+     "at": "2026-01-01T00:01:01.000Z",
+     "prose": ""
+    }
+   ],
+   "createdInRound": 2,
+   "seatId": "id000002",
+   "locked": true,
+   "focus": "A gift that became a burden",
+   "kind": "event",
+   "periodId": "id000066",
+   "playProse": ""
+  },
+  "id000085": {
+   "id": "id000085",
+   "title": "event 10",
+   "tone": "light",
+   "order": "Zz",
+   "prose": "prose for event 10",
+   "revisions": [
+    {
+     "seq": 71,
+     "at": "2026-01-01T00:01:11.000Z",
+     "prose": "prose for event 10"
+    }
+   ],
+   "createdInRound": 2,
+   "seatId": "id000001",
+   "locked": true,
+   "legacyId": "id000044",
+   "kind": "event",
+   "periodId": "id000015",
+   "playProse": "prose for event 10"
+  }
+ },
+ "legacies": [
+  {
+   "id": "id000044",
+   "text": "legacy 5",
+   "seatId": "id000001",
+   "addedInRound": 1
+  },
+  {
+   "id": "id000078",
+   "text": "legacy 9",
+   "seatId": "id000002",
+   "addedInRound": 2
+  }
+ ],
+ "characters": {},
+ "rounds": [
+  {
+   "n": 1,
+   "lensSeatId": "id000001",
+   "turns": [
+    {
+     "seatId": "id000001",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 14,
+     "entryId": "id000025"
+    },
+    {
+     "seatId": "id000002",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 20,
+     "entryId": "id000032"
+    },
+    {
+     "seatId": "id000001",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 27,
+     "entryId": "id000040"
+    },
+    {
+     "seatId": "id000002",
+     "kind": "legacy",
+     "committed": true,
+     "startSeq": 36,
+     "entryId": "id000051"
+    }
+   ],
+   "ended": true,
+   "focus": "focus 1",
+   "focusSource": "player",
+   "legacyAddedId": "id000044",
+   "legacyExploredId": "id000044"
+  },
+  {
+   "n": 2,
+   "lensSeatId": "id000002",
+   "turns": [
+    {
+     "seatId": "id000001",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 50,
+     "entryId": "id000066"
+    },
+    {
+     "seatId": "id000002",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 57,
+     "entryId": "id000074"
+    },
+    {
+     "seatId": "id000001",
+     "kind": "legacy",
+     "committed": true,
+     "startSeq": 66,
+     "entryId": "id000085"
+    }
+   ],
+   "ended": true,
+   "focus": "A gift that became a burden",
+   "focusSource": "table:starter.seeds",
+   "legacyAddedId": "id000078",
+   "legacyExploredId": "id000044"
+  }
+ ],
+ "stats": {
+  "overrides": 0,
+  "retcons": 0
+ },
+ "nextSeatIndex": 1,
+ "pendingRoundRolls": {},
+ "seq": 74,
+ "deck": {
+  "deckId": "starter.deck",
+  "cardIds": [
+   "major-00",
+   "major-01",
+   "major-02",
+   "major-03",
+   "major-04",
+   "major-05",
+   "major-06",
+   "major-07",
+   "major-08",
+   "major-09",
+   "major-10",
+   "major-11",
+   "major-12",
+   "major-13",
+   "major-14",
+   "major-15",
+   "major-16",
+   "major-17",
+   "major-18",
+   "major-19",
+   "major-20",
+   "major-21",
+   "cups-01",
+   "cups-02",
+   "cups-03",
+   "cups-04",
+   "cups-05",
+   "cups-06",
+   "cups-07",
+   "cups-08",
+   "cups-09",
+   "cups-10",
+   "cups-page",
+   "cups-knight",
+   "cups-queen",
+   "cups-king",
+   "wands-01",
+   "wands-02",
+   "wands-03",
+   "wands-04",
+   "wands-05",
+   "wands-06",
+   "wands-07",
+   "wands-08",
+   "wands-09",
+   "wands-10",
+   "wands-page",
+   "wands-knight",
+   "wands-queen",
+   "wands-king",
+   "swords-01",
+   "swords-02",
+   "swords-03",
+   "swords-04",
+   "swords-05",
+   "swords-06",
+   "swords-07",
+   "swords-08",
+   "swords-09",
+   "swords-10",
+   "swords-page",
+   "swords-knight",
+   "swords-queen",
+   "swords-king",
+   "coins-01",
+   "coins-02",
+   "coins-03",
+   "coins-04",
+   "coins-05",
+   "coins-06",
+   "coins-07",
+   "coins-08",
+   "coins-09",
+   "coins-10",
+   "coins-page",
+   "coins-knight",
+   "coins-queen",
+   "coins-king"
+  ],
+  "remaining": [
+   "major-00",
+   "major-01",
+   "major-02",
+   "major-03",
+   "major-04",
+   "major-05",
+   "major-06",
+   "major-07",
+   "major-08",
+   "major-09",
+   "major-10",
+   "major-11",
+   "major-12",
+   "major-13",
+   "major-14",
+   "major-15",
+   "major-16",
+   "major-17",
+   "major-18",
+   "major-19",
+   "major-20",
+   "major-21",
+   "cups-01",
+   "cups-02",
+   "cups-03",
+   "cups-04",
+   "cups-05",
+   "cups-06",
+   "cups-07",
+   "cups-08",
+   "cups-09",
+   "cups-10",
+   "cups-page",
+   "cups-knight",
+   "cups-queen",
+   "cups-king",
+   "wands-01",
+   "wands-02",
+   "wands-03",
+   "wands-04",
+   "wands-05",
+   "wands-06",
+   "wands-07",
+   "wands-08",
+   "wands-09",
+   "wands-10",
+   "wands-page",
+   "wands-knight",
+   "wands-queen",
+   "wands-king",
+   "swords-01",
+   "swords-02",
+   "swords-03",
+   "swords-04",
+   "swords-05",
+   "swords-06",
+   "swords-07",
+   "swords-08",
+   "swords-09",
+   "swords-10",
+   "swords-page",
+   "swords-knight",
+   "swords-queen",
+   "swords-king",
+   "coins-01",
+   "coins-02",
+   "coins-03",
+   "coins-04",
+   "coins-05",
+   "coins-06",
+   "coins-07",
+   "coins-08",
+   "coins-09",
+   "coins-10",
+   "coins-page",
+   "coins-knight",
+   "coins-queen",
+   "coins-king"
+  ],
+  "discards": []
+ },
+ "startup": {
+  "kind": "seed",
+  "packId": "startup-sample",
+  "packName": "Startup sample",
+  "seedId": "salt-road",
+  "title": "The Salt Road",
+  "pitch": "An inland sea is drying up. Where the water retreats it leaves salt flats, stranded harbor towns and, eventually, a single road across the new desert: the only link between two peoples who once traded by boat. Whoever holds the Salt Road holds both shores. Will the road bind the peoples together, or become the line they fight over?",
+  "notes": [
+   {
+    "question": "Why is the sea drying up?",
+    "answers": [
+     "A river that fed it was dammed or diverted upstream."
+    ]
+   },
+   {
+    "question": "Who lives on the two shores?",
+    "answers": [
+     "Two guilds of salt-cutters who share a grandmother."
+    ]
+   },
+   {
+    "question": "What does the salt mean to the people who cross it?",
+    "answers": [
+     "Wealth: salt is money.",
+     "Memory: things the sea swallowed resurface as it retreats."
+    ]
+   }
+  ],
+  "bookends": {
+   "start": {
+    "title": "The last ferry",
+    "text": "The last ferry makes its crossing before the water gets too shallow; its passengers are the first to walk home."
+   },
+   "end": {
+    "title": "The long city",
+    "text": "The peoples have merged, and the road has become one narrow city stretching across the old seabed."
+   }
+  },
+  "bigPictureDraft": "As an inland sea dries to salt, a single road across its bed decides the fate of the peoples on either shore.",
+  "note": "The road gives every Period a question to answer: who holds it now? To put the drying itself on the timeline, move the sea's retreat into the first Period instead of before it.",
+  "palette": {
+   "yes": [
+    "Caravans and waystations"
+   ],
+   "no": [
+    "Magic that makes water"
+   ]
+  }
+ }
+}

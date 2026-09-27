@@ -1,4 +1,5 @@
-import { initialGame, replay, type Game, type GameEvent } from '../engine';
+import { SCHEMA_VERSION, initialGame, replay, type Game, type GameEvent } from '../engine';
+import { migrateEvents } from './migrations';
 import { SNAPSHOT_EVERY, type GameMeta, type SoloDB } from './db';
 
 function metaFor(state: Game, prev: GameMeta | undefined, now: string): GameMeta {
@@ -60,9 +61,30 @@ export async function loadEvents(db: SoloDB, gameId: string): Promise<GameEvent[
 }
 
 /** Loads a game from its latest snapshot plus the events after it. The log stays authoritative. */
+/**
+ * Brings a stored log up to the current schema: migrates the events, rewrites them, and drops
+ * snapshots (they were built from the old schema and are rebuilt by replay).
+ */
+async function migrateStored(
+  db: SoloDB,
+  gameId: string,
+  events: GameEvent[],
+): Promise<GameEvent[]> {
+  const first = events[0];
+  const version = first?.type === 'GameCreated' ? first.payload.schemaVersion : SCHEMA_VERSION;
+  if (version >= SCHEMA_VERSION) return events;
+  const migrated = migrateEvents(version, events);
+  await db.transaction('rw', db.events, db.snapshots, async () => {
+    await db.events.bulkPut(migrated.map((event) => ({ gameId, seq: event.seq, event })));
+    await db.snapshots.where('gameId').equals(gameId).delete();
+  });
+  return migrated;
+}
+
 export async function loadGame(db: SoloDB, gameId: string, opts: { useSnapshot?: boolean } = {}) {
-  const events = await loadEvents(db, gameId);
-  if (!events.length) return undefined;
+  const stored = await loadEvents(db, gameId);
+  if (!stored.length) return undefined;
+  const events = await migrateStored(db, gameId, stored);
   let base: Game = initialGame();
   let from = 0;
   if (opts.useSnapshot !== false) {

@@ -8,6 +8,45 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Startup packs: pack content that takes a new game from a blank page to the Palette in a few
+  choices. **Seeds** (a pitch, 0–6 multiple-choice questions with pick rules, Bookend questions,
+  Palette suggestions, a designer note; Lens, Chronicle or either) and **generators** (parts rolled
+  from `generator` tables, joined by a template, with an optional swap pair), grouped into
+  categories. Modeled on how Microscope Explorer presents its starting points; no Explorer content
+  is bundled.
+- A new first setup step, **Start**: start from a seed, roll a generator (Lens only), or start
+  blank. Seeds prefill the Premise, Bookends and Palette; the chosen startup shows beside the
+  Premise, in the left rail's Premise notes, and in the chronological and play-order manuscripts.
+- Engine commands `RollSeedAnswer`, `ApplySeed`, `RollGenerator`, `AcceptGeneratorReading`; events
+  `SeedApplied` and `GeneratorReadingAccepted`; roll purposes `seed.answer` and `generator.part`;
+  rejection codes `setup-advanced` and `unknown-content`.
+- Mechanic mode `seed.answers` (off by default and in Pure Lens; enforce in High Friction).
+- Bundled CC0 pack _Startup sample_ with one seed (The Salt Road), one generator (Crossroads) and
+  one group (Frontiers). Both bundled packs can be disabled but not removed.
+- Packs screen: counts of groups, seeds and generators; inspection of them; a warning for
+  `generator` tables no generator uses.
+- Tests: pack-schema rules, content merging, engine startup commands under each mode, reducer and
+  replay, migration, a golden fixture started from The Salt Road, UI tests for every startup path,
+  and e2e flows for a seed start, a generator start and an imported v2 pack. The property test now
+  mixes random startup commands into setup.
+
+### Changed
+
+- Game schema 2: games and game files from schema 1 are migrated on load or import (the
+  `seed.answers` mode is added, off). Exports of old games are byte-identical; their replayed state
+  differs only by the new mode and `schemaVersion`.
+- Pack schema 2: adds `groups`, `seeds`, `generators` and the `generator` table category. Version
+  1 packs, installed or imported, are normalized to version 2.
+- `CreateGame` leaves `generator` tables out of the active tables.
+- `parseGameFile` requires a migrate function and validates payloads after migrating.
+
+### Not included
+
+- `explorer_to_pack.py`, the script that converts a personal copy of Microscope Explorer into a
+  pack, is delivered separately and is not part of this repository or its tests.
+
+### Added
+
 - Component and screen tests (Vitest + jsdom + Testing Library) for every UI component, hook and
   screen, driving a real store on fake-indexeddb.
 - Tests proving the invariant checker detects each kind of violation; soft Lens check tests;

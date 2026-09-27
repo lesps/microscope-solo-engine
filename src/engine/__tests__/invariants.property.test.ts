@@ -23,6 +23,7 @@ const mechanics: ModedMechanic[] = [
   'legacy.evict',
   'legacy.explore',
   'scene.reversal',
+  'seed.answers',
 ];
 const settingsArb = fc.record({
   modes: fc.tuple(...mechanics.map(() => modeArb)),
@@ -38,6 +39,35 @@ function seededPick(seed: number[]): Pick {
 }
 
 /** Extra, out-of-band commands mixed into play to stress the reducer. */
+/** Random startup commands during setup; rejections are expected and simply skipped. */
+function startupCommands(d: Driver, choices: number[]) {
+  const seeds = ['seed-lens', 'seed-chronicle', 'seed-any'];
+  const questions = ['q1', 'q2', 'q3', 'start', 'end'];
+  for (const k of choices.slice(0, 8)) {
+    const seedId = seeds[k % 3]!;
+    const cmds: Command[] = [
+      { type: 'RollSeedAnswer', seedId, questionId: questions[k % 5]! },
+      {
+        type: 'ApplySeed',
+        seedId,
+        answers:
+          seedId === 'seed-lens'
+            ? {
+                q1: { optionIds: [k % 2 ? 'a' : 'b'] },
+                q2: { optionIds: ['x', 'z'] },
+                q3: { custom: `mine ${k}` },
+              }
+            : {},
+        start: { optionId: seedId === 'seed-lens' ? 's1' : 's' },
+        end: { optionId: seedId === 'seed-lens' ? 'e2' : 'e' },
+      },
+      { type: 'RollGenerator', generatorId: 'gen' },
+      { type: 'AcceptGeneratorReading', swapped: k % 2 === 0 },
+    ];
+    d.try(cmds[k % cmds.length]!);
+  }
+}
+
 function extra(d: Driver, k: number): Command | 'undo' | undefined {
   const g = d.state;
   const t = g.turn;
@@ -102,14 +132,18 @@ describe('property: invariants hold and replay is deterministic', () => {
             phantoms,
             settings: (s) => ({
               ...s,
-              modes: Object.fromEntries(
-                mechanics.map((m, i) => [m, cfg.modes[i]]),
-              ) as Settings['modes'] & object,
+              modes: {
+                ...s.modes,
+                ...(Object.fromEntries(mechanics.map((m, i) => [m, cfg.modes[i]])) as Partial<
+                  Settings['modes']
+                >),
+              },
               drift: cfg.drift,
               chaos: cfg.chaos,
               cohesionCap: cfg.cap,
               deck: { reversals: true, toneFromPip: cfg.pip },
             }),
+            beforeBookends: (g) => startupCommands(g, choices),
           });
           const pick = seededPick(choices);
           for (let step = 0; step < 150; step++) {

@@ -1,0 +1,1591 @@
+{
+ "format": "solo-microscope/game",
+ "schemaVersion": 2,
+ "exportedAt": "2026-09-28T00:00:00.000Z",
+ "gameId": "game1",
+ "title": "Test history",
+ "events": [
+  {
+   "id": "id000003",
+   "gameId": "game1",
+   "seq": 1,
+   "batch": 1,
+   "at": "2026-01-01T00:00:01.000Z",
+   "type": "GameCreated",
+   "payload": {
+    "id": "game1",
+    "title": "Test history",
+    "ruleset": "lens",
+    "seed": "00112233445566778899aabbccddeeff",
+    "rng": [
+     3244959803,
+     2408951674,
+     3536014474,
+     3437096715
+    ],
+    "settings": {
+     "modes": {
+      "tone": "enforce",
+      "cohesion": "enforce",
+      "focus.source": "off",
+      "focus.sourcePhantom": "enforce",
+      "entryType": "off",
+      "placement": "prompt",
+      "palette.roll": "prompt",
+      "legacy.evict": "off",
+      "legacy.explore": "prompt",
+      "scene.reversal": "prompt",
+      "seed.answers": "off"
+     },
+     "drift": "counter-trend",
+     "chaos": false,
+     "cohesionCap": 8,
+     "entryTypeWeights": {
+      "period": 25,
+      "event": 50,
+      "scene": 25
+     },
+     "focusSourceWeights": {
+      "legacy": 50,
+      "domain": 30,
+      "deck": 20
+     },
+     "activeTables": [
+      "starter.domains",
+      "starter.seeds",
+      "starter.pairs",
+      "starter.palette",
+      "starter.reversals"
+     ],
+     "deck": {
+      "reversals": true,
+      "toneFromPip": false
+     },
+     "oracle": {
+      "qualifiers": true
+     },
+     "scene": {
+      "budget": "warn",
+      "pause": false,
+      "pauseSeconds": 60,
+      "defaultBudget": {
+       "min": 300,
+       "max": 900
+      }
+     },
+     "paletteRollCount": 2
+    },
+    "seats": [
+     {
+      "id": "id000001",
+      "name": "You",
+      "kind": "player",
+      "tables": [],
+      "placementBias": "uniform"
+     },
+     {
+      "id": "id000002",
+      "name": "The Stranger",
+      "kind": "phantom",
+      "tables": [],
+      "placementBias": "sparse"
+     }
+    ],
+    "schemaVersion": 2,
+    "deck": {
+     "deckId": "starter.deck",
+     "cardIds": [
+      "major-00",
+      "major-01",
+      "major-02",
+      "major-03",
+      "major-04",
+      "major-05",
+      "major-06",
+      "major-07",
+      "major-08",
+      "major-09",
+      "major-10",
+      "major-11",
+      "major-12",
+      "major-13",
+      "major-14",
+      "major-15",
+      "major-16",
+      "major-17",
+      "major-18",
+      "major-19",
+      "major-20",
+      "major-21",
+      "cups-01",
+      "cups-02",
+      "cups-03",
+      "cups-04",
+      "cups-05",
+      "cups-06",
+      "cups-07",
+      "cups-08",
+      "cups-09",
+      "cups-10",
+      "cups-page",
+      "cups-knight",
+      "cups-queen",
+      "cups-king",
+      "wands-01",
+      "wands-02",
+      "wands-03",
+      "wands-04",
+      "wands-05",
+      "wands-06",
+      "wands-07",
+      "wands-08",
+      "wands-09",
+      "wands-10",
+      "wands-page",
+      "wands-knight",
+      "wands-queen",
+      "wands-king",
+      "swords-01",
+      "swords-02",
+      "swords-03",
+      "swords-04",
+      "swords-05",
+      "swords-06",
+      "swords-07",
+      "swords-08",
+      "swords-09",
+      "swords-10",
+      "swords-page",
+      "swords-knight",
+      "swords-queen",
+      "swords-king",
+      "coins-01",
+      "coins-02",
+      "coins-03",
+      "coins-04",
+      "coins-05",
+      "coins-06",
+      "coins-07",
+      "coins-08",
+      "coins-09",
+      "coins-10",
+      "coins-page",
+      "coins-knight",
+      "coins-queen",
+      "coins-king"
+     ]
+    }
+   }
+  },
+  {
+   "id": "id000004",
+   "gameId": "game1",
+   "seq": 2,
+   "batch": 2,
+   "at": "2026-01-01T00:00:02.000Z",
+   "type": "SettingsChanged",
+   "payload": {
+    "settings": {
+     "modes": {
+      "tone": "enforce",
+      "cohesion": "enforce",
+      "focus.source": "off",
+      "focus.sourcePhantom": "enforce",
+      "entryType": "off",
+      "placement": "prompt",
+      "palette.roll": "prompt",
+      "legacy.evict": "off",
+      "legacy.explore": "prompt",
+      "scene.reversal": "prompt",
+      "seed.answers": "prompt"
+     },
+     "drift": "counter-trend",
+     "chaos": false,
+     "cohesionCap": 8,
+     "entryTypeWeights": {
+      "period": 25,
+      "event": 50,
+      "scene": 25
+     },
+     "focusSourceWeights": {
+      "legacy": 50,
+      "domain": 30,
+      "deck": 20
+     },
+     "activeTables": [
+      "starter.domains",
+      "starter.seeds",
+      "starter.pairs",
+      "starter.palette",
+      "starter.reversals"
+     ],
+     "deck": {
+      "reversals": true,
+      "toneFromPip": false
+     },
+     "oracle": {
+      "qualifiers": true
+     },
+     "scene": {
+      "budget": "warn",
+      "pause": false,
+      "pauseSeconds": 60,
+      "defaultBudget": {
+       "min": 300,
+       "max": 900
+      }
+     },
+     "paletteRollCount": 2
+    }
+   }
+  },
+  {
+   "id": "id000005",
+   "gameId": "game1",
+   "seq": 3,
+   "batch": 3,
+   "at": "2026-01-01T00:00:03.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "seed.answer",
+    "sides": 4,
+    "result": 1,
+    "rng": [
+     2412930477,
+     1759359194,
+     2939690793,
+     3437096716
+    ],
+    "value": {
+     "seedId": "salt-road",
+     "optionId": "dam"
+    },
+    "text": "A river that fed it was dammed or diverted upstream.",
+    "targetId": "cause"
+   }
+  },
+  {
+   "id": "id000006",
+   "gameId": "game1",
+   "seq": 4,
+   "batch": 4,
+   "at": "2026-01-01T00:00:04.000Z",
+   "type": "SeedApplied",
+   "payload": {
+    "startup": {
+     "kind": "seed",
+     "packId": "startup-sample",
+     "packName": "Startup sample",
+     "seedId": "salt-road",
+     "title": "The Salt Road",
+     "pitch": "An inland sea is drying up. Where the water retreats it leaves salt flats, stranded harbor towns and, eventually, a single road across the new desert: the only link between two peoples who once traded by boat. Whoever holds the Salt Road holds both shores. Will the road bind the peoples together, or become the line they fight over?",
+     "notes": [
+      {
+       "question": "Why is the sea drying up?",
+       "answers": [
+        "A river that fed it was dammed or diverted upstream."
+       ]
+      },
+      {
+       "question": "Who lives on the two shores?",
+       "answers": [
+        "Two guilds of salt-cutters who share a grandmother."
+       ]
+      },
+      {
+       "question": "What does the salt mean to the people who cross it?",
+       "answers": [
+        "Wealth: salt is money.",
+        "Memory: things the sea swallowed resurface as it retreats."
+       ]
+      }
+     ],
+     "bookends": {
+      "start": {
+       "title": "The last ferry",
+       "text": "The last ferry makes its crossing before the water gets too shallow; its passengers are the first to walk home."
+      },
+      "end": {
+       "title": "The long city",
+       "text": "The peoples have merged, and the road has become one narrow city stretching across the old seabed."
+      }
+     },
+     "bigPictureDraft": "As an inland sea dries to salt, a single road across its bed decides the fate of the peoples on either shore.",
+     "note": "The road gives every Period a question to answer: who holds it now? To put the drying itself on the timeline, move the sea's retreat into the first Period instead of before it.",
+     "palette": {
+      "yes": [
+       "Caravans and waystations"
+      ],
+      "no": [
+       "Magic that makes water"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "id000007",
+   "gameId": "game1",
+   "seq": 5,
+   "batch": 5,
+   "at": "2026-01-01T00:00:05.000Z",
+   "type": "BigPictureSet",
+   "payload": {
+    "text": "A river city rises and drowns."
+   }
+  },
+  {
+   "id": "id000010",
+   "gameId": "game1",
+   "seq": 6,
+   "batch": 6,
+   "at": "2026-01-01T00:00:06.000Z",
+   "type": "BookendsSet",
+   "payload": {
+    "start": {
+     "id": "id000008",
+     "kind": "period",
+     "bookend": "start",
+     "title": "Fishers settle the delta",
+     "tone": "light",
+     "order": "a0",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 0,
+     "seatId": "id000001",
+     "locked": true
+    },
+    "end": {
+     "id": "id000009",
+     "kind": "period",
+     "bookend": "end",
+     "title": "The sea takes the towers",
+     "tone": "dark",
+     "order": "a1",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 0,
+     "seatId": "id000001",
+     "locked": true
+    },
+    "characters": []
+   }
+  },
+  {
+   "id": "id000012",
+   "gameId": "game1",
+   "seq": 7,
+   "batch": 7,
+   "at": "2026-01-01T00:00:07.000Z",
+   "type": "PaletteItemAdded",
+   "payload": {
+    "list": "yes",
+    "item": {
+     "id": "id000011",
+     "text": "bridges",
+     "rolled": false
+    }
+   }
+  },
+  {
+   "id": "id000014",
+   "gameId": "game1",
+   "seq": 8,
+   "batch": 8,
+   "at": "2026-01-01T00:00:08.000Z",
+   "type": "PaletteItemAdded",
+   "payload": {
+    "list": "no",
+    "item": {
+     "id": "id000013",
+     "text": "dragons",
+     "rolled": false
+    }
+   }
+  },
+  {
+   "id": "id000016",
+   "gameId": "game1",
+   "seq": 9,
+   "batch": 9,
+   "at": "2026-01-01T00:00:09.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000015",
+     "title": "First pass period 0",
+     "tone": "light",
+     "order": "a0V",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 0,
+     "seatId": "id000001",
+     "locked": true,
+     "firstPass": true,
+     "kind": "period"
+    }
+   }
+  },
+  {
+   "id": "id000018",
+   "gameId": "game1",
+   "seq": 10,
+   "batch": 10,
+   "at": "2026-01-01T00:00:10.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000017",
+     "title": "First pass event 1",
+     "tone": "dark",
+     "order": "a0",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 0,
+     "seatId": "id000002",
+     "locked": true,
+     "firstPass": true,
+     "kind": "event",
+     "periodId": "id000008"
+    }
+   }
+  },
+  {
+   "id": "id000019",
+   "gameId": "game1",
+   "seq": 11,
+   "batch": 11,
+   "at": "2026-01-01T00:00:11.000Z",
+   "type": "DialsSet",
+   "payload": {
+    "mood": 5,
+    "cohesion": 5
+   }
+  },
+  {
+   "id": "id000020",
+   "gameId": "game1",
+   "seq": 12,
+   "batch": 12,
+   "at": "2026-01-01T00:00:12.000Z",
+   "type": "RoundStarted",
+   "payload": {
+    "n": 1,
+    "lensSeatId": "id000001"
+   }
+  },
+  {
+   "id": "id000021",
+   "gameId": "game1",
+   "seq": 13,
+   "batch": 13,
+   "at": "2026-01-01T00:00:13.000Z",
+   "type": "FocusSet",
+   "payload": {
+    "text": "focus 1",
+    "source": "player"
+   }
+  },
+  {
+   "id": "id000022",
+   "gameId": "game1",
+   "seq": 14,
+   "batch": 14,
+   "at": "2026-01-01T00:00:14.000Z",
+   "type": "TurnStarted",
+   "payload": {
+    "seatId": "id000001",
+    "kind": "normal"
+   }
+  },
+  {
+   "id": "id000023",
+   "gameId": "game1",
+   "seq": 15,
+   "batch": 14,
+   "at": "2026-01-01T00:00:15.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "tone",
+    "sides": 10,
+    "result": 2,
+    "rng": [
+     1760157186,
+     687413361,
+     2864966806,
+     3437096717
+    ],
+    "value": "light",
+    "text": "Light"
+   }
+  },
+  {
+   "id": "id000024",
+   "gameId": "game1",
+   "seq": 16,
+   "batch": 16,
+   "at": "2026-01-01T00:00:16.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "placement",
+    "sides": 4,
+    "result": 1,
+    "rng": [
+     686646525,
+     14897478,
+     4053155325,
+     3437096718
+    ],
+    "value": {
+     "kind": "event",
+     "placement": {
+      "parentId": "id000008",
+      "index": 0
+     }
+    },
+    "text": "in “Fishers settle the delta”, at the start"
+   }
+  },
+  {
+   "id": "id000026",
+   "gameId": "game1",
+   "seq": 17,
+   "batch": 17,
+   "at": "2026-01-01T00:00:17.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000025",
+     "title": "event 2",
+     "tone": "light",
+     "order": "Zz",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 1,
+     "seatId": "id000001",
+     "locked": false,
+     "focus": "focus 1",
+     "kind": "event",
+     "periodId": "id000008"
+    }
+   }
+  },
+  {
+   "id": "id000027",
+   "gameId": "game1",
+   "seq": 18,
+   "batch": 18,
+   "at": "2026-01-01T00:00:18.000Z",
+   "type": "TurnCommitted",
+   "payload": {
+    "entryId": "id000025"
+   }
+  },
+  {
+   "id": "id000028",
+   "gameId": "game1",
+   "seq": 19,
+   "batch": 18,
+   "at": "2026-01-01T00:00:19.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "cohesion",
+    "sides": 10,
+    "result": 2,
+    "rng": [
+     14885102,
+     2118659557,
+     3060586520,
+     3437096719
+    ],
+    "value": true,
+    "text": "Another turn"
+   }
+  },
+  {
+   "id": "id000029",
+   "gameId": "game1",
+   "seq": 20,
+   "batch": 20,
+   "at": "2026-01-01T00:00:20.000Z",
+   "type": "TurnStarted",
+   "payload": {
+    "seatId": "id000002",
+    "kind": "normal"
+   }
+  },
+  {
+   "id": "id000030",
+   "gameId": "game1",
+   "seq": 21,
+   "batch": 20,
+   "at": "2026-01-01T00:00:21.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "tone",
+    "sides": 10,
+    "result": 3,
+    "rng": [
+     2121730547,
+     1775474904,
+     1327500157,
+     3437096720
+    ],
+    "value": "light",
+    "text": "Light"
+   }
+  },
+  {
+   "id": "id000031",
+   "gameId": "game1",
+   "seq": 22,
+   "batch": 22,
+   "at": "2026-01-01T00:00:22.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "placement",
+    "sides": 3360,
+    "result": 3196,
+    "rng": [
+     1776775444,
+     3357566821,
+     617772508,
+     3437096721
+    ],
+    "value": {
+     "kind": "period",
+     "placement": {
+      "parentId": null,
+      "index": 2
+     }
+    },
+    "text": "between “First pass period 0” and “The sea takes the towers”"
+   }
+  },
+  {
+   "id": "id000033",
+   "gameId": "game1",
+   "seq": 23,
+   "batch": 23,
+   "at": "2026-01-01T00:00:23.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000032",
+     "title": "period 3",
+     "tone": "light",
+     "order": "a0l",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 1,
+     "seatId": "id000002",
+     "locked": false,
+     "focus": "focus 1",
+     "kind": "period"
+    }
+   }
+  },
+  {
+   "id": "id000034",
+   "gameId": "game1",
+   "seq": 24,
+   "batch": 24,
+   "at": "2026-01-01T00:00:24.000Z",
+   "type": "EntryProseEdited",
+   "payload": {
+    "entryId": "id000032",
+    "prose": "prose for period 3"
+   }
+  },
+  {
+   "id": "id000035",
+   "gameId": "game1",
+   "seq": 25,
+   "batch": 25,
+   "at": "2026-01-01T00:00:25.000Z",
+   "type": "TurnCommitted",
+   "payload": {
+    "entryId": "id000032"
+   }
+  },
+  {
+   "id": "id000036",
+   "gameId": "game1",
+   "seq": 26,
+   "batch": 25,
+   "at": "2026-01-01T00:00:26.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "cohesion",
+    "sides": 10,
+    "result": 1,
+    "rng": [
+     3359930198,
+     1264985276,
+     3127534040,
+     3437096722
+    ],
+    "value": true,
+    "text": "Another turn"
+   }
+  },
+  {
+   "id": "id000037",
+   "gameId": "game1",
+   "seq": 27,
+   "batch": 27,
+   "at": "2026-01-01T00:00:27.000Z",
+   "type": "TurnStarted",
+   "payload": {
+    "seatId": "id000001",
+    "kind": "normal"
+   }
+  },
+  {
+   "id": "id000038",
+   "gameId": "game1",
+   "seq": 28,
+   "batch": 27,
+   "at": "2026-01-01T00:00:28.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "tone",
+    "sides": 10,
+    "result": 1,
+    "rng": [
+     1262720942,
+     2378002584,
+     463460464,
+     3437096723
+    ],
+    "value": "light",
+    "text": "Light"
+   }
+  },
+  {
+   "id": "id000039",
+   "gameId": "game1",
+   "seq": 29,
+   "batch": 29,
+   "at": "2026-01-01T00:00:29.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "placement",
+    "sides": 6,
+    "result": 4,
+    "rng": [
+     2382081568,
+     4171144176,
+     3017960276,
+     3437096724
+    ],
+    "value": {
+     "kind": "event",
+     "placement": {
+      "parentId": "id000015",
+      "index": 0
+     }
+    },
+    "text": "in “First pass period 0”, first"
+   }
+  },
+  {
+   "id": "id000041",
+   "gameId": "game1",
+   "seq": 30,
+   "batch": 30,
+   "at": "2026-01-01T00:00:30.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000040",
+     "title": "event 4",
+     "tone": "light",
+     "order": "a0",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 1,
+     "seatId": "id000001",
+     "locked": false,
+     "focus": "focus 1",
+     "kind": "event",
+     "periodId": "id000015"
+    }
+   }
+  },
+  {
+   "id": "id000042",
+   "gameId": "game1",
+   "seq": 31,
+   "batch": 31,
+   "at": "2026-01-01T00:00:31.000Z",
+   "type": "TurnCommitted",
+   "payload": {
+    "entryId": "id000040"
+   }
+  },
+  {
+   "id": "id000043",
+   "gameId": "game1",
+   "seq": 32,
+   "batch": 31,
+   "at": "2026-01-01T00:00:32.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "cohesion",
+    "sides": 10,
+    "result": 7,
+    "rng": [
+     4175615165,
+     1391838708,
+     3188634993,
+     3437096725
+    ],
+    "value": false,
+    "text": "On to Legacies"
+   }
+  },
+  {
+   "id": "id000045",
+   "gameId": "game1",
+   "seq": 33,
+   "batch": 33,
+   "at": "2026-01-01T00:00:33.000Z",
+   "type": "LegacyAdded",
+   "payload": {
+    "legacy": {
+     "id": "id000044",
+     "text": "legacy 5",
+     "seatId": "id000001",
+     "addedInRound": 1
+    }
+   }
+  },
+  {
+   "id": "id000046",
+   "gameId": "game1",
+   "seq": 34,
+   "batch": 34,
+   "at": "2026-01-01T00:00:34.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "legacy.explore",
+    "sides": 1,
+    "result": 1,
+    "rng": [
+     1390198550,
+     2927911161,
+     3337505692,
+     3437096726
+    ],
+    "value": "id000044",
+    "text": "legacy 5"
+   }
+  },
+  {
+   "id": "id000047",
+   "gameId": "game1",
+   "seq": 35,
+   "batch": 35,
+   "at": "2026-01-01T00:00:35.000Z",
+   "type": "LegacyExplored",
+   "payload": {
+    "id": "id000044"
+   }
+  },
+  {
+   "id": "id000048",
+   "gameId": "game1",
+   "seq": 36,
+   "batch": 35,
+   "at": "2026-01-01T00:00:36.000Z",
+   "type": "TurnStarted",
+   "payload": {
+    "seatId": "id000002",
+    "kind": "legacy",
+    "legacyId": "id000044"
+   }
+  },
+  {
+   "id": "id000049",
+   "gameId": "game1",
+   "seq": 37,
+   "batch": 35,
+   "at": "2026-01-01T00:00:37.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "tone",
+    "sides": 10,
+    "result": 2,
+    "rng": [
+     2933072585,
+     4267747452,
+     1104669934,
+     3437096727
+    ],
+    "value": "light",
+    "text": "Light"
+   }
+  },
+  {
+   "id": "id000050",
+   "gameId": "game1",
+   "seq": 38,
+   "batch": 38,
+   "at": "2026-01-01T00:00:38.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "placement",
+    "sides": 10080,
+    "result": 8413,
+    "rng": [
+     4263483432,
+     1352094814,
+     400160089,
+     3437096728
+    ],
+    "value": {
+     "kind": "event",
+     "placement": {
+      "parentId": "id000009",
+      "index": 0
+     }
+    },
+    "text": "in “The sea takes the towers”, first"
+   }
+  },
+  {
+   "id": "id000052",
+   "gameId": "game1",
+   "seq": 39,
+   "batch": 39,
+   "at": "2026-01-01T00:00:39.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000051",
+     "title": "event 6",
+     "tone": "light",
+     "order": "a0",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 1,
+     "seatId": "id000002",
+     "locked": false,
+     "legacyId": "id000044",
+     "kind": "event",
+     "periodId": "id000009"
+    }
+   }
+  },
+  {
+   "id": "id000053",
+   "gameId": "game1",
+   "seq": 40,
+   "batch": 40,
+   "at": "2026-01-01T00:00:40.000Z",
+   "type": "EntryProseEdited",
+   "payload": {
+    "entryId": "id000051",
+    "prose": "prose for event 6"
+   }
+  },
+  {
+   "id": "id000054",
+   "gameId": "game1",
+   "seq": 41,
+   "batch": 41,
+   "at": "2026-01-01T00:00:41.000Z",
+   "type": "TurnCommitted",
+   "payload": {
+    "entryId": "id000051"
+   }
+  },
+  {
+   "id": "id000055",
+   "gameId": "game1",
+   "seq": 42,
+   "batch": 42,
+   "at": "2026-01-01T00:00:42.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "drift.cohesion",
+    "sides": 6,
+    "result": 1,
+    "rng": [
+     1354702836,
+     3601440801,
+     3333936860,
+     3437096729
+    ]
+   }
+  },
+  {
+   "id": "id000056",
+   "gameId": "game1",
+   "seq": 43,
+   "batch": 42,
+   "at": "2026-01-01T00:00:43.000Z",
+   "type": "DialsAdjusted",
+   "payload": {
+    "before": {
+     "mood": 5,
+     "cohesion": 5
+    },
+    "after": {
+     "mood": 4,
+     "cohesion": 4
+    },
+    "drift": "counter-trend"
+   }
+  },
+  {
+   "id": "id000057",
+   "gameId": "game1",
+   "seq": 44,
+   "batch": 42,
+   "at": "2026-01-01T00:00:44.000Z",
+   "type": "RoundEnded",
+   "payload": {
+    "n": 1
+   }
+  },
+  {
+   "id": "id000058",
+   "gameId": "game1",
+   "seq": 45,
+   "batch": 45,
+   "at": "2026-01-01T00:00:45.000Z",
+   "type": "RoundStarted",
+   "payload": {
+    "n": 2,
+    "lensSeatId": "id000002"
+   }
+  },
+  {
+   "id": "id000059",
+   "gameId": "game1",
+   "seq": 46,
+   "batch": 45,
+   "at": "2026-01-01T00:00:46.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "focus.source",
+    "sides": 100,
+    "result": 71,
+    "rng": [
+     3603100913,
+     4235627964,
+     3487532584,
+     3437096730
+    ],
+    "text": "domain"
+   }
+  },
+  {
+   "id": "id000060",
+   "gameId": "game1",
+   "seq": 47,
+   "batch": 45,
+   "at": "2026-01-01T00:00:47.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "table.pick",
+    "sides": 2,
+    "result": 2,
+    "text": "Spheres of life / Focus seeds",
+    "rng": [
+     4228429562,
+     1323022184,
+     1697738167,
+     3437096731
+    ]
+   }
+  },
+  {
+   "id": "id000061",
+   "gameId": "game1",
+   "seq": 48,
+   "batch": 45,
+   "at": "2026-01-01T00:00:48.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "focus",
+    "sides": 20,
+    "result": 6,
+    "rng": [
+     1325193907,
+     2394741615,
+     3467576234,
+     3437096732
+    ],
+    "value": {
+     "text": "A gift that became a burden",
+     "source": "table:starter.seeds"
+    },
+    "text": "A gift that became a burden",
+    "tableId": "starter.seeds"
+   }
+  },
+  {
+   "id": "id000062",
+   "gameId": "game1",
+   "seq": 49,
+   "batch": 45,
+   "at": "2026-01-01T00:00:49.000Z",
+   "type": "FocusSet",
+   "payload": {
+    "text": "A gift that became a burden",
+    "source": "table:starter.seeds"
+   }
+  },
+  {
+   "id": "id000063",
+   "gameId": "game1",
+   "seq": 50,
+   "batch": 50,
+   "at": "2026-01-01T00:00:50.000Z",
+   "type": "TurnStarted",
+   "payload": {
+    "seatId": "id000001",
+    "kind": "normal"
+   }
+  },
+  {
+   "id": "id000064",
+   "gameId": "game1",
+   "seq": 51,
+   "batch": 50,
+   "at": "2026-01-01T00:00:51.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "tone",
+    "sides": 10,
+    "result": 9,
+    "rng": [
+     2398848258,
+     1143415034,
+     535919390,
+     3437096733
+    ],
+    "value": "dark",
+    "text": "Dark"
+   }
+  },
+  {
+   "id": "id000065",
+   "gameId": "game1",
+   "seq": 52,
+   "batch": 52,
+   "at": "2026-01-01T00:00:52.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "placement",
+    "sides": 3,
+    "result": 2,
+    "rng": [
+     1141191530,
+     528307214,
+     63214408,
+     3437096734
+    ],
+    "value": {
+     "kind": "period",
+     "placement": {
+      "parentId": null,
+      "index": 2
+     }
+    },
+    "text": "between “First pass period 0” and “period 3”"
+   }
+  },
+  {
+   "id": "id000067",
+   "gameId": "game1",
+   "seq": 53,
+   "batch": 53,
+   "at": "2026-01-01T00:00:53.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000066",
+     "title": "period 7",
+     "tone": "dark",
+     "order": "a0d",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 2,
+     "seatId": "id000001",
+     "locked": false,
+     "focus": "A gift that became a burden",
+     "kind": "period"
+    }
+   }
+  },
+  {
+   "id": "id000068",
+   "gameId": "game1",
+   "seq": 54,
+   "batch": 54,
+   "at": "2026-01-01T00:00:54.000Z",
+   "type": "EntryProseEdited",
+   "payload": {
+    "entryId": "id000066",
+    "prose": "prose for period 7"
+   }
+  },
+  {
+   "id": "id000069",
+   "gameId": "game1",
+   "seq": 55,
+   "batch": 55,
+   "at": "2026-01-01T00:00:55.000Z",
+   "type": "TurnCommitted",
+   "payload": {
+    "entryId": "id000066"
+   }
+  },
+  {
+   "id": "id000070",
+   "gameId": "game1",
+   "seq": 56,
+   "batch": 55,
+   "at": "2026-01-01T00:00:56.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "cohesion",
+    "sides": 10,
+    "result": 3,
+    "rng": [
+     527624868,
+     568929672,
+     2573266728,
+     3437096735
+    ],
+    "value": true,
+    "text": "Another turn"
+   }
+  },
+  {
+   "id": "id000071",
+   "gameId": "game1",
+   "seq": 57,
+   "batch": 57,
+   "at": "2026-01-01T00:00:57.000Z",
+   "type": "TurnStarted",
+   "payload": {
+    "seatId": "id000002",
+    "kind": "normal"
+   }
+  },
+  {
+   "id": "id000072",
+   "gameId": "game1",
+   "seq": 58,
+   "batch": 57,
+   "at": "2026-01-01T00:00:58.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "tone",
+    "sides": 10,
+    "result": 10,
+    "rng": [
+     570022174,
+     1684564072,
+     4081922920,
+     3437096736
+    ],
+    "value": "dark",
+    "text": "Dark"
+   }
+  },
+  {
+   "id": "id000073",
+   "gameId": "game1",
+   "seq": 59,
+   "batch": 59,
+   "at": "2026-01-01T00:00:59.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "placement",
+    "sides": 12600,
+    "result": 5687,
+    "rng": [
+     1683643484,
+     2377567912,
+     3227425356,
+     3437096737
+    ],
+    "value": {
+     "kind": "event",
+     "placement": {
+      "parentId": "id000066",
+      "index": 0
+     }
+    },
+    "text": "in “period 7”, first"
+   }
+  },
+  {
+   "id": "id000075",
+   "gameId": "game1",
+   "seq": 60,
+   "batch": 60,
+   "at": "2026-01-01T00:01:00.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000074",
+     "title": "event 8",
+     "tone": "dark",
+     "order": "a0",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 2,
+     "seatId": "id000002",
+     "locked": false,
+     "focus": "A gift that became a burden",
+     "kind": "event",
+     "periodId": "id000066"
+    }
+   }
+  },
+  {
+   "id": "id000076",
+   "gameId": "game1",
+   "seq": 61,
+   "batch": 61,
+   "at": "2026-01-01T00:01:01.000Z",
+   "type": "TurnCommitted",
+   "payload": {
+    "entryId": "id000074"
+   }
+  },
+  {
+   "id": "id000077",
+   "gameId": "game1",
+   "seq": 62,
+   "batch": 61,
+   "at": "2026-01-01T00:01:02.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "cohesion",
+    "sides": 10,
+    "result": 8,
+    "rng": [
+     2381321679,
+     3277024428,
+     143074808,
+     3437096738
+    ],
+    "value": false,
+    "text": "On to Legacies"
+   }
+  },
+  {
+   "id": "id000079",
+   "gameId": "game1",
+   "seq": 63,
+   "batch": 63,
+   "at": "2026-01-01T00:01:03.000Z",
+   "type": "LegacyAdded",
+   "payload": {
+    "legacy": {
+     "id": "id000078",
+     "text": "legacy 9",
+     "seatId": "id000002",
+     "addedInRound": 2
+    }
+   }
+  },
+  {
+   "id": "id000080",
+   "gameId": "game1",
+   "seq": 64,
+   "batch": 64,
+   "at": "2026-01-01T00:01:04.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "legacy.explore",
+    "sides": 3,
+    "result": 1,
+    "rng": [
+     3274884378,
+     1287673272,
+     3710026369,
+     3437096739
+    ],
+    "value": "id000044",
+    "text": "legacy 5"
+   }
+  },
+  {
+   "id": "id000081",
+   "gameId": "game1",
+   "seq": 65,
+   "batch": 65,
+   "at": "2026-01-01T00:01:05.000Z",
+   "type": "LegacyExplored",
+   "payload": {
+    "id": "id000044"
+   }
+  },
+  {
+   "id": "id000082",
+   "gameId": "game1",
+   "seq": 66,
+   "batch": 65,
+   "at": "2026-01-01T00:01:06.000Z",
+   "type": "TurnStarted",
+   "payload": {
+    "seatId": "id000001",
+    "kind": "legacy",
+    "legacyId": "id000044"
+   }
+  },
+  {
+   "id": "id000083",
+   "gameId": "game1",
+   "seq": 67,
+   "batch": 65,
+   "at": "2026-01-01T00:01:07.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "tone",
+    "sides": 10,
+    "result": 4,
+    "rng": [
+     1290155410,
+     3325466249,
+     755805765,
+     3437096740
+    ],
+    "value": "light",
+    "text": "Light"
+   }
+  },
+  {
+   "id": "id000084",
+   "gameId": "game1",
+   "seq": 68,
+   "batch": 68,
+   "at": "2026-01-01T00:01:08.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "placement",
+    "sides": 10,
+    "result": 4,
+    "rng": [
+     3327495618,
+     2507284589,
+     2829081812,
+     3437096741
+    ],
+    "value": {
+     "kind": "event",
+     "placement": {
+      "parentId": "id000015",
+      "index": 0
+     }
+    },
+    "text": "in “First pass period 0”, at the start"
+   }
+  },
+  {
+   "id": "id000086",
+   "gameId": "game1",
+   "seq": 69,
+   "batch": 69,
+   "at": "2026-01-01T00:01:09.000Z",
+   "type": "EntryCreated",
+   "payload": {
+    "entry": {
+     "id": "id000085",
+     "title": "event 10",
+     "tone": "light",
+     "order": "Zz",
+     "prose": "",
+     "revisions": [],
+     "createdInRound": 2,
+     "seatId": "id000001",
+     "locked": false,
+     "legacyId": "id000044",
+     "kind": "event",
+     "periodId": "id000015"
+    }
+   }
+  },
+  {
+   "id": "id000087",
+   "gameId": "game1",
+   "seq": 70,
+   "batch": 70,
+   "at": "2026-01-01T00:01:10.000Z",
+   "type": "EntryProseEdited",
+   "payload": {
+    "entryId": "id000085",
+    "prose": "prose for event 10"
+   }
+  },
+  {
+   "id": "id000088",
+   "gameId": "game1",
+   "seq": 71,
+   "batch": 71,
+   "at": "2026-01-01T00:01:11.000Z",
+   "type": "TurnCommitted",
+   "payload": {
+    "entryId": "id000085"
+   }
+  },
+  {
+   "id": "id000089",
+   "gameId": "game1",
+   "seq": 72,
+   "batch": 72,
+   "at": "2026-01-01T00:01:12.000Z",
+   "type": "RollMade",
+   "payload": {
+    "purpose": "drift.cohesion",
+    "sides": 6,
+    "result": 3,
+    "rng": [
+     2503514493,
+     3986899828,
+     3275403615,
+     3437096742
+    ]
+   }
+  },
+  {
+   "id": "id000090",
+   "gameId": "game1",
+   "seq": 73,
+   "batch": 72,
+   "at": "2026-01-01T00:01:13.000Z",
+   "type": "DialsAdjusted",
+   "payload": {
+    "before": {
+     "mood": 4,
+     "cohesion": 4
+    },
+    "after": {
+     "mood": 5,
+     "cohesion": 4
+    },
+    "drift": "counter-trend"
+   }
+  },
+  {
+   "id": "id000091",
+   "gameId": "game1",
+   "seq": 74,
+   "batch": 72,
+   "at": "2026-01-01T00:01:14.000Z",
+   "type": "RoundEnded",
+   "payload": {
+    "n": 2
+   }
+  }
+ ]
+}

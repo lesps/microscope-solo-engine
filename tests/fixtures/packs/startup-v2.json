@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 2,
+  "id": "e2e-startup",
+  "name": "E2E startup",
+  "version": "1.0.0",
+  "license": "CC0-1.0",
+  "tables": [
+    { "id": "e2e.who", "name": "Who", "category": "generator", "entries": [{ "text": "the lamplighters" }, { "text": "the ferrymen" }] },
+    { "id": "e2e.what", "name": "What", "category": "generator", "entries": [{ "text": "remember" }, { "text": "forget" }] }
+  ],
+  "groups": [{ "id": "e2e.coast", "name": "Coastlines" }],
+  "seeds": [
+    {
+      "id": "e2e.lighthouse",
+      "title": "The Keeper's Light",
+      "group": "e2e.coast",
+      "ruleset": "chronicle",
+      "pitch": "A lighthouse stands through every age of a cold coast.",
+      "subject": { "name": "Grey Point Light", "description": "A lighthouse on a cold coast.", "traits": ["tall", "lonely", "bright"] },
+      "questions": [
+        { "id": "why", "text": "Why was it built?", "options": [{ "id": "wrecks", "text": "Too many wrecks." }, { "id": "war", "text": "To watch for raiders." }] }
+      ],
+      "startBookend": { "text": "How does it begin?", "options": [{ "id": "lit", "title": "First light", "text": "The lamp is lit for the first time." }, { "id": "built", "text": "The tower is finished." }] },
+      "endBookend": { "text": "How does it end?", "options": [{ "id": "dark", "title": "Last light", "text": "The lamp goes out for good." }, { "id": "museum", "text": "The tower becomes a museum." }] }
+    }
+  ],
+  "generators": [
+    {
+      "id": "e2e.gen",
+      "name": "Coast rumor",
+      "group": "e2e.coast",
+      "parts": [{ "id": "who", "label": "Who", "tableId": "e2e.who" }, { "id": "what", "label": "What", "tableId": "e2e.what" }],
+      "template": "{who} {what}"
+    }
+  ]
+}

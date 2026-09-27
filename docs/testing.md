@@ -26,6 +26,10 @@ npm run test:mutation    # Stryker on src/engine (~45 minutes on 4 cores)
 FC_RUNS=2000 FC_RANDOM=1 npx vitest run --project node src/engine/__tests__/invariants.property.test.ts
 # Replay a failing seed that fast-check printed
 FC_SEED=123456 npx vitest run src/engine/__tests__/invariants.property.test.ts
+
+# Re-record golden fixtures (then accept snapshots with -u)
+UPDATE_FIXTURES=1 npx vitest run tests/fixtures/make-fixtures.test.ts       # schema-1 games
+UPDATE_SEED_FIXTURE=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # lens-seed-start
 ```
 
 ## What each layer guards

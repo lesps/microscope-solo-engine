@@ -288,7 +288,37 @@ const handlers: Handlers = {
   },
   RollMade: (g, p, ev) => {
     g.rng = p.rng;
+    if (p.purpose === 'seed.answer') {
+      const v = p.value as { seedId: Id; optionId: Id };
+      const rolled = g.pendingSeed?.seedId === v.seedId ? g.pendingSeed.rolled : {};
+      g.pendingSeed = { seedId: v.seedId, rolled: { ...rolled, [p.targetId!]: v.optionId } };
+      return;
+    }
+    if (p.purpose === 'generator.part') {
+      const v = p.value as {
+        generatorId: Id;
+        partId: Id;
+        label: string;
+        index: number;
+        swap?: [Id, Id];
+      };
+      const prev = v.index === 0 ? undefined : g.pendingGenerator;
+      g.pendingGenerator = {
+        generatorId: v.generatorId,
+        parts: [...(prev?.parts ?? []), { id: v.partId, label: v.label, text: p.text ?? '' }],
+        ...(v.swap ? { swap: v.swap } : {}),
+      };
+      return;
+    }
     recordRolled(g, p.purpose, p.value, ev.at, ev.seq);
+  },
+  SeedApplied: (g, p) => {
+    g.startup = p.startup;
+    delete g.pendingSeed;
+  },
+  GeneratorReadingAccepted: (g, p) => {
+    g.startup = p.startup;
+    delete g.pendingGenerator;
   },
   CardDrawn: (g, p, ev) => {
     g.rng = p.rng;

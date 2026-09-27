@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import malformed from '../../tests/fixtures/packs/malformed.json';
-import { STARTER_PACK, buildContent, collisions, validatePack } from '.';
+import { STARTER_PACK, buildContent, collisions, packWarnings, validatePack } from '.';
 
 describe('content packs', () => {
   it('the starter pack validates, with a full 78-card deck and one keyword per side', () => {
@@ -74,14 +74,17 @@ describe('content packs', () => {
     );
   });
 
-  it('the worked example in docs/content-packs.md validates', () => {
+  it('every JSON example in docs/content-packs.md validates without warnings', () => {
     const doc = fs.readFileSync(
       path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../docs/content-packs.md'),
       'utf8',
     );
-    const json = doc.split('## Worked example')[1]!.match(/```json\n([\s\S]*?)```/)![1]!;
-    const r = validatePack(JSON.parse(json));
-    expect(r.ok ? [] : r.errors).toEqual([]);
+    const blocks = [...doc.matchAll(/```json\n([\s\S]*?)```/g)].map((m) => m[1]!);
+    expect(blocks.length).toBeGreaterThanOrEqual(2);
+    for (const json of blocks) {
+      const r = validatePack(JSON.parse(json));
+      expect(r.ok ? packWarnings(r.pack) : r.errors).toEqual([]);
+    }
   });
 });
 

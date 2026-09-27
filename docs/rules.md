@@ -24,6 +24,7 @@ Every random mechanic has a mode:
 | `legacy.evict`        | Which Legacy leaves when all six are full       | off     |
 | `legacy.explore`      | Which Legacy is explored                        | prompt  |
 | `scene.reversal`      | Mid-Scene complication                          | prompt  |
+| `seed.answers`        | Answers to a seed's questions at setup          | off     |
 
 A seat's own `focusMode` overrides both Focus defaults. Non-mode settings:
 
@@ -34,7 +35,7 @@ A seat's own `focusMode` overrides both Focus defaults. Non-mode settings:
 | `cohesionCap` (normal turns per round) | 8                                        |
 | `entryTypeWeights`                     | Period 25, Event 50, Scene 25            |
 | `focusSourceWeights`                   | Legacy 50, domain 30, deck 20            |
-| `activeTables`                         | every table installed at creation        |
+| `activeTables`                         | every non-`generator` table at creation  |
 | `deck.reversals`                       | on (50% per draw)                        |
 | `deck.toneFromPip`                     | off                                      |
 | `oracle.qualifiers`                    | on                                       |
@@ -49,6 +50,39 @@ A seat's own `focusMode` overrides both Focus defaults. Non-mode settings:
   oracle qualifiers off, no pause.
 - _Default_: the table above.
 - _High Friction_: every mode enforced, Chaos on, Scene budget enforced, pause on.
+
+## Start (optional first setup step)
+
+When the enabled packs hold startup content for the game's ruleset, setup opens on **Start**, with
+three paths. All of them continue into the Premise step; nothing after the Palette changes.
+
+- **Start from a seed.** Pick a category (group), then a seed, then answer its questions. Each
+  question takes one option, exactly two, or one or two, plus a written-in answer unless the seed
+  disallows it. The two Bookend questions take one option or a written title and text. Applying
+  the seed records the answers as premise notes. Seeds apply when their ruleset matches the game or
+  is `any`; Chronicle seeds carry a Subject.
+- **Roll a generator** (Lens only). Each part rolls its table; the template joins the results into
+  a Big Picture prompt such as "the hoarding of salt starves the old dynasty". If the generator has
+  a swap pair, the player may exchange those two parts for a second reading. Rerolling is always
+  allowed. The accepted reading is a prompt, never copied into the Big Picture.
+- **Start blank.** Setup proceeds exactly as without startup packs.
+
+Start can be revisited, and a new choice replaces the old one, until the Bookends are set. After
+that the startup is fixed (commands are rejected with `setup-advanced`).
+
+**Prefill.** Fields are filled only when the step opens with them empty:
+
+- Premise: the seed's Big Picture draft (Lens) or Subject (Chronicle); the seed's pitch and notes,
+  or the generator's reading, are shown beside the form and later in the left rail.
+- Bookends: title from the chosen option's title, or its text cut to 60 characters at a word
+  boundary (with a hint to shorten it); description from its text. Tones stay the player's choice.
+- Palette: the seed's suggested Yes and No items appear as chips that add themselves when clicked.
+
+**`seed.answers`.** Off (default): the player picks. Prompt: each question and Bookend question
+can be rolled with a uniform die over its options; the roll preselects its option, and an answer
+that leaves the rolled option out records `OverrideUsed`. Enforce: every question must be rolled
+before applying; the rolled option is locked in (a second pick is free where two are allowed) and
+written answers are refused. Pure Lens: off. High Friction: enforce.
 
 ## Setup
 

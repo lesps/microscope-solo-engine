@@ -169,7 +169,7 @@ describe('Content packs screen', () => {
     expect(
       within(alert).getByText(/tables\[1\]\.entries\[0\]\.text: must not be empty/),
     ).toBeInTheDocument();
-    expect(store.getState().packs).toHaveLength(1);
+    expect(store.getState().packs).toHaveLength(2);
 
     await user.upload(input, json('{nope'));
     expect(await screen.findByText(/^\(file\):/)).toBeInTheDocument();
@@ -188,7 +188,7 @@ describe('Content packs screen', () => {
     await user.click(within(item).getByLabelText('enabled'));
     await waitFor(() => expect(store.getState().content.tables['harbor.domains']).toBeUndefined());
     await user.click(within(item).getByRole('button', { name: 'Remove' }));
-    await waitFor(() => expect(store.getState().packs).toHaveLength(1));
+    await waitFor(() => expect(store.getState().packs).toHaveLength(2));
   });
 });
 
