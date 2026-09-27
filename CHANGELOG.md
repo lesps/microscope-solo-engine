@@ -19,6 +19,11 @@ All notable changes are documented here. The format follows
 - Nightly workflow: 2000-run property tests on random seeds and Stryker mutation testing of the
   engine. `FC_RUNS`, `FC_RANDOM` and `FC_SEED` control property runs.
 - `docs/testing.md`.
+- Tests for gaps found by mutation testing: three-seat Lens and turn rotation, drift arithmetic,
+  exact placement-bias weights, zero-weight options never rolled, ranged tables without a die,
+  oracle call sequence numbers, Chaos dial start.
+- Stryker type-checks mutants and ignores rejection-message wording (`stryker-plugins.mjs`);
+  runs are incremental locally.
 
 ### Fixed
 

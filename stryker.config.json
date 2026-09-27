@@ -2,7 +2,9 @@
   "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
   "packageManager": "npm",
   "testRunner": "vitest",
-  "vitest": { "configFile": "vitest.stryker.config.ts" },
+  "vitest": {
+    "configFile": "vitest.stryker.config.ts"
+  },
   "mutate": [
     "src/engine/**/*.ts",
     "!src/engine/**/*.test.ts",
@@ -12,10 +14,28 @@
   ],
   "coverageAnalysis": "perTest",
   "reporters": ["clear-text", "progress", "html", "json"],
-  "htmlReporter": { "fileName": "reports/mutation/index.html" },
-  "jsonReporter": { "fileName": "reports/mutation/mutation.json" },
-  "thresholds": { "high": 90, "low": 80, "break": 75 },
+  "htmlReporter": {
+    "fileName": "reports/mutation/index.html"
+  },
+  "jsonReporter": {
+    "fileName": "reports/mutation/mutation.json"
+  },
+  "thresholds": {
+    "high": 90,
+    "low": 80,
+    "break": 75
+  },
   "concurrency": 4,
   "timeoutMS": 20000,
-  "tempDirName": ".stryker-tmp"
+  "tempDirName": ".stryker-tmp",
+  "plugins": [
+    "@stryker-mutator/vitest-runner",
+    "@stryker-mutator/typescript-checker",
+    "./stryker-plugins.mjs"
+  ],
+  "ignorers": ["rejection-messages"],
+  "checkers": ["typescript"],
+  "tsconfigFile": "tsconfig.json",
+  "incremental": true,
+  "incrementalFile": "reports/mutation/stryker-incremental.json"
 }
