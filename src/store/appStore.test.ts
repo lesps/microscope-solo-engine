@@ -165,27 +165,23 @@ describe('app store', () => {
     const { store, db } = makeStore();
     await store.getState().init();
     const before = await db.packs.toArray();
-    const r = await store
-      .getState()
-      .importPack({
-        schemaVersion: 1,
-        id: 'x',
-        name: 'X',
-        version: '1',
-        tables: [{ id: 't', name: 'T', category: 'domain', entries: [{ text: '' }] }],
-      });
+    const r = await store.getState().importPack({
+      schemaVersion: 1,
+      id: 'x',
+      name: 'X',
+      version: '1',
+      tables: [{ id: 't', name: 'T', category: 'domain', entries: [{ text: '' }] }],
+    });
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.errors[0]!.path).toBe('tables[0].entries[0].text');
     expect(await db.packs.toArray()).toEqual(before);
-    const ok = await store
-      .getState()
-      .importPack({
-        schemaVersion: 1,
-        id: 'x',
-        name: 'X',
-        version: '1',
-        tables: [{ id: 'x.t', name: 'T', category: 'domain', entries: [{ text: 'hello' }] }],
-      });
+    const ok = await store.getState().importPack({
+      schemaVersion: 1,
+      id: 'x',
+      name: 'X',
+      version: '1',
+      tables: [{ id: 'x.t', name: 'T', category: 'domain', entries: [{ text: 'hello' }] }],
+    });
     expect(ok.ok).toBe(true);
     expect(store.getState().content.tables['x.t']).toBeDefined();
     await store.getState().setPackEnabled('x', false);

@@ -1,0 +1,638 @@
+{
+ "id": "game1",
+ "schemaVersion": 1,
+ "title": "Test history",
+ "ruleset": "chronicle",
+ "seed": "00112233445566778899aabbccddeeff",
+ "rng": [
+  3274884378,
+  1287673272,
+  3710026369,
+  3437096739
+ ],
+ "createdAt": "2026-01-01T00:00:01.000Z",
+ "bigPicture": "A lighthouse on a cold coast.",
+ "palette": {
+  "yes": [
+   {
+    "id": "id000010",
+    "text": "bridges",
+    "rolled": false
+   }
+  ],
+  "no": [
+   {
+    "id": "id000012",
+    "text": "dragons",
+    "rolled": false
+   }
+  ]
+ },
+ "paletteRolled": 0,
+ "dials": {
+  "mood": 3,
+  "cohesion": 8
+ },
+ "dialsSet": true,
+ "settings": {
+  "modes": {
+   "tone": "enforce",
+   "cohesion": "enforce",
+   "focus.source": "off",
+   "focus.sourcePhantom": "enforce",
+   "entryType": "off",
+   "placement": "prompt",
+   "palette.roll": "prompt",
+   "legacy.evict": "off",
+   "legacy.explore": "prompt",
+   "scene.reversal": "prompt"
+  },
+  "drift": "counter-trend",
+  "chaos": false,
+  "cohesionCap": 8,
+  "entryTypeWeights": {
+   "period": 25,
+   "event": 50,
+   "scene": 25
+  },
+  "focusSourceWeights": {
+   "legacy": 50,
+   "domain": 30,
+   "deck": 20
+  },
+  "activeTables": [
+   "t-domain",
+   "t-domain-d6",
+   "t-pair",
+   "t-palette",
+   "t-reversal",
+   "t-focus"
+  ],
+  "deck": {
+   "reversals": true,
+   "toneFromPip": false
+  },
+  "oracle": {
+   "qualifiers": true
+  },
+  "scene": {
+   "budget": "warn",
+   "pause": false,
+   "pauseSeconds": 60,
+   "defaultBudget": {
+    "min": 300,
+    "max": 900
+   }
+  },
+  "paletteRollCount": 2
+ },
+ "seats": [
+  {
+   "id": "id000001",
+   "name": "You",
+   "kind": "player",
+   "tables": [],
+   "placementBias": "uniform"
+  },
+  {
+   "id": "id000002",
+   "name": "The Stranger",
+   "kind": "phantom",
+   "tables": [],
+   "placementBias": "sparse"
+  }
+ ],
+ "entries": {
+  "id000005": {
+   "id": "id000005",
+   "kind": "period",
+   "bookend": "start",
+   "title": "The first lamp",
+   "tone": "light",
+   "order": "a0",
+   "prose": "",
+   "revisions": [],
+   "createdInRound": 0,
+   "seatId": "id000001",
+   "locked": true,
+   "anchorId": "id000006"
+  },
+  "id000007": {
+   "id": "id000007",
+   "kind": "period",
+   "bookend": "end",
+   "title": "The last keeper leaves",
+   "tone": "dark",
+   "order": "a1",
+   "prose": "",
+   "revisions": [],
+   "createdInRound": 0,
+   "seatId": "id000001",
+   "locked": true,
+   "anchorId": "id000008"
+  },
+  "id000014": {
+   "id": "id000014",
+   "title": "First pass period 0",
+   "tone": "light",
+   "order": "a0V",
+   "prose": "Revised after play: the water rose slowly, then all at once.",
+   "revisions": [
+    {
+     "seq": 81,
+     "at": "2026-01-01T00:01:21.000Z",
+     "prose": "Revised after play: the water rose slowly, then all at once."
+    }
+   ],
+   "createdInRound": 0,
+   "seatId": "id000001",
+   "locked": true,
+   "firstPass": true,
+   "kind": "period",
+   "anchorId": "id000015",
+   "change": {
+    "op": "add",
+    "trait": "fp trait 0"
+   }
+  },
+  "id000018": {
+   "id": "id000018",
+   "title": "First pass event 1 (retold)",
+   "tone": "dark",
+   "order": "a0",
+   "prose": "",
+   "revisions": [],
+   "createdInRound": 0,
+   "seatId": "id000002",
+   "locked": true,
+   "firstPass": true,
+   "kind": "event",
+   "periodId": "id000005"
+  },
+  "id000026": {
+   "id": "id000026",
+   "title": "scene 22",
+   "tone": "light",
+   "order": "a0",
+   "prose": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word",
+   "revisions": [
+    {
+     "seq": 19,
+     "at": "2026-01-01T00:00:19.000Z",
+     "prose": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+    }
+   ],
+   "createdInRound": 1,
+   "seatId": "id000001",
+   "locked": true,
+   "focus": "focus 21",
+   "kind": "scene",
+   "eventId": "id000018",
+   "question": "Why 22?",
+   "form": "played",
+   "requiredCharacterIds": [],
+   "bannedCharacterIds": [],
+   "budget": {
+    "min": 300,
+    "max": 900
+   },
+   "oracleCalls": [],
+   "characterIds": [],
+   "answer": "answer to Why 22?",
+   "playProse": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+  },
+  "id000041": {
+   "id": "id000041",
+   "title": "event 24",
+   "tone": "light",
+   "order": "a1",
+   "prose": "prose for event 24",
+   "revisions": [
+    {
+     "seq": 30,
+     "at": "2026-01-01T00:00:30.000Z",
+     "prose": "prose for event 24"
+    }
+   ],
+   "createdInRound": 1,
+   "seatId": "id000002",
+   "locked": true,
+   "legacyId": "id000033",
+   "kind": "event",
+   "periodId": "id000005",
+   "playProse": "prose for event 24"
+  },
+  "id000054": {
+   "id": "id000054",
+   "title": "event 25",
+   "tone": "light",
+   "order": "a0V",
+   "prose": "",
+   "revisions": [
+    {
+     "seq": 41,
+     "at": "2026-01-01T00:00:41.000Z",
+     "prose": ""
+    }
+   ],
+   "createdInRound": 2,
+   "seatId": "id000001",
+   "locked": true,
+   "focus": "The Lighthouse",
+   "kind": "event",
+   "periodId": "id000005",
+   "playProse": ""
+  },
+  "id000065": {
+   "id": "id000065",
+   "title": "scene 27",
+   "tone": "light",
+   "order": "Zz",
+   "prose": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word",
+   "revisions": [
+    {
+     "seq": 53,
+     "at": "2026-01-01T00:00:53.000Z",
+     "prose": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+    }
+   ],
+   "createdInRound": 2,
+   "seatId": "id000002",
+   "locked": true,
+   "legacyId": "id000033",
+   "kind": "scene",
+   "eventId": "id000018",
+   "question": "Why 27?",
+   "form": "dictated",
+   "requiredCharacterIds": [],
+   "bannedCharacterIds": [],
+   "budget": {
+    "min": 300,
+    "max": 900
+   },
+   "oracleCalls": [],
+   "characterIds": [],
+   "answer": "answer to Why 27?",
+   "playProse": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+  },
+  "id000080": {
+   "id": "id000080",
+   "title": "event 29",
+   "tone": "dark",
+   "order": "a0l",
+   "prose": "prose for event 29",
+   "revisions": [
+    {
+     "seq": 65,
+     "at": "2026-01-01T00:01:05.000Z",
+     "prose": "prose for event 29"
+    }
+   ],
+   "createdInRound": 3,
+   "seatId": "id000001",
+   "locked": true,
+   "focus": "focus 28",
+   "kind": "event",
+   "periodId": "id000005",
+   "playProse": "prose for event 29"
+  },
+  "id000092": {
+   "id": "id000092",
+   "title": "scene 31",
+   "tone": "light",
+   "order": "a0",
+   "prose": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word",
+   "revisions": [
+    {
+     "seq": 77,
+     "at": "2026-01-01T00:01:17.000Z",
+     "prose": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+    }
+   ],
+   "createdInRound": 3,
+   "seatId": "id000002",
+   "locked": true,
+   "legacyId": "id000058",
+   "kind": "scene",
+   "eventId": "id000041",
+   "question": "Why 31?",
+   "form": "dictated",
+   "requiredCharacterIds": [],
+   "bannedCharacterIds": [],
+   "budget": {
+    "min": 300,
+    "max": 900
+   },
+   "oracleCalls": [],
+   "characterIds": [],
+   "answer": "answer to Why 31?",
+   "playProse": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+  }
+ },
+ "legacies": [
+  {
+   "id": "id000033",
+   "text": "legacy 23",
+   "seatId": "id000001",
+   "addedInRound": 1
+  },
+  {
+   "id": "id000058",
+   "text": "legacy 26",
+   "seatId": "id000002",
+   "addedInRound": 2
+  },
+  {
+   "id": "id000085",
+   "text": "legacy 30",
+   "seatId": "id000001",
+   "addedInRound": 3
+  }
+ ],
+ "characters": {
+  "id000006": {
+   "id": "id000006",
+   "name": "The Builder",
+   "description": "",
+   "immortal": false,
+   "entryIds": [
+    "id000005"
+   ]
+  },
+  "id000008": {
+   "id": "id000008",
+   "name": "The Last Keeper",
+   "description": "",
+   "immortal": false,
+   "entryIds": [
+    "id000007"
+   ]
+  },
+  "id000015": {
+   "id": "id000015",
+   "name": "FP anchor 0",
+   "description": "",
+   "immortal": false,
+   "entryIds": [
+    "id000014"
+   ]
+  }
+ },
+ "rounds": [
+  {
+   "n": 1,
+   "lensSeatId": "id000001",
+   "turns": [
+    {
+     "seatId": "id000001",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 12,
+     "entryId": "id000026"
+    },
+    {
+     "seatId": "id000002",
+     "kind": "legacy",
+     "committed": true,
+     "startSeq": 24,
+     "entryId": "id000041"
+    }
+   ],
+   "ended": true,
+   "focus": "focus 21",
+   "focusSource": "player",
+   "legacyAddedId": "id000033",
+   "legacyExploredId": "id000033"
+  },
+  {
+   "n": 2,
+   "lensSeatId": "id000002",
+   "turns": [
+    {
+     "seatId": "id000001",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 37,
+     "entryId": "id000054"
+    },
+    {
+     "seatId": "id000002",
+     "kind": "legacy",
+     "committed": true,
+     "startSeq": 46,
+     "entryId": "id000065"
+    }
+   ],
+   "ended": true,
+   "focus": "The Lighthouse",
+   "focusSource": "subject",
+   "legacyAddedId": "id000058",
+   "legacyExploredId": "id000033"
+  },
+  {
+   "n": 3,
+   "lensSeatId": "id000001",
+   "turns": [
+    {
+     "seatId": "id000001",
+     "kind": "normal",
+     "committed": true,
+     "startSeq": 59,
+     "entryId": "id000080"
+    },
+    {
+     "seatId": "id000002",
+     "kind": "legacy",
+     "committed": true,
+     "startSeq": 70,
+     "entryId": "id000092"
+    }
+   ],
+   "ended": true,
+   "focus": "focus 28",
+   "focusSource": "player",
+   "legacyAddedId": "id000085",
+   "legacyExploredId": "id000058"
+  }
+ ],
+ "stats": {
+  "overrides": 2,
+  "retcons": 1
+ },
+ "nextSeatIndex": 0,
+ "pendingRoundRolls": {},
+ "seq": 85,
+ "deck": {
+  "deckId": "test-deck",
+  "cardIds": [
+   "M0",
+   "M1",
+   "M2",
+   "M3",
+   "M4",
+   "M5",
+   "M6",
+   "M7",
+   "M8",
+   "M9",
+   "M10",
+   "M11",
+   "M12",
+   "M13",
+   "M14",
+   "M15",
+   "M16",
+   "M17",
+   "M18",
+   "M19",
+   "M20",
+   "M21",
+   "cups-1",
+   "cups-2",
+   "cups-3",
+   "cups-4",
+   "cups-5",
+   "cups-6",
+   "cups-7",
+   "cups-8",
+   "cups-9",
+   "cups-10",
+   "cups-page",
+   "cups-knight",
+   "cups-queen",
+   "cups-king",
+   "wands-1",
+   "wands-2",
+   "wands-3",
+   "wands-4",
+   "wands-5",
+   "wands-6",
+   "wands-7",
+   "wands-8",
+   "wands-9",
+   "wands-10",
+   "wands-page",
+   "wands-knight",
+   "wands-queen",
+   "wands-king",
+   "swords-1",
+   "swords-2",
+   "swords-3",
+   "swords-4",
+   "swords-5",
+   "swords-6",
+   "swords-7",
+   "swords-8",
+   "swords-9",
+   "swords-10",
+   "swords-page",
+   "swords-knight",
+   "swords-queen",
+   "swords-king",
+   "coins-1",
+   "coins-2",
+   "coins-3",
+   "coins-4",
+   "coins-5",
+   "coins-6",
+   "coins-7",
+   "coins-8",
+   "coins-9",
+   "coins-10",
+   "coins-page",
+   "coins-knight",
+   "coins-queen",
+   "coins-king"
+  ],
+  "remaining": [
+   "M0",
+   "M1",
+   "M2",
+   "M3",
+   "M4",
+   "M5",
+   "M6",
+   "M7",
+   "M8",
+   "M9",
+   "M10",
+   "M11",
+   "M12",
+   "M13",
+   "M14",
+   "M15",
+   "M16",
+   "M17",
+   "M18",
+   "M19",
+   "M20",
+   "M21",
+   "cups-1",
+   "cups-2",
+   "cups-3",
+   "cups-4",
+   "cups-5",
+   "cups-6",
+   "cups-7",
+   "cups-8",
+   "cups-9",
+   "cups-10",
+   "cups-page",
+   "cups-knight",
+   "cups-queen",
+   "cups-king",
+   "wands-1",
+   "wands-2",
+   "wands-3",
+   "wands-4",
+   "wands-5",
+   "wands-6",
+   "wands-7",
+   "wands-8",
+   "wands-9",
+   "wands-10",
+   "wands-page",
+   "wands-knight",
+   "wands-queen",
+   "wands-king",
+   "swords-1",
+   "swords-2",
+   "swords-3",
+   "swords-4",
+   "swords-5",
+   "swords-6",
+   "swords-7",
+   "swords-8",
+   "swords-9",
+   "swords-10",
+   "swords-page",
+   "swords-knight",
+   "swords-queen",
+   "swords-king",
+   "coins-1",
+   "coins-2",
+   "coins-3",
+   "coins-4",
+   "coins-5",
+   "coins-6",
+   "coins-7",
+   "coins-8",
+   "coins-9",
+   "coins-10",
+   "coins-page",
+   "coins-knight",
+   "coins-queen",
+   "coins-king"
+  ],
+  "discards": []
+ },
+ "subject": {
+  "name": "The Lighthouse",
+  "description": "A lighthouse on a cold coast.",
+  "traits": [
+   "tall",
+   "lonely",
+   "bright"
+  ]
+ }
+}

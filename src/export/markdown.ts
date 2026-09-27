@@ -2,6 +2,7 @@ import {
   apply,
   chronological,
   describeChange,
+  describePlacement,
   describeOracle,
   eventsOf,
   initialGame,
@@ -12,6 +13,7 @@ import {
   type Entry,
   type Game,
   type GameEvent,
+  type Placement,
   type Tone,
 } from '../engine';
 
@@ -109,7 +111,21 @@ export interface PlayOrderOptions {
   rolls?: boolean;
 }
 
-function rollLine(ev: GameEvent): string | undefined {
+function describeOverride(g: Game, mechanic: string, v: unknown): string {
+  if (v === undefined || v === null) return '—';
+  if (mechanic === 'placement') {
+    const p = v as Placement;
+    const kind = g.turn?.rolled.placement?.kind ?? 'event';
+    return describePlacement(g, kind, p);
+  }
+  if (mechanic === 'legacy.evict' || mechanic === 'legacy.explore')
+    return g.legacies.find((l) => l.id === v)?.text ?? String(v);
+  if (mechanic === 'cohesion') return v ? 'another turn' : 'on to Legacies';
+  if (typeof v === 'object' && 'text' in (v as object)) return String((v as { text: string }).text);
+  return String(v);
+}
+
+function rollLine(ev: GameEvent, g: Game): string | undefined {
   if (ev.type === 'RollMade') {
     const p = ev.payload;
     return `- 🎲 ${p.purpose}: d${p.sides} → ${p.result}${p.text ? ` · ${p.text}` : ''}`;
@@ -120,8 +136,8 @@ function rollLine(ev: GameEvent): string | undefined {
   }
   if (ev.type === 'DeckReshuffled') return '- 🂠 deck reshuffled';
   if (ev.type === 'OverrideUsed') {
-    const show = (v: unknown) => (typeof v === 'object' ? JSON.stringify(v) : String(v));
-    return `- ✎ override ${ev.payload.mechanic}: ${show(ev.payload.rolled)} → ${show(ev.payload.chosen)}`;
+    const { mechanic, rolled, chosen } = ev.payload;
+    return `- ✎ override ${mechanic}: ${describeOverride(g, mechanic, rolled)} → ${describeOverride(g, mechanic, chosen)}`;
   }
   return undefined;
 }
@@ -137,13 +153,18 @@ export function playOrderManuscript(
   let setupDone = false;
   let pendingRolls: string[] = [];
   const flushRolls = () => {
-    if (showRolls && pendingRolls.length) out += pendingRolls.join('\n') + '\n\n';
+    if (showRolls && pendingRolls.length) block(pendingRolls.join('\n') + '\n\n');
     pendingRolls = [];
+  };
+  // Starts a paragraph-level block, closing any open list with a blank line.
+  const block = (s: string) => {
+    if (out && !out.endsWith('\n\n')) out += '\n';
+    out += s;
   };
   for (const ev of events) {
     const before = g;
     g = apply(g, ev);
-    const rl = rollLine(ev);
+    const rl = rollLine(ev, before);
     if (rl) {
       pendingRolls.push(rl);
       continue;
@@ -168,18 +189,22 @@ export function playOrderManuscript(
         if (ev.payload.entry.firstPass) {
           const e = ev.payload.entry;
           const seat = g.seats.find((s) => s.id === e.seatId)?.name ?? '';
-          out += `\n**First Pass (${seat}):** ${toneMark(e.tone)} ${KIND[e.kind]} — ${e.title}\n\n${paragraphs(e.prose)}`;
+          block(
+            `**First Pass (${seat}):** ${toneMark(e.tone)} ${KIND[e.kind]} — ${e.title}\n\n${paragraphs(e.prose)}`,
+          );
         }
         break;
       case 'DialsSet':
         if (!setupDone)
-          out += `**Dials:** Mood ${ev.payload.mood}, Cohesion ${ev.payload.cohesion}${ev.payload.chaos !== undefined ? `, Chaos ${ev.payload.chaos}` : ''}\n\n`;
+          block(
+            `**Dials:** Mood ${ev.payload.mood}, Cohesion ${ev.payload.cohesion}${ev.payload.chaos !== undefined ? `, Chaos ${ev.payload.chaos}` : ''}\n\n`,
+          );
         break;
       case 'RoundStarted': {
         setupDone = true;
         flushRolls();
         const lens = g.seats.find((s) => s.id === ev.payload.lensSeatId)?.name ?? '';
-        out += `## Round ${ev.payload.n}\n\n*Lens: ${lens}*\n\n`;
+        block(`## Round ${ev.payload.n}\n\n*Lens: ${lens}*\n\n`);
         break;
       }
       case 'FocusSet':
