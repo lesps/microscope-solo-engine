@@ -1,0 +1,1186 @@
+{
+ "schemaVersion": 1,
+ "id": "starter",
+ "name": "Starter pack",
+ "version": "1.0.0",
+ "description": "Original tables and a single-keyword deck shipped with Solo Microscope.",
+ "author": "Solo Microscope",
+ "license": "CC0-1.0",
+ "tables": [
+  {
+   "id": "starter.domains",
+   "name": "Spheres of life",
+   "category": "domain",
+   "entries": [
+    {
+     "text": "Trade and coin"
+    },
+    {
+     "text": "Faith and ritual"
+    },
+    {
+     "text": "War and defense"
+    },
+    {
+     "text": "Law and custom"
+    },
+    {
+     "text": "Craft and invention"
+    },
+    {
+     "text": "Kinship and inheritance"
+    },
+    {
+     "text": "Land and harvest"
+    },
+    {
+     "text": "Water and weather"
+    },
+    {
+     "text": "Sickness and healing"
+    },
+    {
+     "text": "Learning and records"
+    },
+    {
+     "text": "Art and song"
+    },
+    {
+     "text": "Travel and roads"
+    },
+    {
+     "text": "Rule and succession"
+    },
+    {
+     "text": "The dead and remembering"
+    },
+    {
+     "text": "Strangers and borders"
+    },
+    {
+     "text": "Crime and punishment"
+    },
+    {
+     "text": "Labor and guilds"
+    },
+    {
+     "text": "Beasts and husbandry"
+    },
+    {
+     "text": "Building and ruin"
+    },
+    {
+     "text": "Dreams and omens"
+    }
+   ]
+  },
+  {
+   "id": "starter.seeds",
+   "name": "Focus seeds",
+   "category": "focus",
+   "entries": [
+    {
+     "text": "A promise broken"
+    },
+    {
+     "text": "The first of something"
+    },
+    {
+     "text": "A secret kept for generations"
+    },
+    {
+     "text": "A place abandoned"
+    },
+    {
+     "text": "A rivalry between neighbors"
+    },
+    {
+     "text": "A gift that became a burden"
+    },
+    {
+     "text": "An outsider who stayed"
+    },
+    {
+     "text": "The cost of a victory"
+    },
+    {
+     "text": "Something lost and found again"
+    },
+    {
+     "text": "A rule everyone ignores"
+    },
+    {
+     "text": "The last of something"
+    },
+    {
+     "text": "A song everyone knows"
+    },
+    {
+     "text": "A debt that outlived the debtor"
+    },
+    {
+     "text": "A border redrawn"
+    },
+    {
+     "text": "A child who inherits too much"
+    },
+    {
+     "text": "A door that was sealed"
+    },
+    {
+     "text": "An invention misused"
+    },
+    {
+     "text": "A famine remembered"
+    },
+    {
+     "text": "A name no one may speak"
+    },
+    {
+     "text": "A festival that changed its meaning"
+    }
+   ]
+  },
+  {
+   "id": "starter.pairs",
+   "name": "Verbs and things",
+   "category": "wordPair",
+   "action": [
+    {
+     "text": "Abandon"
+    },
+    {
+     "text": "Bind"
+    },
+    {
+     "text": "Break"
+    },
+    {
+     "text": "Carry"
+    },
+    {
+     "text": "Conceal"
+    },
+    {
+     "text": "Divide"
+    },
+    {
+     "text": "Exchange"
+    },
+    {
+     "text": "Forge"
+    },
+    {
+     "text": "Forget"
+    },
+    {
+     "text": "Guard"
+    },
+    {
+     "text": "Heal"
+    },
+    {
+     "text": "Inherit"
+    },
+    {
+     "text": "Kindle"
+    },
+    {
+     "text": "Mend"
+    },
+    {
+     "text": "Mourn"
+    },
+    {
+     "text": "Reclaim"
+    },
+    {
+     "text": "Seal"
+    },
+    {
+     "text": "Summon"
+    },
+    {
+     "text": "Tame"
+    },
+    {
+     "text": "Weigh"
+    }
+   ],
+   "subject": [
+    {
+     "text": "a bell"
+    },
+    {
+     "text": "a boundary"
+    },
+    {
+     "text": "a crown"
+    },
+    {
+     "text": "a debt"
+    },
+    {
+     "text": "a flood"
+    },
+    {
+     "text": "a garden"
+    },
+    {
+     "text": "a hunger"
+    },
+    {
+     "text": "a key"
+    },
+    {
+     "text": "a ledger"
+    },
+    {
+     "text": "a map"
+    },
+    {
+     "text": "an oath"
+    },
+    {
+     "text": "an orchard"
+    },
+    {
+     "text": "a relic"
+    },
+    {
+     "text": "a river"
+    },
+    {
+     "text": "a road"
+    },
+    {
+     "text": "a ship"
+    },
+    {
+     "text": "a song"
+    },
+    {
+     "text": "a tower"
+    },
+    {
+     "text": "a wound"
+    },
+    {
+     "text": "a wall"
+    }
+   ]
+  },
+  {
+   "id": "starter.palette",
+   "name": "Palette candidates",
+   "category": "palette",
+   "entries": [
+    {
+     "text": "Masks"
+    },
+    {
+     "text": "Tides"
+    },
+    {
+     "text": "Clockwork"
+    },
+    {
+     "text": "Plague"
+    },
+    {
+     "text": "Guilds"
+    },
+    {
+     "text": "Ghosts"
+    },
+    {
+     "text": "Ruins of an older people"
+    },
+    {
+     "text": "Rival gods"
+    },
+    {
+     "text": "Airships"
+    },
+    {
+     "text": "Nomads"
+    },
+    {
+     "text": "Printing presses"
+    },
+    {
+     "text": "Poison"
+    },
+    {
+     "text": "Giants"
+    },
+    {
+     "text": "Libraries"
+    },
+    {
+     "text": "Talking animals"
+    },
+    {
+     "text": "Glass"
+    },
+    {
+     "text": "Bridges"
+    },
+    {
+     "text": "Pilgrimage"
+    },
+    {
+     "text": "Oracles"
+    },
+    {
+     "text": "Salt"
+    },
+    {
+     "text": "Mercenaries"
+    },
+    {
+     "text": "Endless winter"
+    },
+    {
+     "text": "Bees"
+    },
+    {
+     "text": "Duels"
+    }
+   ]
+  },
+  {
+   "id": "starter.reversals",
+   "name": "Complications",
+   "category": "reversal",
+   "entries": [
+    {
+     "text": "Someone lies about what they saw"
+    },
+    {
+     "text": "An ally switches sides"
+    },
+    {
+     "text": "The weather turns"
+    },
+    {
+     "text": "A secret comes out in front of everyone"
+    },
+    {
+     "text": "The thing they need is already gone"
+    },
+    {
+     "text": "Someone arrives who should not be here"
+    },
+    {
+     "text": "An old debt is called in"
+    },
+    {
+     "text": "A mistake is discovered too late"
+    },
+    {
+     "text": "The crowd turns"
+    },
+    {
+     "text": "A child says the true thing"
+    },
+    {
+     "text": "A message arrives at the worst moment"
+    },
+    {
+     "text": "The plan works, but at a cost"
+    },
+    {
+     "text": "Someone refuses an order"
+    },
+    {
+     "text": "An injury changes everything"
+    },
+    {
+     "text": "The price doubles"
+    },
+    {
+     "text": "A rival offers help"
+    },
+    {
+     "text": "Fire"
+    },
+    {
+     "text": "The ground gives way"
+    },
+    {
+     "text": "A prophecy is misread"
+    },
+    {
+     "text": "Silence where there should be an answer"
+    }
+   ]
+  }
+ ],
+ "decks": [
+  {
+   "id": "starter.deck",
+   "name": "Keyword deck",
+   "cards": [
+    {
+     "id": "major-00",
+     "arcana": "major",
+     "rank": 0,
+     "name": "The Fool",
+     "upright": "Leap",
+     "reversed": "Recklessness",
+     "tier": "grand"
+    },
+    {
+     "id": "major-01",
+     "arcana": "major",
+     "rank": 1,
+     "name": "The Magician",
+     "upright": "Skill",
+     "reversed": "Trickery",
+     "tier": "grand"
+    },
+    {
+     "id": "major-02",
+     "arcana": "major",
+     "rank": 2,
+     "name": "The High Priestess",
+     "upright": "Secret",
+     "reversed": "Silence",
+     "tier": "grand"
+    },
+    {
+     "id": "major-03",
+     "arcana": "major",
+     "rank": 3,
+     "name": "The Empress",
+     "upright": "Abundance",
+     "reversed": "Smothering",
+     "tier": "grand"
+    },
+    {
+     "id": "major-04",
+     "arcana": "major",
+     "rank": 4,
+     "name": "The Emperor",
+     "upright": "Order",
+     "reversed": "Tyranny",
+     "tier": "grand"
+    },
+    {
+     "id": "major-05",
+     "arcana": "major",
+     "rank": 5,
+     "name": "The Hierophant",
+     "upright": "Tradition",
+     "reversed": "Dogma",
+     "tier": "grand"
+    },
+    {
+     "id": "major-06",
+     "arcana": "major",
+     "rank": 6,
+     "name": "The Lovers",
+     "upright": "Union",
+     "reversed": "Rift",
+     "tier": "grand"
+    },
+    {
+     "id": "major-07",
+     "arcana": "major",
+     "rank": 7,
+     "name": "The Chariot",
+     "upright": "Conquest",
+     "reversed": "Rout",
+     "tier": "grand"
+    },
+    {
+     "id": "major-08",
+     "arcana": "major",
+     "rank": 8,
+     "name": "Strength",
+     "upright": "Courage",
+     "reversed": "Doubt",
+     "tier": "grand"
+    },
+    {
+     "id": "major-09",
+     "arcana": "major",
+     "rank": 9,
+     "name": "The Hermit",
+     "upright": "Solitude",
+     "reversed": "Exile",
+     "tier": "grand"
+    },
+    {
+     "id": "major-10",
+     "arcana": "major",
+     "rank": 10,
+     "name": "Wheel of Fortune",
+     "upright": "Turning",
+     "reversed": "Stagnation",
+     "tier": "grand"
+    },
+    {
+     "id": "major-11",
+     "arcana": "major",
+     "rank": 11,
+     "name": "Justice",
+     "upright": "Balance",
+     "reversed": "Corruption",
+     "tier": "grand"
+    },
+    {
+     "id": "major-12",
+     "arcana": "major",
+     "rank": 12,
+     "name": "The Hanged Man",
+     "upright": "Sacrifice",
+     "reversed": "Stalling",
+     "tier": "grand"
+    },
+    {
+     "id": "major-13",
+     "arcana": "major",
+     "rank": 13,
+     "name": "Death",
+     "upright": "Ending",
+     "reversed": "Lingering",
+     "tier": "grand"
+    },
+    {
+     "id": "major-14",
+     "arcana": "major",
+     "rank": 14,
+     "name": "Temperance",
+     "upright": "Moderation",
+     "reversed": "Excess",
+     "tier": "grand"
+    },
+    {
+     "id": "major-15",
+     "arcana": "major",
+     "rank": 15,
+     "name": "The Devil",
+     "upright": "Bondage",
+     "reversed": "Release",
+     "tier": "grand"
+    },
+    {
+     "id": "major-16",
+     "arcana": "major",
+     "rank": 16,
+     "name": "The Tower",
+     "upright": "Upheaval",
+     "reversed": "Denial",
+     "tier": "grand"
+    },
+    {
+     "id": "major-17",
+     "arcana": "major",
+     "rank": 17,
+     "name": "The Star",
+     "upright": "Hope",
+     "reversed": "Despair",
+     "tier": "grand"
+    },
+    {
+     "id": "major-18",
+     "arcana": "major",
+     "rank": 18,
+     "name": "The Moon",
+     "upright": "Illusion",
+     "reversed": "Clarity",
+     "tier": "grand"
+    },
+    {
+     "id": "major-19",
+     "arcana": "major",
+     "rank": 19,
+     "name": "The Sun",
+     "upright": "Triumph",
+     "reversed": "Glare",
+     "tier": "grand"
+    },
+    {
+     "id": "major-20",
+     "arcana": "major",
+     "rank": 20,
+     "name": "Judgement",
+     "upright": "Reckoning",
+     "reversed": "Evasion",
+     "tier": "grand"
+    },
+    {
+     "id": "major-21",
+     "arcana": "major",
+     "rank": 21,
+     "name": "The World",
+     "upright": "Completion",
+     "reversed": "Unfinished",
+     "tier": "grand"
+    },
+    {
+     "id": "cups-01",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 1,
+     "name": "Ace of Cups",
+     "upright": "Welcome",
+     "reversed": "Rejection",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-02",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 2,
+     "name": "Two of Cups",
+     "upright": "Bond",
+     "reversed": "Quarrel",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-03",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 3,
+     "name": "Three of Cups",
+     "upright": "Feast",
+     "reversed": "Gossip",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-04",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 4,
+     "name": "Four of Cups",
+     "upright": "Apathy",
+     "reversed": "Awakening",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-05",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 5,
+     "name": "Five of Cups",
+     "upright": "Grief",
+     "reversed": "Recovery",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-06",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 6,
+     "name": "Six of Cups",
+     "upright": "Memory",
+     "reversed": "Nostalgia",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-07",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 7,
+     "name": "Seven of Cups",
+     "upright": "Fantasy",
+     "reversed": "Disillusion",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-08",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 8,
+     "name": "Eight of Cups",
+     "upright": "Departure",
+     "reversed": "Clinging",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-09",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 9,
+     "name": "Nine of Cups",
+     "upright": "Contentment",
+     "reversed": "Smugness",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-10",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": 10,
+     "name": "Ten of Cups",
+     "upright": "Harmony",
+     "reversed": "Discord",
+     "tier": "moment"
+    },
+    {
+     "id": "cups-page",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": "page",
+     "name": "Page of Cups",
+     "upright": "Dreamer",
+     "reversed": "Moper",
+     "tier": "character"
+    },
+    {
+     "id": "cups-knight",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": "knight",
+     "name": "Knight of Cups",
+     "upright": "Suitor",
+     "reversed": "Seducer",
+     "tier": "character"
+    },
+    {
+     "id": "cups-queen",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": "queen",
+     "name": "Queen of Cups",
+     "upright": "Healer",
+     "reversed": "Martyr",
+     "tier": "character"
+    },
+    {
+     "id": "cups-king",
+     "arcana": "minor",
+     "suit": "cups",
+     "rank": "king",
+     "name": "King of Cups",
+     "upright": "Diplomat",
+     "reversed": "Manipulator",
+     "tier": "character"
+    },
+    {
+     "id": "wands-01",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 1,
+     "name": "Ace of Wands",
+     "upright": "Spark",
+     "reversed": "Delay",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-02",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 2,
+     "name": "Two of Wands",
+     "upright": "Plan",
+     "reversed": "Hesitation",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-03",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 3,
+     "name": "Three of Wands",
+     "upright": "Expansion",
+     "reversed": "Setback",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-04",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 4,
+     "name": "Four of Wands",
+     "upright": "Celebration",
+     "reversed": "Unrest",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-05",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 5,
+     "name": "Five of Wands",
+     "upright": "Rivalry",
+     "reversed": "Truce",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-06",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 6,
+     "name": "Six of Wands",
+     "upright": "Victory",
+     "reversed": "Pride",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-07",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 7,
+     "name": "Seven of Wands",
+     "upright": "Defiance",
+     "reversed": "Surrender",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-08",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 8,
+     "name": "Eight of Wands",
+     "upright": "Haste",
+     "reversed": "Stall",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-09",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 9,
+     "name": "Nine of Wands",
+     "upright": "Vigilance",
+     "reversed": "Paranoia",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-10",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": 10,
+     "name": "Ten of Wands",
+     "upright": "Burden",
+     "reversed": "Collapse",
+     "tier": "moment"
+    },
+    {
+     "id": "wands-page",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": "page",
+     "name": "Page of Wands",
+     "upright": "Explorer",
+     "reversed": "Braggart",
+     "tier": "character"
+    },
+    {
+     "id": "wands-knight",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": "knight",
+     "name": "Knight of Wands",
+     "upright": "Adventurer",
+     "reversed": "Hothead",
+     "tier": "character"
+    },
+    {
+     "id": "wands-queen",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": "queen",
+     "name": "Queen of Wands",
+     "upright": "Beacon",
+     "reversed": "Bully",
+     "tier": "character"
+    },
+    {
+     "id": "wands-king",
+     "arcana": "minor",
+     "suit": "wands",
+     "rank": "king",
+     "name": "King of Wands",
+     "upright": "Visionary",
+     "reversed": "Zealot",
+     "tier": "character"
+    },
+    {
+     "id": "swords-01",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 1,
+     "name": "Ace of Swords",
+     "upright": "Truth",
+     "reversed": "Confusion",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-02",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 2,
+     "name": "Two of Swords",
+     "upright": "Stalemate",
+     "reversed": "Choice",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-03",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 3,
+     "name": "Three of Swords",
+     "upright": "Heartbreak",
+     "reversed": "Healing",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-04",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 4,
+     "name": "Four of Swords",
+     "upright": "Rest",
+     "reversed": "Restlessness",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-05",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 5,
+     "name": "Five of Swords",
+     "upright": "Betrayal",
+     "reversed": "Amends",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-06",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 6,
+     "name": "Six of Swords",
+     "upright": "Passage",
+     "reversed": "Stranded",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-07",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 7,
+     "name": "Seven of Swords",
+     "upright": "Theft",
+     "reversed": "Confession",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-08",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 8,
+     "name": "Eight of Swords",
+     "upright": "Trap",
+     "reversed": "Escape",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-09",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 9,
+     "name": "Nine of Swords",
+     "upright": "Dread",
+     "reversed": "Relief",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-10",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": 10,
+     "name": "Ten of Swords",
+     "upright": "Ruin",
+     "reversed": "Survival",
+     "tier": "moment"
+    },
+    {
+     "id": "swords-page",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": "page",
+     "name": "Page of Swords",
+     "upright": "Spy",
+     "reversed": "Snitch",
+     "tier": "character"
+    },
+    {
+     "id": "swords-knight",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": "knight",
+     "name": "Knight of Swords",
+     "upright": "Crusader",
+     "reversed": "Brute",
+     "tier": "character"
+    },
+    {
+     "id": "swords-queen",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": "queen",
+     "name": "Queen of Swords",
+     "upright": "Judge",
+     "reversed": "Cynic",
+     "tier": "character"
+    },
+    {
+     "id": "swords-king",
+     "arcana": "minor",
+     "suit": "swords",
+     "rank": "king",
+     "name": "King of Swords",
+     "upright": "Lawgiver",
+     "reversed": "Despot",
+     "tier": "character"
+    },
+    {
+     "id": "coins-01",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 1,
+     "name": "Ace of Coins",
+     "upright": "Opportunity",
+     "reversed": "Waste",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-02",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 2,
+     "name": "Two of Coins",
+     "upright": "Juggling",
+     "reversed": "Overreach",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-03",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 3,
+     "name": "Three of Coins",
+     "upright": "Craft",
+     "reversed": "Shoddiness",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-04",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 4,
+     "name": "Four of Coins",
+     "upright": "Hoarding",
+     "reversed": "Generosity",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-05",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 5,
+     "name": "Five of Coins",
+     "upright": "Poverty",
+     "reversed": "Charity",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-06",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 6,
+     "name": "Six of Coins",
+     "upright": "Gift",
+     "reversed": "Debt",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-07",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 7,
+     "name": "Seven of Coins",
+     "upright": "Patience",
+     "reversed": "Impatience",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-08",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 8,
+     "name": "Eight of Coins",
+     "upright": "Diligence",
+     "reversed": "Drudgery",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-09",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 9,
+     "name": "Nine of Coins",
+     "upright": "Comfort",
+     "reversed": "Dependence",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-10",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": 10,
+     "name": "Ten of Coins",
+     "upright": "Legacy",
+     "reversed": "Squander",
+     "tier": "moment"
+    },
+    {
+     "id": "coins-page",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": "page",
+     "name": "Page of Coins",
+     "upright": "Apprentice",
+     "reversed": "Idler",
+     "tier": "character"
+    },
+    {
+     "id": "coins-knight",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": "knight",
+     "name": "Knight of Coins",
+     "upright": "Steward",
+     "reversed": "Plodder",
+     "tier": "character"
+    },
+    {
+     "id": "coins-queen",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": "queen",
+     "name": "Queen of Coins",
+     "upright": "Matron",
+     "reversed": "Miser",
+     "tier": "character"
+    },
+    {
+     "id": "coins-king",
+     "arcana": "minor",
+     "suit": "coins",
+     "rank": "king",
+     "name": "King of Coins",
+     "upright": "Merchant",
+     "reversed": "Profiteer",
+     "tier": "character"
+    }
+   ]
+  }
+ ]
+}

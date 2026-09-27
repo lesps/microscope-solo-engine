@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "bad pack",
+  "name": "Bad",
+  "version": "1",
+  "tables": [
+    { "id": "t1", "name": "Ranged", "category": "domain", "die": 6, "entries": [
+      { "text": "a", "range": [1, 2] }, { "text": "b", "range": [2, 4] }, { "text": "c", "range": [5, 6] }
+    ] },
+    { "id": "t1", "name": "Dup", "category": "focus", "entries": [ { "text": "" } ] },
+    { "id": "t3", "name": "Unknown", "category": "weather", "entries": [ { "text": "x" } ] }
+  ],
+  "decks": [
+    { "id": "d", "name": "D", "cards": [
+      { "id": "c1", "arcana": "minor", "rank": 3, "name": "Three", "upright": "Many words here", "reversed": "x", "tier": "moment" },
+      { "id": "c1", "arcana": "major", "name": "M", "upright": "a", "reversed": "b", "tier": "moment" }
+    ] }
+  ]
+}
