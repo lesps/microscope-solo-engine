@@ -4,3 +4,6 @@ dev-dist
 playwright-report
 test-results
 *.local
+coverage
+reports
+.stryker-tmp

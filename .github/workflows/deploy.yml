@@ -31,8 +31,16 @@ jobs:
         run: npm run typecheck
       - name: Lint (including import boundaries)
         run: npm run lint
-      - name: Unit and property tests
-        run: npm test
+      - name: Format
+        run: npm run format:check
+      - name: Unit, component, property and golden tests with coverage thresholds
+        run: npm run test:coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 14
       - name: Build
         run: npm run build
       - name: Install Playwright Chromium

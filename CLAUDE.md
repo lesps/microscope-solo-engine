@@ -10,7 +10,9 @@ npm run dev | build | preview
 npm run typecheck        # tsc, strict
 npm run lint             # eslint incl. import boundaries
 npm run format:check     # prettier (snapshots and fixtures excluded)
-npm test                 # vitest (unit, property, golden, persistence with fake-indexeddb, store)
+npm test                 # vitest: node project (engine, export, persistence, store, golden) + dom project (UI)
+npm run test:coverage    # same with coverage thresholds — what CI runs
+npm run test:mutation    # Stryker on src/engine (slow; nightly in CI)
 npm run e2e              # playwright against vite preview; run `npm run build` first
 BASE_PATH=/microscope-solo-engine/ npm run build && BASE_PATH=/microscope-solo-engine/ npm run e2e
 UPDATE_FIXTURES=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # re-record fixtures
@@ -65,7 +67,11 @@ a different choice emits `OverrideUsed`), `enforce` (rolled; other choices rejec
 ## Conventions
 
 - TDD: engine commands and invariants get a failing test first. Engine tests live in
-  `src/engine/__tests__/`; shared drivers and fixtures in `tests/support/`.
+  `src/engine/__tests__/`; shared drivers and fixtures in `tests/support/`. UI tests are
+  `*.test.tsx` next to the component and run in jsdom. Layers, helpers and thresholds:
+  `docs/testing.md`. Don't lower a coverage or mutation threshold to get green.
+- Import validates every event payload (`src/export/eventSchemas.ts`); a new or changed payload
+  needs its schema updated (the schema test fails otherwise).
 - Comments only for non-obvious logic.
 - No default exports outside `src/ui/screens/` (lint-enforced).
 - Engine functions are pure and take state explicitly.

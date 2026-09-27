@@ -84,3 +84,153 @@ describe('content packs', () => {
     expect(r.ok ? [] : r.errors).toEqual([]);
   });
 });
+
+describe('pack semantic checks', () => {
+  const pack = (tables: unknown[]) => ({
+    schemaVersion: 1,
+    id: 'p',
+    name: 'P',
+    version: '1',
+    tables,
+  });
+  const errors = (tables: unknown[]) => {
+    const r = validatePack(pack(tables));
+    return r.ok ? [] : r.errors.map((e) => `${e.path}: ${e.message}`);
+  };
+
+  it.each([
+    [
+      [
+        {
+          id: 't',
+          name: 'T',
+          category: 'domain',
+          entries: [{ text: 'a', range: [1, 1] }, { text: 'b' }],
+        },
+      ],
+      'tables[0].entries: either every entry has a range or none does',
+    ],
+    [
+      [{ id: 't', name: 'T', category: 'domain', entries: [{ text: 'a', range: [1, 2] }] }],
+      'tables[0].die: ranged tables need a die',
+    ],
+    [
+      [{ id: 't', name: 'T', category: 'domain', die: 2, entries: [{ text: 'a', range: [1, 3] }] }],
+      'tables[0].entries[0].range: range exceeds d2',
+    ],
+    [
+      [{ id: 't', name: 'T', category: 'domain', die: 3, entries: [{ text: 'a', range: [1, 2] }] }],
+      'tables[0].entries: result 3 is not covered',
+    ],
+    [
+      [
+        {
+          id: 't',
+          name: 'T',
+          category: 'domain',
+          die: 2,
+          entries: [
+            { text: 'a', range: [2, 1] },
+            { text: 'b', range: [1, 2] },
+          ],
+        },
+      ],
+      'tables[0].entries[0].range: range must be [low, high]',
+    ],
+    [
+      [
+        {
+          id: 't',
+          name: 'T',
+          category: 'wordPair',
+          die: 2,
+          action: [{ text: 'a', range: [1, 2] }],
+          subject: [{ text: 'b', range: [1, 1] }],
+        },
+      ],
+      'tables[0].subject: result 2 is not covered',
+    ],
+  ])('%j → %s', (tables, message) => expect(errors(tables)).toContain(message));
+
+  it('reports duplicate deck ids and card ids, and rank rules for minors', () => {
+    const r = validatePack({
+      schemaVersion: 1,
+      id: 'p',
+      name: 'P',
+      version: '1',
+      decks: [
+        {
+          id: 'd',
+          name: 'D',
+          cards: [
+            {
+              id: 'c',
+              arcana: 'minor',
+              suit: 'cups',
+              name: 'x',
+              upright: 'a',
+              reversed: 'b',
+              tier: 'moment',
+            },
+          ],
+        },
+        {
+          id: 'd',
+          name: 'D2',
+          cards: [
+            {
+              id: 'k',
+              arcana: 'minor',
+              suit: 'cups',
+              rank: 'king',
+              name: 'K',
+              upright: 'a',
+              reversed: 'b',
+              tier: 'moment',
+            },
+          ],
+        },
+      ],
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      const msgs = r.errors.map((e) => `${e.path}: ${e.message}`);
+      expect(msgs).toEqual(
+        expect.arrayContaining([
+          'decks[0].cards[0].rank: minor cards need a rank',
+          'decks[1].cards[0].tier: tier should be "character"',
+        ]),
+      );
+    }
+    const dup = validatePack({
+      schemaVersion: 1,
+      id: 'p',
+      name: 'P',
+      version: '1',
+      decks: [
+        {
+          id: 'd',
+          name: 'D',
+          cards: [
+            { id: 'm', arcana: 'major', name: 'M', upright: 'a', reversed: 'b', tier: 'grand' },
+          ],
+        },
+        {
+          id: 'd',
+          name: 'E',
+          cards: [
+            { id: 'm', arcana: 'major', name: 'M', upright: 'a', reversed: 'b', tier: 'grand' },
+          ],
+        },
+      ],
+    });
+    expect(!dup.ok && dup.errors).toEqual(
+      expect.arrayContaining([{ path: 'decks[1].id', message: 'duplicate deck id "d"' }]),
+    );
+  });
+
+  it('a top-level error has a readable path', () => {
+    const r = validatePack(42);
+    expect(!r.ok && r.errors[0]!.path).toBe('(pack)');
+  });
+});

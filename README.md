@@ -65,7 +65,9 @@ npm ci
 npm run dev          # Vite dev server
 npm run typecheck
 npm run lint         # ESLint, including module import boundaries
-npm test             # Vitest: engine unit, property, golden, persistence, store
+npm test             # Vitest: engine, property, golden, persistence, store, UI components
+npm run test:coverage # the same with coverage thresholds (CI)
+npm run test:mutation # Stryker mutation testing of the engine (slow)
 npm run build        # production build into dist/
 npm run e2e          # Playwright against `vite preview` (build first)
 ```
@@ -88,13 +90,15 @@ npx vitest run tests/golden.test.ts -u
 ```
 
 Architecture, conventions and the event contract are in [CLAUDE.md](CLAUDE.md) and
-[docs/events.md](docs/events.md).
+[docs/events.md](docs/events.md). The test suite is described in [docs/testing.md](docs/testing.md).
 
 ## Deploying
 
 The app is static files on GitHub Pages, built and deployed by
 [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) on every push to `main` (and on
 manual dispatch). Pull requests run the same build, test and e2e job without deploying.
+[`.github/workflows/nightly.yml`](.github/workflows/nightly.yml) runs long random property tests
+and mutation testing every night.
 
 One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 

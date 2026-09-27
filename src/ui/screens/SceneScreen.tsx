@@ -27,11 +27,15 @@ function useTimer() {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, [start]);
-  const secs = start === undefined ? 0 : Math.floor((now - start) / 1000);
+  const secs = start === undefined ? 0 : Math.max(0, Math.floor((now - start) / 1000));
   return {
     running: start !== undefined,
     secs,
-    toggle: () => setStart((s) => (s === undefined ? Date.now() : undefined)),
+    toggle: () => {
+      const t = Date.now();
+      setNow(t);
+      setStart((s) => (s === undefined ? t : undefined));
+    },
   };
 }
 

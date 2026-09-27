@@ -102,14 +102,6 @@ export function orderKeyFor(g: Game, kind: EntryKind, p: Placement): string {
   return generateKeyBetween(before, after);
 }
 
-/** The Placement an existing entry occupies (index among its siblings). */
-export function placementOf(g: Game, entry: Entry): Placement {
-  const parentId =
-    entry.kind === 'period' ? null : entry.kind === 'event' ? entry.periodId : entry.eventId;
-  const idx = siblings(g, entry.kind, parentId).findIndex((e) => e.id === entry.id);
-  return { parentId, index: idx };
-}
-
 export function describePlacement(g: Game, kind: EntryKind, p: Placement): string {
   if (kind === 'period') {
     const ps = periods(g);

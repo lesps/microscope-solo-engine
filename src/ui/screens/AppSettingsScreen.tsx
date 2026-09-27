@@ -4,9 +4,9 @@ import { useApp, useAppStore } from '../StoreContext';
 const fmt = (n?: number) =>
   n === undefined
     ? '?'
-    : n > 1e9
+    : n >= 1e9
       ? `${(n / 1e9).toFixed(1)} GB`
-      : n > 1e6
+      : n >= 1e6
         ? `${(n / 1e6).toFixed(1)} MB`
         : `${Math.round(n / 1e3)} KB`;
 

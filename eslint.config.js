@@ -28,7 +28,18 @@ const noBrowser = {
 };
 
 export default tseslint.config(
-  { ignores: ['dist', 'dev-dist', 'node_modules', 'playwright-report', 'test-results'] },
+  {
+    ignores: [
+      'dist',
+      'dev-dist',
+      'node_modules',
+      'playwright-report',
+      'test-results',
+      'coverage',
+      'reports',
+      '.stryker-tmp',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
