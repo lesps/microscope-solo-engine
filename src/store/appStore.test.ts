@@ -149,6 +149,12 @@ describe('app store', () => {
     const r = await other.getState().importBundle(JSON.parse(JSON.stringify(bundle)));
     expect(r.imported).toHaveLength(1);
     expect(other.getState().games).toHaveLength(1);
+    const again = await other.getState().importBundle(JSON.parse(JSON.stringify(bundle)));
+    expect(again.imported).toHaveLength(0);
+    expect(again.existing?.games).toHaveLength(1);
+    const copies = await other.getState().importBundle(again.existing, { asCopy: true });
+    expect(copies.imported).toHaveLength(1);
+    expect(other.getState().games).toHaveLength(2);
   });
 
   it('rejects a corrupted game file with reasons', async () => {

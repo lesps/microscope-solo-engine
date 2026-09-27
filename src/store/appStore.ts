@@ -94,7 +94,11 @@ export interface AppState {
   importBundle(
     input: unknown,
     opts?: { asCopy?: boolean },
-  ): Promise<{ imported: string[]; failed: { title: string; errors: string[] }[] }>;
+  ): Promise<{
+    imported: string[];
+    failed: { title: string; errors: string[] }[];
+    existing?: Bundle;
+  }>;
   duplicateGame(id: string): Promise<string>;
   removeGame(id: string): Promise<void>;
   isBackupDue(meta: GameMeta): boolean;
@@ -150,6 +154,12 @@ export function createAppStore(deps: AppDeps) {
         packs = packs.map((p) => (p.id === STARTER_PACK.id ? { ...p, pack: STARTER_PACK } : p));
       }
       set({ packs, content: enabledContent(packs) });
+    };
+
+    const freshGameId = async () => {
+      let id = newId();
+      while (await db.games.get(id)) id = newId();
+      return id;
     };
 
     const saveImport = async (events: GameEvent[], state: Game) => {
@@ -311,7 +321,7 @@ export function createAppStore(deps: AppDeps) {
           };
         }
         if (opts.asCopy) {
-          events = rewriteGameId(events, newId());
+          events = rewriteGameId(events, await freshGameId());
           state = replay(events);
         }
         await saveImport(events, state);
@@ -327,20 +337,28 @@ export function createAppStore(deps: AppDeps) {
           };
         const imported: string[] = [];
         const failed: { title: string; errors: string[] }[] = [];
+        const existing: unknown[] = [];
         for (const g of b.data.games) {
           const r = await get().importGameFile(g, opts);
           if (r.ok) imported.push(r.id);
+          else if (r.exists) existing.push(g);
           else
             failed.push({
               title: (g as { title?: string })?.title ?? '(untitled)',
               errors: r.errors,
             });
         }
-        return { imported, failed };
+        // Games whose ids already exist come back as a bundle the caller can re-import as copies.
+        if (!existing.length) return { imported, failed };
+        return {
+          imported,
+          failed,
+          existing: { ...(b.data as Bundle), games: existing as GameFile[] },
+        };
       },
 
       async duplicateGame(id) {
-        const events = rewriteGameId(await loadEvents(db, id), newId());
+        const events = rewriteGameId(await loadEvents(db, id), await freshGameId());
         const state = replay(events);
         await saveImport(events, state);
         return state.id;

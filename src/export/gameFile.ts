@@ -1,42 +1,15 @@
 import { z } from 'zod';
-import { SCHEMA_VERSION, checkInvariants, replay, type Game, type GameEvent } from '../engine';
+import {
+  EVENT_TYPES,
+  SCHEMA_VERSION,
+  checkInvariants,
+  replay,
+  type Game,
+  type GameEvent,
+} from '../engine';
 
 export const GAME_FILE_FORMAT = 'solo-microscope/game';
 export const BUNDLE_FORMAT = 'solo-microscope/bundle';
-
-const EVENT_TYPES = [
-  'GameCreated',
-  'BigPictureSet',
-  'SubjectSet',
-  'BookendsSet',
-  'PaletteItemAdded',
-  'PaletteItemRemoved',
-  'SeatsConfigured',
-  'DialsSet',
-  'SettingsChanged',
-  'RoundStarted',
-  'FocusSet',
-  'TurnStarted',
-  'EntryCreated',
-  'EntryProseEdited',
-  'CharacterCreated',
-  'SceneFramed',
-  'ReversalPlaced',
-  'SceneResolved',
-  'TurnCommitted',
-  'LegacyAdded',
-  'LegacyRemoved',
-  'LegacyExplored',
-  'DialsAdjusted',
-  'RoundEnded',
-  'RollMade',
-  'CardDrawn',
-  'DeckReshuffled',
-  'OracleAsked',
-  'OverrideUsed',
-  'ProseRevised',
-  'Retconned',
-] as const;
 
 const eventSchema = z.object({
   id: z.string().min(1),

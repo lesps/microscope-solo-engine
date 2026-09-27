@@ -16,8 +16,13 @@ export default function LibraryScreen() {
     const fmt = (data as { format?: string })?.format;
     if (fmt === 'solo-microscope/bundle') {
       const r = await store.getState().importBundle(data, { asCopy });
+      setPendingCopy(r.existing);
       setMessage(
-        `Imported ${r.imported.length} game(s).${r.failed.length ? ` Failed: ${r.failed.map((f) => `${f.title} (${f.errors[0]})`).join('; ')}` : ''}`,
+        `Imported ${r.imported.length} game(s).` +
+          (r.existing ? ` ${r.existing.games.length} already exist.` : '') +
+          (r.failed.length
+            ? ` Failed: ${r.failed.map((f) => `${f.title} (${f.errors[0]})`).join('; ')}`
+            : ''),
       );
       return;
     }

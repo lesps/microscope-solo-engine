@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import malformed from '../../tests/fixtures/packs/malformed.json';
 import { STARTER_PACK, buildContent, collisions, validatePack } from '.';
@@ -70,5 +72,15 @@ describe('content packs', () => {
     expect(collisions({ ...STARTER_PACK, id: 'copy' }, [STARTER_PACK])).toContain(
       'starter.domains',
     );
+  });
+
+  it('the worked example in docs/content-packs.md validates', () => {
+    const doc = fs.readFileSync(
+      path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../docs/content-packs.md'),
+      'utf8',
+    );
+    const json = doc.split('## Worked example')[1]!.match(/```json\n([\s\S]*?)```/)![1]!;
+    const r = validatePack(JSON.parse(json));
+    expect(r.ok ? [] : r.errors).toEqual([]);
   });
 });

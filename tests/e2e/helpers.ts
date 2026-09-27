@@ -1,6 +1,10 @@
 import { expect, type Page } from '@playwright/test';
 
-export async function newGame(page: Page, title: string, opts: { backupRounds?: number } = {}) {
+export async function newGame(
+  page: Page,
+  title: string,
+  opts: { backupRounds?: number; phantomName?: string } = {},
+) {
   await page.goto('./');
   if (opts.backupRounds) {
     await page.getByRole('link', { name: 'Storage', exact: true }).click();
@@ -31,11 +35,18 @@ export async function newGame(page: Page, title: string, opts: { backupRounds?: 
   await expect(page.getByText('All rolled items placed.')).toBeVisible();
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
 
+  if (opts.phantomName) {
+    await page.getByLabel('Name').nth(1).fill(opts.phantomName);
+    await page.getByRole('button', { name: 'Save seats' }).click();
+    await expect(page.getByText('Saved.')).toBeVisible();
+  }
   await page.getByRole('button', { name: 'Continue to the First Pass' }).click();
 
   await page.getByLabel(/^Title/).fill('The canal years');
   await page.getByRole('button', { name: 'Add First Pass entry' }).click();
-  await expect(page.getByRole('heading', { name: /First Pass — The Stranger/ })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: `First Pass — ${opts.phantomName ?? 'The Stranger'}` }),
+  ).toBeVisible();
   await page.getByLabel('Event').check();
   await page.getByLabel(/^Title/).fill('The first bridge is built');
   await page.getByRole('button', { name: 'Add First Pass entry' }).click();

@@ -360,6 +360,8 @@ const handlers: Handlers = {
   },
 };
 
+export const HANDLED_EVENT_TYPES = Object.keys(handlers);
+
 export function apply(state: Game, event: GameEvent): Game {
   const g = clone(state);
   (handlers[event.type] as Handler<typeof event.type>)(g, event.payload as never, event as never);

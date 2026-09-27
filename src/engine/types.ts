@@ -374,6 +374,44 @@ export interface EventPayloads {
 
 export type EventType = keyof EventPayloads;
 
+export const EVENT_TYPES = [
+  'GameCreated',
+  'BigPictureSet',
+  'SubjectSet',
+  'BookendsSet',
+  'PaletteItemAdded',
+  'PaletteItemRemoved',
+  'SeatsConfigured',
+  'DialsSet',
+  'SettingsChanged',
+  'RoundStarted',
+  'FocusSet',
+  'TurnStarted',
+  'EntryCreated',
+  'EntryProseEdited',
+  'CharacterCreated',
+  'SceneFramed',
+  'ReversalPlaced',
+  'SceneResolved',
+  'TurnCommitted',
+  'LegacyAdded',
+  'LegacyRemoved',
+  'LegacyExplored',
+  'DialsAdjusted',
+  'RoundEnded',
+  'RollMade',
+  'CardDrawn',
+  'DeckReshuffled',
+  'OracleAsked',
+  'OverrideUsed',
+  'ProseRevised',
+  'Retconned',
+] as const satisfies readonly EventType[];
+
+// Compile-time check that EVENT_TYPES lists every event type.
+type _AllListed = Exclude<EventType, (typeof EVENT_TYPES)[number]> extends never ? true : never;
+export const _allEventTypesListed: _AllListed = true;
+
 export interface EventDraft<T extends EventType = EventType> {
   type: T;
   payload: EventPayloads[T];
