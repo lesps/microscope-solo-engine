@@ -1,0 +1,7 @@
+dist
+node_modules
+playwright-report
+test-results
+tests/fixtures/*.json
+tests/__snapshots__
+tests/fixtures/**/*.json
