@@ -60,7 +60,9 @@ FC_SEED=123456 npx vitest run src/engine/__tests__/invariants.property.test.ts
 
 Coverage floors in `vitest.config.ts` fail `npm run test:coverage`: 98% statements and lines, 95%
 functions, 90% branches overall; the engine is held to 99% lines, 100% functions, 93% branches.
-The Stryker `break` threshold in `stryker.config.json` fails the nightly mutation job.
+The Stryker `break` threshold in `stryker.config.json` (72%) fails the nightly mutation job. It
+is set just under the measured baseline (73.4% on 2026-09-27); raise it as survivors are killed,
+never lower it to get green.
 
 ## Writing tests
 
