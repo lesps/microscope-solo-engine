@@ -1,12 +1,6 @@
 import { useCallback } from 'react';
 import type { Command, Rejection } from '../../engine';
-import { useApp, useAppStore } from '../StoreContext';
-
-export function useGame() {
-  const cur = useApp((s) => s.current);
-  if (!cur) throw new Error('no game open');
-  return cur;
-}
+import { useAppStore } from '../StoreContext';
 
 export function useDispatch() {
   const store = useAppStore();

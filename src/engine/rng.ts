@@ -21,10 +21,6 @@ export function seedToState(seed: string): RngState {
   return s;
 }
 
-export function nextUint32(s: RngState): [number, RngState] {
-  return step(s);
-}
-
 /** Unbiased 1..sides via rejection sampling. */
 export function rollDie(s: RngState, sides: number): [number, RngState] {
   if (!Number.isInteger(sides) || sides < 1) throw new Error(`invalid die d${sides}`);

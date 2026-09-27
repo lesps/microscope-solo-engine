@@ -1,0 +1,53 @@
+name: Nightly deep tests
+
+# Slow checks that don't gate pull requests: long property runs on fresh random seeds, and
+# mutation testing of the rules engine. Failures here are real bugs or test gaps; fast-check
+# prints the failing seed (replay with FC_SEED=<seed>) and Stryker uploads its report.
+
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: fast-check runs per property
+        default: '2000'
+
+permissions:
+  contents: read
+
+jobs:
+  properties:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Long property runs on random seeds
+        env:
+          FC_RUNS: ${{ github.event.inputs.runs || '2000' }}
+          FC_RANDOM: '1'
+        run: npx vitest run --project node src/engine/__tests__/invariants.property.test.ts src/export/import.property.test.ts
+
+  mutation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Mutation testing of src/engine
+        run: npm run test:mutation
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mutation-report
+          path: reports/mutation/
+          retention-days: 30

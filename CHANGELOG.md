@@ -6,6 +6,37 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Component and screen tests (Vitest + jsdom + Testing Library) for every UI component, hook and
+  screen, driving a real store on fake-indexeddb.
+- Tests proving the invariant checker detects each kind of violation; soft Lens check tests;
+  Chronicle, retcon, export, storage-API, migration and store error-path tests.
+- Import robustness properties: arbitrary JSON and corrupted real logs never crash game-file or
+  pack import.
+- Coverage thresholds enforced in CI (98% lines overall, 99% for the engine); coverage report
+  uploaded as an artifact; Prettier check in CI.
+- Nightly workflow: 2000-run property tests on random seeds and Stryker mutation testing of the
+  engine. `FC_RUNS`, `FC_RANDOM` and `FC_SEED` control property runs.
+- `docs/testing.md`.
+- Tests for gaps found by mutation testing: three-seat Lens and turn rotation, drift arithmetic,
+  exact placement-bias weights, zero-weight options never rolled, ranged tables without a die,
+  oracle call sequence numbers, Chaos dial start.
+- Stryker type-checks mutants and ignores rejection-message wording (`stryker-plugins.mjs`);
+  runs are incremental locally.
+
+### Fixed
+
+- Game-file import now validates every event payload (`src/export/eventSchemas.ts`). Previously
+  about 30% of events with a corrupted payload were accepted, leaving a game that could crash on
+  the next roll.
+- The Scene editor's drafting timer briefly showed negative time when started.
+- Storage usage of exactly 1 GB (or 1 MB) displayed in the smaller unit.
+
+### Removed
+
+- Unused `nextUint32`, `placementOf` and `useGame`.
+
 ## [0.1.0] - 2026-09-27
 
 First implementation of the Solo Microscope spec, milestones 1–9.

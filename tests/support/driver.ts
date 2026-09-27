@@ -54,3 +54,4 @@ export class Driver {
     return events.map((e) => e.type);
   }
 }
+export { testContent } from './content';

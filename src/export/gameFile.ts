@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { payloadSchemas } from './eventSchemas';
 import {
   EVENT_TYPES,
   SCHEMA_VERSION,
@@ -44,6 +45,16 @@ export const gameFileSchema = z
           path: ['events', i, 'seq'],
           message: `expected seq ${i + 1}`,
         });
+      const payload = payloadSchemas[e.type].safeParse(e.payload);
+      if (!payload.success) {
+        for (const issue of payload.error.issues.slice(0, 3)) {
+          ctx.addIssue({
+            code: 'custom',
+            path: ['events', i, 'payload', ...issue.path],
+            message: issue.message,
+          });
+        }
+      }
       if (e.gameId !== f.gameId)
         ctx.addIssue({
           code: 'custom',

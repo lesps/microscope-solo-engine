@@ -88,7 +88,7 @@ function extra(d: Driver, k: number): Command | 'undo' | undefined {
 }
 
 describe('property: invariants hold and replay is deterministic', () => {
-  it('for random settings, seats and command sequences', () => {
+  it('for random settings, seats and command sequences', { timeout: 600_000 }, () => {
     fc.assert(
       fc.property(
         settingsArb,
@@ -133,7 +133,16 @@ describe('property: invariants hold and replay is deterministic', () => {
           expect(replay(d.events)).toEqual(d.state);
         },
       ),
-      { numRuns: 150, seed: 20260927 },
+      // PRs run a fixed seed; the nightly job sets FC_RUNS higher and FC_RANDOM=1 to explore new inputs.
+      // fast-check prints the seed and path of any failure so it can be replayed with FC_SEED.
+      {
+        numRuns: Number(process.env.FC_RUNS ?? 150),
+        seed: process.env.FC_SEED
+          ? Number(process.env.FC_SEED)
+          : process.env.FC_RANDOM
+            ? undefined
+            : 20260927,
+      },
     );
   });
 });

@@ -206,7 +206,8 @@ export function validatePack(input: unknown): PackValidation {
   };
 }
 
-// Compile-time check that schema output fits the engine's content types.
-export const _tableFits = (t: z.infer<typeof tableSchema>): Table => t;
-export const _cardFits = (c: z.infer<typeof cardSchema>): Card => c as Card;
-export const _deckFits = (d: z.infer<typeof deckSchema>): Deck => d as Deck;
+// Compile-time checks that schema output fits the engine's content types.
+type Assert<T extends true> = T;
+export type _TableFits = Assert<z.infer<typeof tableSchema> extends Table ? true : false>;
+export type _CardFits = Assert<z.infer<typeof cardSchema> extends Card ? true : false>;
+export type _DeckFits = Assert<z.infer<typeof deckSchema> extends Deck ? true : false>;
