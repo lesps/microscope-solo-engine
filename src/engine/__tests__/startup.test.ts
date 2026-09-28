@@ -430,3 +430,27 @@ describe('CreateGame and replay', () => {
     expect(d.state.startup).toBeUndefined();
   });
 });
+
+describe('fillTemplate', () => {
+  it('fills multi-character placeholders and leaves other text alone', async () => {
+    const { fillTemplate } = await import('..');
+    const parts = [
+      { id: 'trend', text: 'the hoarding of' },
+      { id: 'a', text: 'salt' },
+      { id: 'impact', text: 'starves' },
+      { id: 'b', text: 'the old dynasty' },
+    ];
+    expect(fillTemplate('{trend} {a} {impact} {b}.', parts)).toBe(
+      'the hoarding of salt starves the old dynasty.',
+    );
+    expect(fillTemplate('{trend} {a} {impact} {b}', parts, ['a', 'b'])).toBe(
+      'the hoarding of the old dynasty starves salt',
+    );
+  });
+
+  it('a placeholder or swap part with no rolled text becomes empty', async () => {
+    const { fillTemplate } = await import('..');
+    expect(fillTemplate('[{missing}]', [{ id: 'x', text: 'X' }])).toBe('[]');
+    expect(fillTemplate('{x}|{ghost}', [{ id: 'x', text: 'X' }], ['x', 'ghost'])).toBe('|X');
+  });
+});
