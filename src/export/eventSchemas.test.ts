@@ -8,6 +8,30 @@ import { payloadSchemas } from './eventSchemas';
 /** Plays games that together emit every event type the engine has. */
 function everyEvent(): GameEvent[] {
   const all: GameEvent[] = [];
+  // Startup events happen before the Bookends, so they get a game of their own.
+  const pre = new Driver();
+  pre.run({
+    type: 'CreateGame',
+    id: 'pre',
+    title: 'T',
+    ruleset: 'lens',
+    seed: '00112233445566778899aabbccddeeff',
+  });
+  pre.run({
+    type: 'ChangeSettings',
+    settings: withModes({ 'seed.answers': 'prompt' })(pre.state.settings),
+  });
+  pre.run({ type: 'RollSeedAnswer', seedId: 'seed-lens', questionId: 'q1' });
+  pre.run({
+    type: 'ApplySeed',
+    seedId: 'seed-lens',
+    answers: { q1: { optionIds: ['a'] }, q2: { optionIds: ['x', 'y'] }, q3: { custom: 'mine' } },
+    start: { optionId: 's1' },
+    end: { custom: { text: 'An ending.' } },
+  });
+  pre.run({ type: 'RollGenerator', generatorId: 'gen' });
+  pre.run({ type: 'AcceptGeneratorReading', swapped: true });
+  all.push(...pre.events);
   for (const ruleset of ['lens', 'chronicle'] as const) {
     const d = new Driver();
     setupGame(d, {

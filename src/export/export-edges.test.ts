@@ -12,6 +12,7 @@ import {
   toGameFile,
   toneMark,
 } from '.';
+import { migrateEvents } from '../../tests/support/migrate';
 
 const fixture = JSON.parse(
   fs.readFileSync(
@@ -25,11 +26,11 @@ const fixture = JSON.parse(
 
 describe('game file parsing', () => {
   it('rejects wrong format, seq gaps and foreign events with paths', () => {
-    expect(parseGameFile({ format: 'nope' }).ok).toBe(false);
+    expect(parseGameFile({ format: 'nope' }, migrateEvents).ok).toBe(false);
     const bad = structuredClone(fixture);
     bad.events[3].seq = 99;
     bad.events[4].gameId = 'other';
-    const r = parseGameFile(bad);
+    const r = parseGameFile(bad, migrateEvents);
     expect(r.ok).toBe(false);
     if (!r.ok) {
       expect(r.errors).toEqual(
@@ -64,7 +65,7 @@ describe('game file parsing', () => {
     };
     f.events.push({ ...drawn, seq: f.events.length + 1, batch: f.events.length + 1 });
     f.events.push({ ...drawn, seq: f.events.length + 1, batch: f.events.length + 1 });
-    const r = parseGameFile(f);
+    const r = parseGameFile(f, migrateEvents);
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.errors[0]).toMatch(/drawn twice/);
   });
@@ -142,7 +143,7 @@ describe('manuscript branches', () => {
     setupGame(d);
     expect(toGameFile(d.state, d.events, 'now')).toMatchObject({
       format: 'solo-microscope/game',
-      schemaVersion: 1,
+      schemaVersion: 2,
       gameId: 'game1',
       exportedAt: 'now',
     });

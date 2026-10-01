@@ -181,6 +181,8 @@ export function setupGame(
     ruleset?: 'lens' | 'chronicle';
     settings?: (s: Settings) => Settings;
     phantoms?: number;
+    /** Runs after the settings and seats are configured, before the premise and Bookends. */
+    beforeBookends?: (d: Driver) => void;
   } = {},
 ) {
   const ruleset = opts.ruleset ?? 'lens';
@@ -206,6 +208,7 @@ export function setupGame(
     ];
     d.run({ type: 'ConfigureSeats', seats });
   }
+  opts.beforeBookends?.(d);
   if (ruleset === 'chronicle') {
     d.run({
       type: 'SetSubject',

@@ -65,7 +65,7 @@ describe('app store', () => {
   it('installs the starter pack and requests persistence once', async () => {
     const { store, db } = makeStore();
     await store.getState().init();
-    expect(store.getState().packs.map((p) => p.id)).toEqual(['starter']);
+    expect(store.getState().packs.map((p) => p.id)).toEqual(['starter', 'startup-sample']);
     expect(store.getState().storage.status).toBe('best-effort');
     expect((await db.meta.get('persist.requested'))?.value).toBe('best-effort');
   });

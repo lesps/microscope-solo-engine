@@ -1,6 +1,6 @@
 {
  "id": "game1",
- "schemaVersion": 1,
+ "schemaVersion": 2,
  "title": "Test history",
  "ruleset": "chronicle",
  "seed": "00112233445566778899aabbccddeeff",
@@ -45,7 +45,8 @@
    "palette.roll": "prompt",
    "legacy.evict": "off",
    "legacy.explore": "prompt",
-   "scene.reversal": "prompt"
+   "scene.reversal": "prompt",
+   "seed.answers": "off"
   },
   "drift": "counter-trend",
   "chaos": false,

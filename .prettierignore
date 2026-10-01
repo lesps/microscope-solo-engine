@@ -5,3 +5,4 @@ test-results
 tests/fixtures/*.json
 tests/__snapshots__
 tests/fixtures/**/*.json
+src/content/packs/startup-sample/startup-sample.json

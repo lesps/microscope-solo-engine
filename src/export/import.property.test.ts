@@ -4,6 +4,7 @@ import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import { validatePack } from '../content';
 import { parseGameFile } from '.';
+import { migrateEvents } from '../../tests/support/migrate';
 
 const dir = path.join(path.dirname(new URL(import.meta.url).pathname), '../../tests/fixtures');
 const fixture = JSON.parse(fs.readFileSync(path.join(dir, 'lens-3-rounds.json'), 'utf8'));
@@ -13,7 +14,7 @@ describe('property: imports never crash', () => {
   it('parseGameFile returns a result, never throws, for arbitrary JSON', () => {
     fc.assert(
       fc.property(fc.jsonValue(), (v) => {
-        const r = parseGameFile(v);
+        const r = parseGameFile(v, migrateEvents);
         expect(typeof r.ok).toBe('boolean');
       }),
       { numRuns: runs },
@@ -38,7 +39,7 @@ describe('property: imports never crash', () => {
             [f.events[o.i], f.events[o.j]] = [f.events[o.j], f.events[o.i]];
           if (o.kind === 'mangle' && f.events[o.i]) f.events[o.i].payload = o.v;
         }
-        const r = parseGameFile(f);
+        const r = parseGameFile(f, migrateEvents);
         if (r.ok) expect(r.state.id).toBe(fixture.gameId);
         else expect(r.errors.length).toBeGreaterThan(0);
       }),
@@ -54,7 +55,7 @@ describe('property: imports never crash', () => {
         (i, v) => {
           const f = structuredClone(fixture);
           f.events[i].payload = v;
-          const r = parseGameFile(f);
+          const r = parseGameFile(f, migrateEvents);
           expect(r.ok).toBe(false);
           if (!r.ok) expect(r.errors.some((e) => e.startsWith(`events.${i}.payload`))).toBe(true);
         },

@@ -1,6 +1,17 @@
 import { useState } from 'react';
 import { currentRound, currentTraits, softWarnings, type Game } from '../../engine';
 import { useDispatch } from '../hooks/useGame';
+import { StartupNotes } from './StartupPicker';
+
+function PremiseNotes({ g }: { g: Game }) {
+  if (!g.startup) return null;
+  return (
+    <details style={{ marginTop: '0.4em' }}>
+      <summary className="hint">Premise notes</summary>
+      <StartupNotes startup={g.startup} />
+    </details>
+  );
+}
 
 function Premise({ g }: { g: Game }) {
   if (g.ruleset === 'chronicle' && g.subject) {
@@ -10,6 +21,7 @@ function Premise({ g }: { g: Game }) {
         <p style={{ margin: 0 }}>
           <strong>{g.subject.name}</strong> — {g.subject.description}
         </p>
+        <PremiseNotes g={g} />
         <div className="row" style={{ marginTop: '0.3em' }}>
           {currentTraits(g).map((t) => (
             <span key={t} className="badge">
@@ -24,6 +36,7 @@ function Premise({ g }: { g: Game }) {
     <section aria-label="Big Picture">
       <h3>Big Picture</h3>
       <p style={{ margin: 0, fontFamily: 'var(--font)' }}>{g.bigPicture}</p>
+      <PremiseNotes g={g} />
     </section>
   );
 }

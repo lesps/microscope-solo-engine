@@ -15,7 +15,8 @@ npm run test:coverage    # same with coverage thresholds — what CI runs
 npm run test:mutation    # Stryker on src/engine (slow; nightly in CI)
 npm run e2e              # playwright against vite preview; run `npm run build` first
 BASE_PATH=/microscope-solo-engine/ npm run build && BASE_PATH=/microscope-solo-engine/ npm run e2e
-UPDATE_FIXTURES=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # re-record fixtures
+UPDATE_FIXTURES=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # re-record the schema-1 fixtures
+UPDATE_SEED_FIXTURE=1 npx vitest run tests/fixtures/make-fixtures.test.ts  # re-record lens-seed-start
 npx vitest run tests/golden.test.ts -u                                   # accept golden changes
 ```
 
@@ -28,7 +29,9 @@ engine  ←  content  ←  export / persistence  ←  store  ←  ui
 - `src/engine/` — pure TypeScript rules engine: types, rng, reducer, commands, placement, oracle,
   dials, chronicle, lint, undo, invariants. No DOM, storage, React, Dexie or Zustand; no `window`,
   `crypto`, `fetch` globals. Ids, time and content are injected through `Env`.
-- `src/content/` — zod pack schema and the starter pack.
+- `src/content/` — zod pack schema (version 2: tables, decks, groups, seeds, generators) and
+  `BUNDLED_PACKS` (the starter pack and the startup sample), which the store installs and refreshes
+  on every load; bundled packs can be disabled but not removed.
 - `src/export/` — game file / bundle (zod), Markdown manuscripts. Pure functions of state or log.
 - `src/persistence/` — Dexie (`solo-microscope` DB): games, events, snapshots, packs, meta;
   migrations; storage persistence API.
@@ -54,7 +57,13 @@ has `no-restricted-globals`.
   `ProseRevised`.
 - A new event type needs: payload in `EventPayloads`, entry in `EVENT_TYPES`, a reducer handler, a
   reducer test and a section in `docs/events.md` (the contract test checks the last two).
-- Game files carry `schemaVersion`; migrations live in `src/persistence/migrations`.
+- Game files carry `schemaVersion` (currently 2); migrations live in `src/persistence/migrations`.
+  Stored logs are migrated and rewritten when a game loads (`loadGame`); imported files are
+  migrated before payload validation (`parseGameFile` takes the migrate function). Schema 1 → 2
+  adds the `seed.answers` mode, off.
+- Startup commands (`RollSeedAnswer`, `ApplySeed`, `RollGenerator`, `AcceptGeneratorReading`) are
+  valid only before the Bookends exist. Their events carry resolved text, never content ids to
+  look up, so replay stays content-free.
 
 ## Mechanic-mode pattern
 

@@ -20,6 +20,9 @@ async function createViaUi(
   if (opts.preset) await user.selectOptions(screen.getByLabelText('Preset'), opts.preset);
   await user.click(screen.getByRole('button', { name: 'Create and set up' }));
   await screen.findByRole('list', { name: 'Setup steps' });
+  // Lens games open on the Start step (the bundled startup sample has Lens content).
+  const blank = screen.queryByRole('button', { name: /Start blank/ });
+  if (blank) await user.click(blank);
 }
 
 describe('New game screen', () => {
@@ -45,12 +48,12 @@ describe('Setup wizard (Lens)', () => {
     await createViaUi(user, store);
     const current = () =>
       screen.getByRole('list', { name: 'Setup steps' }).querySelector('[aria-current="step"]');
-    expect(current()).toHaveTextContent('1. Premise');
-    expect(screen.getByRole('button', { name: '3. Palette' })).toBeDisabled();
+    expect(current()).toHaveTextContent('2. Premise');
+    expect(screen.getByRole('button', { name: '4. Palette' })).toBeDisabled();
 
     await user.type(screen.getByLabelText(/^Big Picture/), 'A river city rises and drowns.');
     await user.click(screen.getByRole('button', { name: 'Set Big Picture' }));
-    await waitFor(() => expect(current()).toHaveTextContent('2. Bookends'));
+    await waitFor(() => expect(current()).toHaveTextContent('3. Bookends'));
 
     await user.type(screen.getByLabelText('First Period title'), 'Founding');
     await user.type(screen.getByLabelText('First Period description'), 'Mud and reeds.');
@@ -59,7 +62,7 @@ describe('Setup wizard (Lens)', () => {
     expect(within(lastTone).getByLabelText('● Dark')).toBeChecked();
     await user.click(within(lastTone).getByLabelText('○ Light'));
     await user.click(screen.getByRole('button', { name: 'Set Bookends' }));
-    await waitFor(() => expect(current()).toHaveTextContent('3. Palette'));
+    await waitFor(() => expect(current()).toHaveTextContent('4. Palette'));
     expect(state(store).entries).toSatisfy((es: object) =>
       Object.values(es).some((e) => e.title === 'Drowning' && e.tone === 'light'),
     );
@@ -84,9 +87,9 @@ describe('Setup wizard (Lens)', () => {
     ).toHaveLength(3);
     await user.click(screen.getByRole('button', { name: 'Continue' }));
 
-    expect(current()).toHaveTextContent('4. Seats');
+    expect(current()).toHaveTextContent('5. Seats');
     await user.click(screen.getByRole('button', { name: 'Continue to the First Pass' }));
-    expect(current()).toHaveTextContent('5. First Pass');
+    expect(current()).toHaveTextContent('6. First Pass');
     expect(screen.getByRole('heading', { name: 'First Pass — You' })).toBeInTheDocument();
     await user.type(screen.getByLabelText(/^Title/), 'Canals');
     await user.click(screen.getByRole('button', { name: 'Add First Pass entry' }));
@@ -99,12 +102,14 @@ describe('Setup wizard (Lens)', () => {
     await user.type(screen.getByLabelText(/^Title/), 'First bridge');
     await user.click(screen.getByRole('radio', { name: '● Dark' }));
     await user.click(screen.getByRole('button', { name: 'Add First Pass entry' }));
-    await waitFor(() => expect(current()).toHaveTextContent('6. Dials'));
+    await waitFor(() => expect(current()).toHaveTextContent('7. Dials'));
 
     // Going back to a finished step is allowed.
-    await user.click(screen.getByRole('button', { name: '1. Premise' }));
-    expect(current()).toHaveTextContent('1. Premise');
-    await user.click(screen.getByRole('button', { name: '6. Dials' }));
+    await user.click(screen.getByRole('button', { name: '2. Premise' }));
+    expect(current()).toHaveTextContent('2. Premise');
+    // Start stays revisitable until the Bookends exist, so it is disabled now.
+    expect(screen.getByRole('button', { name: '1. Start' })).toBeDisabled();
+    await user.click(screen.getByRole('button', { name: '7. Dials' }));
 
     expect(screen.queryByText(/^Chaos/)).not.toBeInTheDocument();
     const [mood] = screen.getAllByRole('slider');

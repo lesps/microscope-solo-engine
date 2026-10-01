@@ -14,6 +14,7 @@ import {
   type Game,
   type GameEvent,
   type Placement,
+  type Startup,
   type Tone,
 } from '../engine';
 
@@ -46,6 +47,15 @@ export function statsFooter(g: Game): string {
   ].join('\n');
 }
 
+/** The seed or generator a game started from, printed after the premise. */
+export function startupBlock(startup: Startup | undefined): string {
+  if (!startup) return '';
+  const from = `**Started from:** ${startup.kind === 'seed' ? startup.title : startup.name} *(${startup.packName})*`;
+  if (startup.kind === 'generator') return `${from} — “${startup.reading}”\n\n`;
+  const notes = startup.notes.map((n) => `- ${n.question} — ${n.answers.join(' · ')}`).join('\n');
+  return notes ? `${from}\n\n${notes}\n\n` : `${from}\n\n`;
+}
+
 function premise(g: Game): string {
   if (g.ruleset === 'chronicle' && g.subject) {
     return `**Subject:** ${g.subject.name} — ${g.subject.description}\n\n**Traits at the start:** ${g.subject.traits.join(', ')}\n\n`;
@@ -75,7 +85,7 @@ function sceneBody(
 
 /** Big Picture, Palette, then Periods in timeline order with Events and Scenes nested. Latest prose. */
 export function chronologicalManuscript(g: Game): string {
-  let out = `# ${g.title}\n\n${premise(g)}${palette(g)}`;
+  let out = `# ${g.title}\n\n${premise(g)}${startupBlock(g.startup)}${palette(g)}`;
   for (const p of periods(g)) {
     out += `## ${toneMark(p.tone)} ${p.title}\n\n`;
     if (g.ruleset === 'chronicle') {
@@ -175,6 +185,10 @@ export function playOrderManuscript(
         break;
       case 'BigPictureSet':
         out += `**Big Picture:** ${ev.payload.text}\n\n`;
+        break;
+      case 'SeedApplied':
+      case 'GeneratorReadingAccepted':
+        block(startupBlock(ev.payload.startup));
         break;
       case 'SubjectSet':
         out += `**Subject:** ${ev.payload.subject.name} — ${ev.payload.subject.description} (${ev.payload.subject.traits.join(', ')})\n\n`;

@@ -6,6 +6,7 @@ import {
   slotKey,
   type AnchorInput,
   type Game,
+  type StartupBookend,
   type Tone,
   type TraitChange,
 } from '../../engine';
@@ -13,6 +14,7 @@ import { useApp } from '../StoreContext';
 import { CharCount } from '../components/common';
 import { RollList } from '../components/RollList';
 import { SeatsEditor } from '../components/SeatsEditor';
+import { StartupNotes, StartupPicker, hasStartupContent } from '../components/StartupPicker';
 import { useDispatch } from '../hooks/useGame';
 import { useOpenGame } from '../hooks/useOpenGame';
 import { navigate } from '../router';
@@ -24,25 +26,51 @@ export default function SetupScreen({ gameId }: { gameId: string }) {
   return <Wizard />;
 }
 
-const STEPS = ['Premise', 'Bookends', 'Palette', 'Seats', 'First Pass', 'Dials'] as const;
+type StepKey = 'start' | 'premise' | 'bookends' | 'palette' | 'seats' | 'firstPass' | 'dials';
+const LABELS: Record<StepKey, string> = {
+  start: 'Start',
+  premise: 'Premise',
+  bookends: 'Bookends',
+  palette: 'Palette',
+  seats: 'Seats',
+  firstPass: 'First Pass',
+  dials: 'Dials',
+};
 
-function firstIncomplete(g: Game, visited: Set<number>): number {
-  if (g.ruleset === 'chronicle' ? !g.subject : !g.bigPicture) return 0;
-  if (periods(g).length < 2) return 1;
+function firstIncomplete(g: Game, visited: Set<StepKey>, startup: boolean): StepKey {
+  const premiseSet = g.ruleset === 'chronicle' ? !!g.subject : !!g.bigPicture;
+  if (startup && !g.startup && !premiseSet && !visited.has('start')) return 'start';
+  if (!premiseSet) return 'premise';
+  if (periods(g).length < 2) return 'bookends';
   const fp = Object.values(g.entries).filter((e) => e.firstPass).length;
-  if (fp === 0 && !visited.has(2)) return 2;
-  if (fp === 0 && !visited.has(3)) return 3;
-  if (fp < g.seats.length) return 4;
-  return 5;
+  if (fp === 0 && !visited.has('palette')) return 'palette';
+  if (fp === 0 && !visited.has('seats')) return 'seats';
+  if (fp < g.seats.length) return 'firstPass';
+  return 'dials';
 }
 
 function Wizard() {
   const cur = useApp((s) => s.current)!;
+  const content = useApp((s) => s.content);
   const g = cur.state;
-  const [visited, setVisited] = useState(new Set<number>());
-  const auto = firstIncomplete(g, visited);
-  const [manual, setManual] = useState<number | undefined>();
-  const step = manual !== undefined && manual <= auto ? manual : auto;
+  // The Start step is offered when enabled packs hold startup content for this ruleset, or a
+  // startup was already chosen (so it stays visible even if its pack is later disabled).
+  const startup = hasStartupContent(content, g.ruleset) || !!g.startup;
+  const steps: StepKey[] = [
+    ...(startup ? (['start'] as const) : []),
+    'premise',
+    'bookends',
+    'palette',
+    'seats',
+    'firstPass',
+    'dials',
+  ];
+  const [visited, setVisited] = useState(new Set<StepKey>());
+  const auto = firstIncomplete(g, visited, startup);
+  const [manual, setManual] = useState<StepKey | undefined>();
+  const reachable = (k: StepKey) =>
+    k === 'start' ? periods(g).length < 2 : steps.indexOf(k) <= steps.indexOf(auto);
+  const step = manual !== undefined && reachable(manual) ? manual : auto;
   const advance = () => {
     setVisited((v) => new Set(v).add(step));
     setManual(undefined);
@@ -52,28 +80,34 @@ function Wizard() {
     if (started) navigate({ name: 'table', gameId: g.id });
   }, [started, g.id]);
   if (started) return null;
+  const startLabel = g.startup
+    ? `Start: ${g.startup.kind === 'seed' ? g.startup.title : g.startup.name}`
+    : LABELS.start;
   return (
     <div className="page stack">
       <h1>{g.title}</h1>
       <ol className="row" aria-label="Setup steps" style={{ listStyle: 'none', padding: 0 }}>
-        {STEPS.map((s, i) => (
-          <li key={s}>
+        {steps.map((k, i) => (
+          <li key={k}>
             <button
-              aria-current={i === step ? 'step' : undefined}
-              className={i === step ? 'primary' : undefined}
-              disabled={i > auto}
-              onClick={() => setManual(i)}
+              aria-current={k === step ? 'step' : undefined}
+              className={k === step ? 'primary' : undefined}
+              disabled={!reachable(k)}
+              onClick={() => setManual(k)}
             >
-              {i + 1}. {s}
+              {i + 1}. {k === 'start' ? startLabel : LABELS[k]}
             </button>
           </li>
         ))}
       </ol>
       <div className="card">
-        {step === 0 && <PremiseStep g={g} />}
-        {step === 1 && <BookendsStep g={g} />}
-        {step === 2 && <PaletteStep g={g} onNext={advance} />}
-        {step === 3 && (
+        {step === 'start' && (
+          <StartupPicker key={g.startup ? 'chosen' : 'none'} g={g} onDone={advance} />
+        )}
+        {step === 'premise' && <PremiseStep g={g} />}
+        {step === 'bookends' && <BookendsStep g={g} />}
+        {step === 'palette' && <PaletteStep g={g} onNext={advance} />}
+        {step === 'seats' && (
           <Section
             title="Seats"
             intro="Seats are rotation slots with their own random profiles. You write every entry; a phantom seat only decides what the rolls draw from."
@@ -84,8 +118,8 @@ function Wizard() {
             </button>
           </Section>
         )}
-        {step === 4 && <FirstPassStep g={g} />}
-        {step === 5 && <DialsStep g={g} />}
+        {step === 'firstPass' && <FirstPassStep g={g} />}
+        {step === 'dials' && <DialsStep g={g} />}
       </div>
       {cur.rejection && (
         <p role="alert" className="warn">
@@ -116,13 +150,18 @@ function Section({
 
 function PremiseStep({ g }: { g: Game }) {
   const dispatch = useDispatch();
-  const [text, setText] = useState(g.bigPicture);
-  const [name, setName] = useState(g.subject?.name ?? '');
-  const [desc, setDesc] = useState(g.subject?.description ?? '');
-  const [traits, setTraits] = useState((g.subject?.traits ?? ['', '', '']).join('\n'));
+  const seed = g.startup?.kind === 'seed' ? g.startup : undefined;
+  // A seed's draft prefills an empty field; a generator reading is a prompt and is never copied.
+  const subject = g.subject ?? seed?.subject;
+  const [text, setText] = useState(g.bigPicture || seed?.bigPictureDraft || '');
+  const [name, setName] = useState(subject?.name ?? '');
+  const [desc, setDesc] = useState(subject?.description ?? '');
+  const [traits, setTraits] = useState((subject?.traits ?? ['', '', '']).join('\n'));
+  const notes = g.startup && <StartupNotes startup={g.startup} />;
   if (g.ruleset === 'chronicle') {
     return (
       <Section title="Subject" intro="A place, organization or object whose history this is.">
+        {notes}
         <form
           className="stack"
           onSubmit={(e) => {
@@ -161,6 +200,7 @@ function PremiseStep({ g }: { g: Game }) {
   }
   return (
     <Section title="Big Picture" intro="One sentence: what is this history about?">
+      {notes}
       <form
         className="stack"
         onSubmit={(e) => {
@@ -268,11 +308,28 @@ interface BookendDraft {
   immortal: boolean;
 }
 
+/** A Bookend title from a seed: its own title, else its text cut to 60 at a word boundary. */
+export function bookendTitle(b: StartupBookend): { title: string; cut: boolean } {
+  if (b.title) return { title: b.title, cut: false };
+  if (b.text.length <= 60) return { title: b.text, cut: false };
+  const head = b.text.slice(0, 61);
+  const space = head.lastIndexOf(' ');
+  return {
+    title: (space > 20 ? head.slice(0, space) : b.text.slice(0, 60)).replace(/[\s,;:.]+$/, ''),
+    cut: true,
+  };
+}
+
 function BookendsStep({ g }: { g: Game }) {
   const dispatch = useDispatch();
   const blank: BookendDraft = { title: '', prose: '', tone: 'light', anchor: '', immortal: false };
-  const [start, setStart] = useState(blank);
-  const [end, setEnd] = useState({ ...blank, tone: 'dark' as Tone });
+  const seed = g.startup?.kind === 'seed' ? g.startup : undefined;
+  const from = (b: StartupBookend | undefined) =>
+    b ? { title: bookendTitle(b).title, prose: b.text } : {};
+  const [start, setStart] = useState({ ...blank, ...from(seed?.bookends.start) });
+  const [end, setEnd] = useState({ ...blank, tone: 'dark' as Tone, ...from(seed?.bookends.end) });
+  const cut =
+    seed && (bookendTitle(seed.bookends.start).cut || bookendTitle(seed.bookends.end).cut);
   const chronicle = g.ruleset === 'chronicle';
   const input = (b: BookendDraft) => ({
     title: b.title,
@@ -285,6 +342,12 @@ function BookendsStep({ g }: { g: Game }) {
       title="Bookends"
       intro="The first and last Periods. Nothing may be placed outside them."
     >
+      {seed && (
+        <p className="hint" style={{ margin: 0 }}>
+          Drafted from {seed.title}. Choose each tone and edit anything.
+          {cut && ' A title was cut from its text; you may want to shorten it.'}
+        </p>
+      )}
       <BookendFields
         label="First Period"
         v={start}
@@ -315,6 +378,17 @@ function PaletteStep({ g, onNext }: { g: Game; onNext: () => void }) {
   const [no, setNo] = useState('');
   const m = g.settings.modes['palette.roll'];
   const pending = g.pendingPalette;
+  const suggested = g.startup?.kind === 'seed' ? g.startup.palette : undefined;
+  const [dismissed, setDismissed] = useState(false);
+  const present = new Set([...g.palette.yes, ...g.palette.no].map((i) => i.text.toLowerCase()));
+  const chips =
+    dismissed || !suggested
+      ? []
+      : (['yes', 'no'] as const).flatMap((list) =>
+          suggested[list]
+            .filter((t) => !present.has(t.toLowerCase()))
+            .map((t) => ({ list, text: t })),
+        );
   const add = async (list: 'yes' | 'no', text: string, clear: () => void) => {
     if ((await dispatch({ type: 'AddPaletteItem', list, text })).ok) clear();
   };
@@ -323,6 +397,23 @@ function PaletteStep({ g, onNext }: { g: Game; onNext: () => void }) {
       title="Palette"
       intro="What belongs in this history (Yes) and what is banned (No). Short items."
     >
+      {chips.length > 0 && (
+        <div className="row" role="group" aria-label="Suggested Palette items">
+          <span className="hint">Suggested:</span>
+          {chips.map((c) => (
+            <button
+              key={`${c.list}:${c.text}`}
+              className="chip"
+              onClick={() => dispatch({ type: 'AddPaletteItem', list: c.list, text: c.text })}
+            >
+              {c.list === 'yes' ? 'Yes' : 'No'}: {c.text}
+            </button>
+          ))}
+          <button className="link" onClick={() => setDismissed(true)}>
+            Dismiss all
+          </button>
+        </div>
+      )}
       <div className="row" style={{ alignItems: 'flex-start' }}>
         {(['yes', 'no'] as const).map((k) => (
           <div key={k} style={{ flex: 1, minWidth: 220 }}>

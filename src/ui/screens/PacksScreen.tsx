@@ -1,7 +1,19 @@
 import { useRef, useState } from 'react';
-import type { PackError } from '../../content';
+import { BUNDLED_PACKS, packWarnings, type Pack, type PackError } from '../../content';
 import { useApp, useAppStore } from '../StoreContext';
 import { readJsonFile } from '../lib/download';
+
+const bundled = new Set(BUNDLED_PACKS.map((p) => p.id));
+
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+function packCounts(pack: Pack): string {
+  const parts = [plural(pack.tables.length, 'table'), plural(pack.decks.length, 'deck')];
+  if (pack.groups.length) parts.push(plural(pack.groups.length, 'group'));
+  if (pack.seeds.length) parts.push(plural(pack.seeds.length, 'seed'));
+  if (pack.generators.length) parts.push(plural(pack.generators.length, 'generator'));
+  return parts.join(' · ');
+}
 
 export default function PacksScreen() {
   const store = useAppStore();
@@ -70,10 +82,9 @@ export default function PacksScreen() {
             <div className="row spread">
               <div>
                 <strong>{p.pack.name}</strong> <span className="badge">v{p.pack.version}</span>{' '}
-                {p.id === 'starter' && <span className="badge">built in</span>}
+                {bundled.has(p.id) && <span className="badge">built in</span>}
                 <div className="hint">
-                  {p.pack.tables.length} tables · {p.pack.decks.length} deck
-                  {p.pack.decks.length === 1 ? '' : 's'}
+                  {packCounts(p.pack)}
                   {p.pack.license ? ` · ${p.pack.license}` : ''}
                 </div>
               </div>
@@ -86,7 +97,7 @@ export default function PacksScreen() {
                   />{' '}
                   enabled
                 </label>
-                {p.id !== 'starter' && (
+                {!bundled.has(p.id) && (
                   <button className="danger" onClick={() => store.getState().removePack(p.id)}>
                     Remove
                   </button>
@@ -94,8 +105,45 @@ export default function PacksScreen() {
               </div>
             </div>
             {p.pack.description && <p style={{ margin: 0 }}>{p.pack.description}</p>}
+            {packWarnings(p.pack).map((w) => (
+              <p key={w.path} className="warn" style={{ margin: 0 }}>
+                Warning: {w.message}
+              </p>
+            ))}
             <details>
               <summary>Inspect</summary>
+              {p.pack.groups.length > 0 && (
+                <details style={{ marginLeft: '1em' }}>
+                  <summary>Groups ({p.pack.groups.length})</summary>
+                  <ul className="hint">
+                    {p.pack.groups.map((grp) => (
+                      <li key={grp.id}>
+                        {grp.name}
+                        {grp.description ? ` — ${grp.description}` : ''}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+              {p.pack.seeds.map((seed) => (
+                <details key={seed.id} style={{ marginLeft: '1em' }}>
+                  <summary>
+                    Seed: {seed.title}{' '}
+                    <span className="hint">
+                      ({seed.ruleset}, {seed.questions.length} questions)
+                    </span>
+                  </summary>
+                  <p className="hint">{seed.pitch}</p>
+                </details>
+              ))}
+              {p.pack.generators.map((gen) => (
+                <details key={gen.id} style={{ marginLeft: '1em' }}>
+                  <summary>
+                    Generator: {gen.name} <span className="hint">({gen.template})</span>
+                  </summary>
+                  {gen.description && <p className="hint">{gen.description}</p>}
+                </details>
+              ))}
               {p.pack.tables.map((t) => (
                 <details key={t.id} style={{ marginLeft: '1em' }}>
                   <summary>

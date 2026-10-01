@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "id": "startup-sample",
+  "name": "Startup sample",
+  "version": "1.0.0",
+  "description": "One original seed and one original generator showing how startup packs work.",
+  "author": "Solo Microscope",
+  "license": "CC0-1.0",
+  "tables": [
+    { "id": "crossroads.trend", "name": "Crossroads: force", "category": "generator", "entries": [
+      { "text": "the arrival of" }, { "text": "the collapse of" }, { "text": "the hoarding of" },
+      { "text": "the worship of" }, { "text": "the forgetting of" }, { "text": "the spread of" },
+      { "text": "the theft of" }, { "text": "the taming of" } ] },
+    { "id": "crossroads.a", "name": "Crossroads: first element", "category": "generator", "entries": [
+      { "text": "salt" }, { "text": "a lost language" }, { "text": "iron bridges" },
+      { "text": "wandering healers" }, { "text": "a comet" }, { "text": "debt" },
+      { "text": "the last well" }, { "text": "printed maps" }, { "text": "a sleeping giant" },
+      { "text": "mercenary guilds" }, { "text": "bells that ring alone" }, { "text": "a child-queen" } ] },
+    { "id": "crossroads.impact", "name": "Crossroads: effect", "category": "generator", "entries": [
+      { "text": "unites" }, { "text": "starves" }, { "text": "hides" }, { "text": "outlives" },
+      { "text": "reshapes" }, { "text": "bargains with" }, { "text": "awakens" }, { "text": "splinters" } ] },
+    { "id": "crossroads.b", "name": "Crossroads: second element", "category": "generator", "entries": [
+      { "text": "river towns" }, { "text": "the old dynasty" }, { "text": "machines" },
+      { "text": "the dead" }, { "text": "children" }, { "text": "the sea" },
+      { "text": "pilgrims" }, { "text": "the border forts" }, { "text": "a forgotten god" },
+      { "text": "beekeepers" }, { "text": "the census" }, { "text": "rival heirs" } ] }
+  ],
+  "decks": [],
+  "groups": [
+    { "id": "frontiers", "name": "Frontiers",
+      "description": "Edges of the known world: new ground, new roads, new neighbors." }
+  ],
+  "seeds": [
+    {
+      "id": "salt-road",
+      "title": "The Salt Road",
+      "group": "frontiers",
+      "ruleset": "lens",
+      "pitch": "An inland sea is drying up. Where the water retreats it leaves salt flats, stranded harbor towns and, eventually, a single road across the new desert: the only link between two peoples who once traded by boat. Whoever holds the Salt Road holds both shores. Will the road bind the peoples together, or become the line they fight over?",
+      "bigPicture": "As an inland sea dries to salt, a single road across its bed decides the fate of the peoples on either shore.",
+      "questions": [
+        { "id": "cause", "text": "Why is the sea drying up?", "pick": "one", "allowCustom": true, "options": [
+          { "id": "dam", "text": "A river that fed it was dammed or diverted upstream." },
+          { "id": "climate", "text": "The climate is changing, slowly and for good." },
+          { "id": "below", "text": "Something beneath the seabed is drinking it." },
+          { "id": "unknown", "text": "No one knows, and every faction blames another." } ] },
+        { "id": "shores", "text": "Who lives on the two shores?", "pick": "one", "allowCustom": true, "options": [
+          { "id": "cousins", "text": "One people, split long ago into rival branches." },
+          { "id": "nations", "text": "Two nations with different languages and gods." },
+          { "id": "settled-nomad", "text": "A settled kingdom on one shore, nomadic clans on the other." } ] },
+        { "id": "salt", "text": "What does the salt mean to the people who cross it?", "pick": "oneOrTwo", "allowCustom": true, "options": [
+          { "id": "wealth", "text": "Wealth: salt is money." },
+          { "id": "holy", "text": "Holiness: the flats are sacred ground." },
+          { "id": "danger", "text": "Danger: the flats hide sinkholes and sudden storms." },
+          { "id": "memory", "text": "Memory: things the sea swallowed resurface as it retreats." } ] }
+      ],
+      "startBookend": { "text": "How does the history begin?", "options": [
+        { "id": "ferry", "title": "The last ferry", "text": "The last ferry makes its crossing before the water gets too shallow; its passengers are the first to walk home." },
+        { "id": "stones", "title": "The first stones", "text": "Surveyors from both shores agree on one route across the flats and begin paving it together." },
+        { "id": "harbors", "title": "The empty harbors", "text": "Harbor towns on both shores empty as the water leaves them, and their people move toward the few fresh wells." } ] },
+      "endBookend": { "text": "How does the history end?", "options": [
+        { "id": "border", "title": "The road is the border", "text": "The road is walled along its length, and each shore claims everything up to its midline." },
+        { "id": "long-city", "title": "The long city", "text": "The peoples have merged, and the road has become one narrow city stretching across the old seabed." },
+        { "id": "flood", "title": "The sea returns", "text": "Water floods the basin again, and the road survives only as a line of drowned towers." } ] },
+      "palette": { "yes": ["Caravans and waystations"], "no": ["Magic that makes water"] },
+      "note": "The road gives every Period a question to answer: who holds it now? To put the drying itself on the timeline, move the sea's retreat into the first Period instead of before it."
+    }
+  ],
+  "generators": [
+    {
+      "id": "crossroads",
+      "name": "Crossroads",
+      "group": "frontiers",
+      "description": "A frontier history in four rolls: a force, a thing, what it does, and to whom.",
+      "parts": [
+        { "id": "trend", "label": "Force", "tableId": "crossroads.trend" },
+        { "id": "a", "label": "Element", "tableId": "crossroads.a" },
+        { "id": "impact", "label": "Effect", "tableId": "crossroads.impact" },
+        { "id": "b", "label": "Element", "tableId": "crossroads.b" }
+      ],
+      "template": "{trend} {a} {impact} {b}",
+      "swap": ["a", "b"]
+    }
+  ]
+}

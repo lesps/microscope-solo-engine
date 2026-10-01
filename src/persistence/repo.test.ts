@@ -71,3 +71,42 @@ describe('persistence', () => {
     expect(await db.games.count()).toBe(0);
   });
 });
+
+describe('schema migration on load', () => {
+  it('a schema-1 game log loads, gains seed.answers: off, and is rewritten at schema 2', async () => {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const file = JSON.parse(
+      fs.readFileSync(
+        path.join(
+          path.dirname(new URL(import.meta.url).pathname),
+          '../../tests/fixtures/lens-3-rounds.json',
+        ),
+        'utf8',
+      ),
+    );
+    const events = file.events as import('../engine').GameEvent[];
+    expect(events[0]!.type === 'GameCreated' && events[0]!.payload.schemaVersion).toBe(1);
+    const db = freshDb();
+    const gameId = events[0]!.gameId;
+    await db.events.bulkAdd(events.map((event) => ({ gameId, seq: event.seq, event })));
+    const v1State = replay(events);
+    await db.snapshots.put({ gameId, seq: 1, state: replay(events.slice(0, 1)) });
+
+    const loaded = await loadGame(db, gameId);
+    expect(loaded!.state.settings.modes['seed.answers']).toBe('off');
+    expect(loaded!.state.schemaVersion).toBe(2);
+    const { ['seed.answers']: _added, ...modes } = loaded!.state.settings.modes;
+    expect({
+      ...loaded!.state,
+      schemaVersion: 1,
+      settings: { ...loaded!.state.settings, modes },
+    }).toEqual(v1State);
+
+    const stored = await db.events.where('gameId').equals(gameId).toArray();
+    const created = stored.find((r) => r.seq === 1)!.event;
+    expect(created.type === 'GameCreated' && created.payload.schemaVersion).toBe(2);
+    expect(await db.snapshots.count()).toBe(0);
+    expect((await loadGame(db, gameId))!.state).toEqual(loaded!.state);
+  });
+});

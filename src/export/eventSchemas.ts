@@ -30,6 +30,7 @@ const settings = z.object({
     'legacy.evict': mode,
     'legacy.explore': mode,
     'scene.reversal': mode,
+    'seed.answers': mode,
   }),
   drift: z.enum(['preference', 'random', 'counter-trend']),
   chaos: z.boolean(),
@@ -131,6 +132,14 @@ const entry = z.discriminatedUnion('kind', [
   }),
 ]);
 
+const subject = z.object({
+  name: z.string(),
+  description: z.string(),
+  traits: z.array(z.string()),
+});
+const startupBookend = z.object({ title: z.string().optional(), text: z.string() });
+const fromPack = { packId: id, packName: z.string() };
+
 const character = z.object({
   id,
   name: z.string(),
@@ -230,6 +239,30 @@ export const payloadSchemas: { [K in EventType]: z.ZodType<unknown> } = {
     targetId: id.optional(),
   }),
   ProseRevised: z.object({ entryId: id, prose: z.string() }),
+  SeedApplied: z.object({
+    startup: z.object({
+      kind: z.literal('seed'),
+      ...fromPack,
+      seedId: id,
+      title: z.string(),
+      pitch: z.string(),
+      bigPictureDraft: z.string().optional(),
+      subject: subject.optional(),
+      note: z.string().optional(),
+      notes: z.array(z.object({ question: z.string(), answers: z.array(z.string()).min(1) })),
+      bookends: z.object({ start: startupBookend, end: startupBookend }),
+      palette: z.object({ yes: z.array(z.string()), no: z.array(z.string()) }).optional(),
+    }),
+  }),
+  GeneratorReadingAccepted: z.object({
+    startup: z.object({
+      kind: z.literal('generator'),
+      ...fromPack,
+      generatorId: id,
+      name: z.string(),
+      reading: z.string(),
+    }),
+  }),
   Retconned: z.object({
     targetId: id,
     field: z.string().min(1),

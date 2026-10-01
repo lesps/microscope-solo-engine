@@ -9,12 +9,13 @@ import {
   playOrderManuscript,
   toGameFile,
 } from '../src/export';
+import { migrateEvents } from './support/migrate';
 
 const dir = path.join(path.dirname(new URL(import.meta.url).pathname), 'fixtures');
 
-describe.each(['lens-3-rounds', 'chronicle-3-rounds'])('golden: %s', (name) => {
+describe.each(['lens-3-rounds', 'chronicle-3-rounds', 'lens-seed-start'])('golden: %s', (name) => {
   const raw = JSON.parse(fs.readFileSync(path.join(dir, `${name}.json`), 'utf8'));
-  const parsed = parseGameFile(raw);
+  const parsed = parseGameFile(raw, migrateEvents);
   if (!parsed.ok) throw new Error(parsed.errors.join('; '));
   const { file, state } = parsed;
 
@@ -40,7 +41,10 @@ describe.each(['lens-3-rounds', 'chronicle-3-rounds'])('golden: %s', (name) => {
     await expect(outline(state)).toMatchFileSnapshot(`./__snapshots__/${name}.outline.md`);
   });
   it('game file round-trips to an identical state', () => {
-    const again = parseGameFile(JSON.parse(JSON.stringify(toGameFile(state, file.events, 'x'))));
+    const again = parseGameFile(
+      JSON.parse(JSON.stringify(toGameFile(state, file.events, 'x'))),
+      migrateEvents,
+    );
     expect(again.ok && again.state).toEqual(state);
     expect(replay(file.events)).toEqual(state);
   });
