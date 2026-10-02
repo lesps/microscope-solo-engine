@@ -147,22 +147,27 @@ is a fact and needed its own event.
 `result` is 1..`sides`. Weighted draws roll one die whose size is the total weight. `value` is the
 interpreted result the reducer records as a pending roll, by purpose:
 
-| purpose                           | value                                                                                   | recorded as                                        |
-| --------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| `tone`                            | `'light' \| 'dark'`                                                                     | `turn.rolled.tone`                                 |
-| `entryType`                       | `'period' \| 'event' \| 'scene'`                                                        | `turn.rolled.entryType`                            |
-| `placement`                       | `{ kind, placement: { parentId, index } }`                                              | `turn.rolled.placement`                            |
-| `scene.reversal`                  | `{ source, text }`                                                                      | `turn.rolled.reversal`                             |
-| `cohesion`                        | `boolean` (pass)                                                                        | `pendingRoundRolls.cohesion`                       |
-| `focus`                           | `{ text, source }`                                                                      | `pendingRoundRolls.focus`                          |
-| `legacy.evict` / `legacy.explore` | Legacy id                                                                               | `pendingRoundRolls.evict` / `.explore`             |
-| `palette`                         | `{ text, tableId, rerolled }`                                                           | `pendingPalette`                                   |
-| `prompt.*`                        | `{ kind, text }`                                                                        | `turn.prompts`                                     |
-| `seed.answer`                     | `{ seedId, optionId }` (`targetId` = question id, `start` or `end`)                     | `pendingSeed.rolled[targetId]`                     |
-| `generator.part`                  | `{ generatorId, partId, label, index, count, swap? }` (`tableId`, `text` = rolled line) | `pendingGenerator.parts` (reset when `index` is 0) |
+| purpose                           | value                                                                                      | recorded as                                        |
+| --------------------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| `tone`                            | `'light' \| 'dark'`                                                                        | `turn.rolled.tone`                                 |
+| `entryType`                       | `'period' \| 'event' \| 'scene'`                                                           | `turn.rolled.entryType`                            |
+| `placement`                       | `{ kind, placement: { parentId, index } }`                                                 | `turn.rolled.placement`                            |
+| `scene.reversal`                  | `{ source, text }`                                                                         | `turn.rolled.reversal`                             |
+| `cohesion`                        | `boolean` (pass)                                                                           | `pendingRoundRolls.cohesion`                       |
+| `focus`                           | `{ text, source }`                                                                         | `pendingRoundRolls.focus`                          |
+| `legacy.evict` / `legacy.explore` | Legacy id                                                                                  | `pendingRoundRolls.evict` / `.explore`             |
+| `palette`                         | `{ text, tableId, rerolled }`                                                              | `pendingPalette`                                   |
+| `prompt.*`                        | `{ kind, text }` (`kind`: `domain`, `wordPair`, `card`, `character`, `question`, `person`) | `turn.prompts`                                     |
+| `seed.answer`                     | `{ seedId, optionId }` (`targetId` = question id, `start` or `end`)                        | `pendingSeed.rolled[targetId]`                     |
+| `generator.part`                  | `{ generatorId, partId, label, index, count, swap? }` (`tableId`, `text` = rolled line)    | `pendingGenerator.parts` (reset when `index` is 0) |
+
+A Question idea is one `prompt.question` roll. A person is up to three rolls,
+`prompt.person.name`, `prompt.person.role` and `prompt.person.want` in that order (a slot with no
+active table is skipped); each records its line in `text`, and only the last carries the value,
+`{ kind: 'person', text: '{name}, {role}, who wants {want}' }`.
 
 Other purposes (`focus.source`, `table.pick`, `oracle`, `oracle.qualifier`, `drift.*`,
-`prompt.wordPair.action`) are informational. `rng` is the generator state after the draw.
+`prompt.wordPair.action`, every `prompt.person.*` roll but the last) are informational. `rng` is the generator state after the draw.
 
 ### `CardDrawn`
 
@@ -201,6 +206,10 @@ character (`name`, `description`, `immortal`) or the game (`bigPicture`). Counts
 
 Both events are only accepted before the Bookends exist. They carry every text resolved from the
 pack, so a game replays and exports the same with the pack disabled or removed.
+
+When the seed or generator has a `group`, the same batch may end with a `SettingsChanged` that
+links the game to the group's tagged tables (see `docs/rules.md`, Start). It is emitted only when
+the active tables actually change, so replay never needs the pack.
 
 ### `SeedApplied`
 

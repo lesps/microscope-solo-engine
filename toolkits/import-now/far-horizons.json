@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "id": "toolkit-far-horizons",
+  "name": "Far Horizons",
+  "version": "1.0.0",
+  "description": "A science-fiction toolkit: survey crews, lost colonies, strange signals and the slow arithmetic of light-years. Tables only; version 2.0.0 adds Scene Questions, people, seeds and a generator.",
+  "author": "Solo Microscope",
+  "license": "CC0-1.0",
+  "tables": [
+    {
+      "id": "toolkit.far.focus",
+      "name": "Far Horizons: Focus",
+      "category": "focus",
+      "entries": [
+        {
+          "text": "The first faster-than-light jump"
+        },
+        {
+          "text": "A colony that goes silent"
+        },
+        {
+          "text": "Contact with an alien mind"
+        },
+        {
+          "text": "Mutiny on a generation ship"
+        },
+        {
+          "text": "Terraforming a dead world"
+        },
+        {
+          "text": "A derelict of unknown origin"
+        },
+        {
+          "text": "The last message from Earth"
+        },
+        {
+          "text": "A corporation claims a planet"
+        },
+        {
+          "text": "An artificial mind asks for rights"
+        },
+        {
+          "text": "Plague in the habitat rings"
+        },
+        {
+          "text": "Mapping a nebula"
+        },
+        {
+          "text": "A schism among the colonies"
+        },
+        {
+          "text": "Ruins found on a moon"
+        },
+        {
+          "text": "A pilot who never came back"
+        },
+        {
+          "text": "The founding of a free port"
+        },
+        {
+          "text": "A star about to go nova"
+        },
+        {
+          "text": "Exiles on an ice world"
+        },
+        {
+          "text": "The first child born in deep space"
+        },
+        {
+          "text": "A war fought across light-years"
+        },
+        {
+          "text": "An alien gift with no instructions"
+        },
+        {
+          "text": "The collapse of the jump network"
+        },
+        {
+          "text": "A pilgrimage to the origin world"
+        },
+        {
+          "text": "Smugglers on the frontier"
+        },
+        {
+          "text": "A mind uploaded into a ship"
+        },
+        {
+          "text": "The quarantine of a whole system"
+        },
+        {
+          "text": "A survey crew stranded"
+        },
+        {
+          "text": "The treaty of the outer worlds"
+        },
+        {
+          "text": "A signal hidden in starlight"
+        },
+        {
+          "text": "Engineers who rebuild a sun"
+        },
+        {
+          "text": "The return of a lost fleet"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.far.domains",
+      "name": "Far Horizons: Domains",
+      "category": "domain",
+      "entries": [
+        {
+          "text": "Ships and crews"
+        },
+        {
+          "text": "Colonies and settlement"
+        },
+        {
+          "text": "Contact and the alien"
+        },
+        {
+          "text": "Machines and minds"
+        },
+        {
+          "text": "Corporations and trade"
+        },
+        {
+          "text": "Science and discovery"
+        },
+        {
+          "text": "Politics between worlds"
+        },
+        {
+          "text": "Faith among the stars"
+        },
+        {
+          "text": "Survival and scarcity"
+        },
+        {
+          "text": "War and fleets"
+        },
+        {
+          "text": "Bodies and change"
+        },
+        {
+          "text": "Memory of Earth"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.far.reversals",
+      "name": "Far Horizons: Reversals",
+      "category": "reversal",
+      "entries": [
+        {
+          "text": "The signal was a warning."
+        },
+        {
+          "text": "Life support fails."
+        },
+        {
+          "text": "The aliens were here first."
+        },
+        {
+          "text": "The ship's mind has its own agenda."
+        },
+        {
+          "text": "The map is wrong."
+        },
+        {
+          "text": "Time dilation steals years."
+        },
+        {
+          "text": "A stowaway changes everything."
+        },
+        {
+          "text": "The colony does not want to be rescued."
+        },
+        {
+          "text": "The cargo is alive."
+        },
+        {
+          "text": "Contact breaks a taboo on both sides."
+        },
+        {
+          "text": "The jump drive misfires."
+        },
+        {
+          "text": "The corporation owns the crew's debt."
+        },
+        {
+          "text": "The quarantine traps the wrong people."
+        },
+        {
+          "text": "The terraforming turns."
+        },
+        {
+          "text": "A crew member is a clone."
+        },
+        {
+          "text": "The rescue arrives decades late."
+        },
+        {
+          "text": "The relic activates."
+        },
+        {
+          "text": "The founders lied about Earth."
+        },
+        {
+          "text": "The star is unstable."
+        },
+        {
+          "text": "The sleepers begin to wake."
+        },
+        {
+          "text": "Two colonies claim the same world."
+        },
+        {
+          "text": "The alien gift is a weapon."
+        },
+        {
+          "text": "Communications are cut."
+        },
+        {
+          "text": "Success makes them a target."
+        }
+      ]
+    },
+    {
+      "id": "toolkit.far.palette",
+      "name": "Far Horizons: Palette",
+      "category": "palette",
+      "entries": [
+        {
+          "text": "Faster-than-light travel"
+        },
+        {
+          "text": "Generation ships"
+        },
+        {
+          "text": "Artificial minds"
+        },
+        {
+          "text": "Ancient alien ruins"
+        },
+        {
+          "text": "Corporate charters"
+        },
+        {
+          "text": "Cryosleep"
+        },
+        {
+          "text": "Terraforming"
+        },
+        {
+          "text": "People adapted to new worlds"
+        },
+        {
+          "text": "Free ports and smugglers"
+        },
+        {
+          "text": "Orbital habitats"
+        },
+        {
+          "text": "First-contact protocols"
+        },
+        {
+          "text": "Derelict ships"
+        },
+        {
+          "text": "Pilgrims among the stars"
+        },
+        {
+          "text": "Swarms of solar collectors"
+        },
+        {
+          "text": "Uploaded minds"
+        },
+        {
+          "text": "Asteroid miners"
+        },
+        {
+          "text": "Messages that take years to arrive"
+        },
+        {
+          "text": "Colony charters"
+        },
+        {
+          "text": "Alien ecologies"
+        },
+        {
+          "text": "Explorers who outlive their families"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.far.pairs",
+      "name": "Far Horizons: Word pairs",
+      "category": "wordPair",
+      "action": [
+        {
+          "text": "Survey"
+        },
+        {
+          "text": "Signal"
+        },
+        {
+          "text": "Colonize"
+        },
+        {
+          "text": "Abandon"
+        },
+        {
+          "text": "Decode"
+        },
+        {
+          "text": "Salvage"
+        },
+        {
+          "text": "Quarantine"
+        },
+        {
+          "text": "Terraform"
+        },
+        {
+          "text": "Defect"
+        },
+        {
+          "text": "Awaken"
+        },
+        {
+          "text": "Jump"
+        },
+        {
+          "text": "Bargain"
+        },
+        {
+          "text": "Upload"
+        },
+        {
+          "text": "Mutiny"
+        },
+        {
+          "text": "Map"
+        },
+        {
+          "text": "Smuggle"
+        },
+        {
+          "text": "Harvest"
+        },
+        {
+          "text": "Contact"
+        },
+        {
+          "text": "Rescue"
+        },
+        {
+          "text": "Erase"
+        }
+      ],
+      "subject": [
+        {
+          "text": "the derelict"
+        },
+        {
+          "text": "a moon"
+        },
+        {
+          "text": "the colony"
+        },
+        {
+          "text": "the ship's mind"
+        },
+        {
+          "text": "an alien artifact"
+        },
+        {
+          "text": "the jump gate"
+        },
+        {
+          "text": "the crew"
+        },
+        {
+          "text": "a star"
+        },
+        {
+          "text": "the archive"
+        },
+        {
+          "text": "the sleepers"
+        },
+        {
+          "text": "the charter"
+        },
+        {
+          "text": "a probe"
+        },
+        {
+          "text": "the station"
+        },
+        {
+          "text": "the fleet"
+        },
+        {
+          "text": "a nebula"
+        },
+        {
+          "text": "the homeworld"
+        },
+        {
+          "text": "an outpost"
+        },
+        {
+          "text": "the beacon"
+        },
+        {
+          "text": "the seedship"
+        },
+        {
+          "text": "a stranger"
+        }
+      ]
+    }
+  ]
+}

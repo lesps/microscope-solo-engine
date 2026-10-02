@@ -8,6 +8,9 @@ first load and refreshed from the build (they can be disabled, not removed):
 - _Startup sample_ (`src/content/packs/startup-sample/startup-sample.json`): one seed, one
   generator and one group, showing how startup packs work.
 
+Three genre toolkits (Myth and Iron, Far Horizons, Close to Home) live in `toolkits/` in the
+repository as user content, not bundled; see [Toolkits](#toolkits-tags-and-linking).
+
 Lens's own tables, Microscope Explorer's seeds and oracles, and anything else derived from
 Microscope are not bundled. Import them yourself as a personal pack if you own the source; such a
 pack is for personal use and must not be redistributed.
@@ -16,13 +19,14 @@ Import packs from **Packs** in the app. A pack with any error is not installed, 
 listed with its path (for example `tables[2].entries[5].text: must not be empty`). Installed packs
 can be inspected, disabled or removed. Which tables a game uses is chosen per game in **Game
 settings → Active tables** (Lens's "add or ban tables in your palette"); a new game starts with
-every enabled table active.
+every enabled untagged table active, and tagged tables join when the game is linked to their
+group.
 
 ## Schema
 
 ```ts
 {
-  schemaVersion: 1 | 2,  // 2 is current; 1 is accepted and normalized to 2
+  schemaVersion: 1 | 2 | 3,  // 3 is current; 1 and 2 are accepted and normalized to 3
   id: string,            // letters, digits, . _ -; unique across installed packs
   name: string,
   version: string,
@@ -37,17 +41,23 @@ every enabled table active.
 }
 ```
 
-A pack needs at least one table, deck, seed or generator. Version 1 packs, including packs
-installed before version 2 existed, load as version 2 with empty `groups`, `seeds` and
-`generators`; a version 1 pack that uses those arrays is an error.
+A pack needs at least one table, deck, seed or generator. Older packs, including packs installed
+before a version existed, load as version 3: version 1 gets empty `groups`, `seeds` and
+`generators`, and neither version 1 nor 2 has tags. A version 1 pack that uses the startup arrays
+is an error, and so is a version 1 or 2 pack that uses `question` or `person` tables, `slot` or
+`tags`.
 
 ### Tables
 
 ```ts
-// domain | palette | reversal | focus | generator
-{ id, name, category, die?: number, entries: Entry[] }
+// domain | palette | reversal | focus | generator | question (v3) | person (v3)
+{
+  id, name, category, die?: number, entries: Entry[],
+  slot?: 'name' | 'role' | 'want',   // v3: required on person tables, forbidden on the rest
+  tags?: GroupId[]                   // v3: 1–4 group ids; not on generator tables
+}
 // wordPair: an action and a subject are rolled together
-{ id, name, category: 'wordPair', die?: number, action: Entry[], subject: Entry[] }
+{ id, name, category: 'wordPair', die?: number, action: Entry[], subject: Entry[], tags?: GroupId[] }
 
 Entry = { text: string, weight?: positive integer, range?: [low, high] }
 ```
@@ -64,9 +74,89 @@ Entry = { text: string, weight?: positive integer, range?: [low, high] }
 | `palette`   | Rolled Palette items at setup                                  |
 | `reversal`  | Scene reversals (the deck is the fallback)                     |
 | `generator` | Parts of a generator; never an active table in play            |
+| `question`  | Question ideas for a Scene                                     |
+| `person`    | One part of a rolled person, chosen by `slot`                  |
+
+Entry rules for the v3 categories: `question` entries end with "?" and are at most 140 characters
+(the Scene Question limit). On `person` tables, `name` entries are at most 40 characters, and
+`want` entries start with "to " (they read as "who wants to …") and are at most 120.
 
 Table ids must be unique within a pack and across installed packs. A `generator` table that no
 generator in the pack uses is a warning (shown on the Packs screen), not an error.
+
+### Toolkits: tags and linking
+
+A table's `tags` name groups. A tagged table is a toolkit table: it starts inactive and becomes
+active when the game is linked to one of its groups, which keeps genre tables from bleeding into
+each other. Untagged tables behave as they always have. A game is linked when:
+
+- it starts from a seed or generator that has a `group` (the same command records the new active
+  tables as a `SettingsChanged`);
+- the player ticks the group in the **Toolkits** checklist on a blank start;
+- the player turns a group's tables on in **Game settings → Active tables**, where tables are
+  listed under their tags (Untagged first) with a toggle per group.
+
+Linking keeps the untagged tables that are active and swaps the tagged ones for the linked
+groups'. Tags are ids: a duplicate tag in one table and a tag on a `generator` table are errors.
+Tags are matched against group ids in every enabled pack, so a tag that matches no installed group
+is a warning on the Packs screen, not an error (the group's pack may be imported later).
+
+```json
+{
+  "schemaVersion": 3,
+  "id": "harbor-toolkit",
+  "name": "Harbor toolkit",
+  "version": "1.0.0",
+  "license": "CC0-1.0",
+  "groups": [{ "id": "harbors", "name": "Harbors" }],
+  "tables": [
+    {
+      "id": "harbors.questions",
+      "name": "Harbor questions",
+      "category": "question",
+      "tags": ["harbors"],
+      "entries": [
+        { "text": "Who gets the last berth?" },
+        { "text": "What does the tide bring in?" }
+      ]
+    },
+    {
+      "id": "harbors.names",
+      "name": "Harbor names",
+      "category": "person",
+      "slot": "name",
+      "tags": ["harbors"],
+      "entries": [{ "text": "Maren" }, { "text": "Old Tobias" }]
+    },
+    {
+      "id": "harbors.wants",
+      "name": "Harbor wants",
+      "category": "person",
+      "slot": "want",
+      "tags": ["harbors"],
+      "entries": [{ "text": "to own a boat" }, { "text": "to leave before winter" }]
+    }
+  ]
+}
+```
+
+The three toolkits in `toolkits/` each come in two versions with the same pack id, so importing
+the later one replaces the earlier in place:
+
+| Toolkit       | Group id        | Generator    |
+| ------------- | --------------- | ------------ |
+| Myth and Iron | `myth-and-iron` | Old Tellings |
+| Far Horizons  | `far-horizons`  | Deep Survey  |
+| Close to Home | `close-to-home` | Small Hours  |
+
+- `toolkits/import-now/*.json` (schema 1, version 1.0.0): Focus (30), Domains (12), Reversals
+  (24), Palette (20) and Word pairs (20 × 20), untagged.
+- `toolkits/*.json` (schema 3, version 2.0.0): the same tables tagged with the group, plus Scene
+  Questions (24), Names (24), Roles (20) and Wants (20), the group, three seeds and a four-part
+  generator (8 × 12 × 8 × 12).
+
+Table ids are namespaced `toolkit.<myth|far|home>.*`. A game created while an import-now version
+was installed keeps those tables active after the upgrade; the new tagged tables wait for a link.
 
 ### Startup content: groups, seeds and generators
 

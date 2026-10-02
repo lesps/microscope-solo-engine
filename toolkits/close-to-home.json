@@ -1,0 +1,1207 @@
+{
+  "schemaVersion": 3,
+  "id": "toolkit-close-to-home",
+  "name": "Close to Home",
+  "version": "2.0.0",
+  "description": "A domestic toolkit: households, neighbors and small towns across the years, where the stakes are love, money and who gets the house. Links its tables to games started from its seeds and generator.",
+  "author": "Solo Microscope",
+  "license": "CC0-1.0",
+  "tables": [
+    {
+      "id": "toolkit.home.focus",
+      "name": "Close to Home: Focus",
+      "category": "focus",
+      "entries": [
+        {
+          "text": "A family home changes hands"
+        },
+        {
+          "text": "The town's last factory closes"
+        },
+        {
+          "text": "A wedding that almost didn't happen"
+        },
+        {
+          "text": "A child who leaves and comes back"
+        },
+        {
+          "text": "The flood that spring"
+        },
+        {
+          "text": "A secret kept by the grandparents"
+        },
+        {
+          "text": "The corner shop"
+        },
+        {
+          "text": "A friendship that ends badly"
+        },
+        {
+          "text": "The church hall fire"
+        },
+        {
+          "text": "A newcomer moves in next door"
+        },
+        {
+          "text": "The night the power went out"
+        },
+        {
+          "text": "An inheritance nobody expected"
+        },
+        {
+          "text": "The school's last year"
+        },
+        {
+          "text": "A garden planted for someone gone"
+        },
+        {
+          "text": "The diner's regulars"
+        },
+        {
+          "text": "A long illness"
+        },
+        {
+          "text": "The bridge that finally got built"
+        },
+        {
+          "text": "A letter found in the attic"
+        },
+        {
+          "text": "Two families feuding over a fence"
+        },
+        {
+          "text": "The town festival"
+        },
+        {
+          "text": "A dog everyone knew"
+        },
+        {
+          "text": "The road out of town"
+        },
+        {
+          "text": "The first television on the street"
+        },
+        {
+          "text": "A teacher who changed everything"
+        },
+        {
+          "text": "Holiday dinners over the years"
+        },
+        {
+          "text": "The rumor that wouldn't die"
+        },
+        {
+          "text": "A storm that took the old oak"
+        },
+        {
+          "text": "A business started in a garage"
+        },
+        {
+          "text": "The reunion"
+        },
+        {
+          "text": "The house after everyone leaves"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.domains",
+      "name": "Close to Home: Domains",
+      "category": "domain",
+      "entries": [
+        {
+          "text": "Family and inheritance"
+        },
+        {
+          "text": "Neighbors and community"
+        },
+        {
+          "text": "Work and money"
+        },
+        {
+          "text": "Love and marriage"
+        },
+        {
+          "text": "Childhood and school"
+        },
+        {
+          "text": "Illness and care"
+        },
+        {
+          "text": "Faith and ritual"
+        },
+        {
+          "text": "Home and land"
+        },
+        {
+          "text": "The town changing"
+        },
+        {
+          "text": "Secrets and gossip"
+        },
+        {
+          "text": "Celebrations"
+        },
+        {
+          "text": "Grief and remembering"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.reversals",
+      "name": "Close to Home: Reversals",
+      "category": "reversal",
+      "entries": [
+        {
+          "text": "Someone overhears."
+        },
+        {
+          "text": "The money is gone."
+        },
+        {
+          "text": "An old letter surfaces."
+        },
+        {
+          "text": "The test results come back."
+        },
+        {
+          "text": "A relative arrives unannounced."
+        },
+        {
+          "text": "The house has to be sold."
+        },
+        {
+          "text": "The promise was never meant to be kept."
+        },
+        {
+          "text": "A child takes sides."
+        },
+        {
+          "text": "The storm knocks out the power."
+        },
+        {
+          "text": "Someone says the quiet part out loud."
+        },
+        {
+          "text": "The will says otherwise."
+        },
+        {
+          "text": "The factory announces layoffs."
+        },
+        {
+          "text": "An old flame returns."
+        },
+        {
+          "text": "The gift is misunderstood."
+        },
+        {
+          "text": "A pregnancy comes to light."
+        },
+        {
+          "text": "The dog goes missing."
+        },
+        {
+          "text": "The car breaks down on the way."
+        },
+        {
+          "text": "Someone was lying about where they were."
+        },
+        {
+          "text": "The photograph shows someone who shouldn't be there."
+        },
+        {
+          "text": "A neighbor calls the police."
+        },
+        {
+          "text": "The recipe was never written down."
+        },
+        {
+          "text": "The wrong person gets the credit."
+        },
+        {
+          "text": "Everyone remembers it differently."
+        },
+        {
+          "text": "Kindness comes from an unexpected person."
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.palette",
+      "name": "Close to Home: Palette",
+      "category": "palette",
+      "entries": [
+        {
+          "text": "Family dinners"
+        },
+        {
+          "text": "Small-town gossip"
+        },
+        {
+          "text": "Letters and photographs"
+        },
+        {
+          "text": "Old houses"
+        },
+        {
+          "text": "Seasonal festivals"
+        },
+        {
+          "text": "Local diners and shops"
+        },
+        {
+          "text": "Inheritances"
+        },
+        {
+          "text": "Weddings and funerals"
+        },
+        {
+          "text": "Kitchen-table arguments"
+        },
+        {
+          "text": "Long-held secrets"
+        },
+        {
+          "text": "Pets"
+        },
+        {
+          "text": "Church suppers"
+        },
+        {
+          "text": "Gardens"
+        },
+        {
+          "text": "Road trips"
+        },
+        {
+          "text": "Hand-me-downs"
+        },
+        {
+          "text": "Quiet ghosts"
+        },
+        {
+          "text": "Childhood friends"
+        },
+        {
+          "text": "Weather as an event"
+        },
+        {
+          "text": "Recipes passed down"
+        },
+        {
+          "text": "Porches and front steps"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.pairs",
+      "name": "Close to Home: Word pairs",
+      "category": "wordPair",
+      "action": [
+        {
+          "text": "Inherit"
+        },
+        {
+          "text": "Forgive"
+        },
+        {
+          "text": "Hide"
+        },
+        {
+          "text": "Sell"
+        },
+        {
+          "text": "Mend"
+        },
+        {
+          "text": "Leave"
+        },
+        {
+          "text": "Return"
+        },
+        {
+          "text": "Bake"
+        },
+        {
+          "text": "Bury"
+        },
+        {
+          "text": "Plant"
+        },
+        {
+          "text": "Confess"
+        },
+        {
+          "text": "Borrow"
+        },
+        {
+          "text": "Repaint"
+        },
+        {
+          "text": "Forget"
+        },
+        {
+          "text": "Visit"
+        },
+        {
+          "text": "Promise"
+        },
+        {
+          "text": "Lose"
+        },
+        {
+          "text": "Celebrate"
+        },
+        {
+          "text": "Argue about"
+        },
+        {
+          "text": "Keep"
+        }
+      ],
+      "subject": [
+        {
+          "text": "the house"
+        },
+        {
+          "text": "a letter"
+        },
+        {
+          "text": "the recipe"
+        },
+        {
+          "text": "the farm"
+        },
+        {
+          "text": "a ring"
+        },
+        {
+          "text": "the old truck"
+        },
+        {
+          "text": "the garden"
+        },
+        {
+          "text": "a photograph"
+        },
+        {
+          "text": "the shop"
+        },
+        {
+          "text": "the piano"
+        },
+        {
+          "text": "a quilt"
+        },
+        {
+          "text": "the dog"
+        },
+        {
+          "text": "the porch"
+        },
+        {
+          "text": "the family name"
+        },
+        {
+          "text": "a grudge"
+        },
+        {
+          "text": "the diner"
+        },
+        {
+          "text": "the attic"
+        },
+        {
+          "text": "a debt"
+        },
+        {
+          "text": "the wedding"
+        },
+        {
+          "text": "the neighbor"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.questions",
+      "name": "Close to Home: Scene Questions",
+      "category": "question",
+      "entries": [
+        {
+          "text": "Who will take care of Mom now?"
+        },
+        {
+          "text": "Does anyone ask about the letter?"
+        },
+        {
+          "text": "Who gets the house?"
+        },
+        {
+          "text": "Will they make it home for the holiday?"
+        },
+        {
+          "text": "What did Grandpa never tell them?"
+        },
+        {
+          "text": "Does the apology land?"
+        },
+        {
+          "text": "Who is sitting in the wrong chair?"
+        },
+        {
+          "text": "Can the shop stay open another year?"
+        },
+        {
+          "text": "Does the newcomer get invited in?"
+        },
+        {
+          "text": "Who brings up the old argument?"
+        },
+        {
+          "text": "What is in the box in the attic?"
+        },
+        {
+          "text": "Will they say yes?"
+        },
+        {
+          "text": "Who tells the kids?"
+        },
+        {
+          "text": "What gets left on the porch overnight?"
+        },
+        {
+          "text": "Does the town forgive them?"
+        },
+        {
+          "text": "Who keeps the recipe?"
+        },
+        {
+          "text": "Can the friendship be saved?"
+        },
+        {
+          "text": "What do they pack when they leave?"
+        },
+        {
+          "text": "Does the dog come home?"
+        },
+        {
+          "text": "Who notices that something is wrong?"
+        },
+        {
+          "text": "What is said at the funeral that shouldn't be?"
+        },
+        {
+          "text": "Will they sell the farm?"
+        },
+        {
+          "text": "Who stays up waiting?"
+        },
+        {
+          "text": "What changes after the storm?"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.names",
+      "name": "Close to Home: Names",
+      "category": "person",
+      "slot": "name",
+      "entries": [
+        {
+          "text": "June Calloway"
+        },
+        {
+          "text": "Earl Pruitt"
+        },
+        {
+          "text": "Rosa Delgado"
+        },
+        {
+          "text": "Marcus Bell"
+        },
+        {
+          "text": "Dot Henley"
+        },
+        {
+          "text": "Theo Whitlock"
+        },
+        {
+          "text": "Nell Ambrose"
+        },
+        {
+          "text": "Luis Ortega"
+        },
+        {
+          "text": "Patty Kovač"
+        },
+        {
+          "text": "Gus Lindqvist"
+        },
+        {
+          "text": "Hazel Moreau"
+        },
+        {
+          "text": "Danny Shaw"
+        },
+        {
+          "text": "Ruth Abernathy"
+        },
+        {
+          "text": "Tomás Reyes"
+        },
+        {
+          "text": "Maggie O'Dell"
+        },
+        {
+          "text": "Walt Fischer"
+        },
+        {
+          "text": "Ivy Chen"
+        },
+        {
+          "text": "Clem Barlow"
+        },
+        {
+          "text": "Lottie Haynes"
+        },
+        {
+          "text": "Sam Okoro"
+        },
+        {
+          "text": "Bea Lindgren"
+        },
+        {
+          "text": "Frank Duval"
+        },
+        {
+          "text": "Opal Greer"
+        },
+        {
+          "text": "Will Navarro"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.roles",
+      "name": "Close to Home: Roles",
+      "category": "person",
+      "slot": "role",
+      "entries": [
+        {
+          "text": "the oldest sister"
+        },
+        {
+          "text": "a widower who runs the hardware store"
+        },
+        {
+          "text": "a teenager who wants out"
+        },
+        {
+          "text": "the town's only doctor"
+        },
+        {
+          "text": "a grandmother who knows everyone's business"
+        },
+        {
+          "text": "a son back from the city"
+        },
+        {
+          "text": "a neighbor who keeps to themselves"
+        },
+        {
+          "text": "the diner's night cook"
+        },
+        {
+          "text": "a substitute teacher"
+        },
+        {
+          "text": "a farmer three generations deep"
+        },
+        {
+          "text": "the pastor's spouse"
+        },
+        {
+          "text": "a kid who finds things"
+        },
+        {
+          "text": "an uncle nobody talks about"
+        },
+        {
+          "text": "the new family on the corner"
+        },
+        {
+          "text": "the mail carrier"
+        },
+        {
+          "text": "a retired nurse"
+        },
+        {
+          "text": "a cousin who borrowed money"
+        },
+        {
+          "text": "a high-school sweetheart"
+        },
+        {
+          "text": "the baker on Main Street"
+        },
+        {
+          "text": "a stepchild finding their place"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.wants",
+      "name": "Close to Home: Wants",
+      "category": "person",
+      "slot": "want",
+      "entries": [
+        {
+          "text": "to keep the family together"
+        },
+        {
+          "text": "to leave town for good"
+        },
+        {
+          "text": "to win back their father's respect"
+        },
+        {
+          "text": "to save the family business"
+        },
+        {
+          "text": "to finally tell the truth"
+        },
+        {
+          "text": "to be forgiven"
+        },
+        {
+          "text": "to have one perfect holiday"
+        },
+        {
+          "text": "to find out who their real father is"
+        },
+        {
+          "text": "to sell the house without a fight"
+        },
+        {
+          "text": "to stay in the house they were born in"
+        },
+        {
+          "text": "to make the town notice them"
+        },
+        {
+          "text": "to protect their little brother"
+        },
+        {
+          "text": "to fall in love again"
+        },
+        {
+          "text": "to finish what their mother started"
+        },
+        {
+          "text": "to be left alone"
+        },
+        {
+          "text": "to pay back what they owe"
+        },
+        {
+          "text": "to get the recipe right"
+        },
+        {
+          "text": "to see their grandchild grow up"
+        },
+        {
+          "text": "to be someone other than who the town expects"
+        },
+        {
+          "text": "to fix the thing they broke"
+        }
+      ],
+      "tags": ["close-to-home"]
+    },
+    {
+      "id": "toolkit.home.small-hours.when",
+      "name": "Small Hours: When",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "One snowed-in winter,"
+        },
+        {
+          "text": "The summer the mill closed,"
+        },
+        {
+          "text": "On the night of the reunion,"
+        },
+        {
+          "text": "Every Sunday for forty years,"
+        },
+        {
+          "text": "The week after the funeral,"
+        },
+        {
+          "text": "The spring the river rose,"
+        },
+        {
+          "text": "On the last day of school,"
+        },
+        {
+          "text": "The year the highway came through,"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.home.small-hours.a",
+      "name": "Small Hours: Who",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "the oldest sister"
+        },
+        {
+          "text": "a stray dog"
+        },
+        {
+          "text": "the corner shop"
+        },
+        {
+          "text": "a long-lost cousin"
+        },
+        {
+          "text": "the family farm"
+        },
+        {
+          "text": "a box of letters"
+        },
+        {
+          "text": "the town's only doctor"
+        },
+        {
+          "text": "a wedding cake"
+        },
+        {
+          "text": "the new neighbors"
+        },
+        {
+          "text": "an old pickup truck"
+        },
+        {
+          "text": "a grandmother's recipe"
+        },
+        {
+          "text": "the church choir"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.home.small-hours.impact",
+      "name": "Small Hours: What",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "brings back"
+        },
+        {
+          "text": "outlasts"
+        },
+        {
+          "text": "saves"
+        },
+        {
+          "text": "embarrasses"
+        },
+        {
+          "text": "comes between"
+        },
+        {
+          "text": "reunites"
+        },
+        {
+          "text": "replaces"
+        },
+        {
+          "text": "keeps a secret from"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.home.small-hours.b",
+      "name": "Small Hours: Who",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "the family"
+        },
+        {
+          "text": "the whole street"
+        },
+        {
+          "text": "two old friends"
+        },
+        {
+          "text": "the diner's regulars"
+        },
+        {
+          "text": "a grieving father"
+        },
+        {
+          "text": "the town council"
+        },
+        {
+          "text": "the kids"
+        },
+        {
+          "text": "a forgotten promise"
+        },
+        {
+          "text": "the house on the hill"
+        },
+        {
+          "text": "the twins"
+        },
+        {
+          "text": "the neighbors"
+        },
+        {
+          "text": "a first love"
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "close-to-home",
+      "name": "Close to Home",
+      "description": "Families, houses and small towns: histories at the scale of a kitchen table."
+    }
+  ],
+  "seeds": [
+    {
+      "id": "toolkit.home.alder-street",
+      "title": "The House on Alder Street",
+      "group": "close-to-home",
+      "ruleset": "chronicle",
+      "pitch": "A house is built at the end of a dirt road that will one day be called Alder Street. Over a hundred years it holds four families, two fires, a wedding in the back garden and a death in the front room. The history is the house's: who lives there, what they change, and what it remembers.",
+      "subject": {
+        "name": "The house on Alder Street",
+        "description": "A two-storey wooden house at the end of the street, with a deep porch and an attic nobody clears out.",
+        "traits": [
+          "Drafty",
+          "Full of other people's things",
+          "Always has a dog",
+          "Too big for one person"
+        ]
+      },
+      "questions": [
+        {
+          "id": "builder",
+          "text": "Who built the house?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "couple",
+              "text": "A young couple, with their own hands."
+            },
+            {
+              "id": "mill",
+              "text": "The mill, for its foreman."
+            },
+            {
+              "id": "widow",
+              "text": "A widow, with her husband's insurance."
+            }
+          ]
+        },
+        {
+          "id": "attic",
+          "text": "What is in the attic?",
+          "pick": "oneOrTwo",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "letters",
+              "text": "A box of letters no one has read."
+            },
+            {
+              "id": "trunk",
+              "text": "A locked trunk."
+            },
+            {
+              "id": "nothing",
+              "text": "Nothing, and that is strange."
+            },
+            {
+              "id": "ghost",
+              "text": "Someone who never left."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "frame",
+            "title": "The frame goes up",
+            "text": "Neighbors gather to raise the frame of the house in a single day."
+          },
+          {
+            "id": "keys",
+            "title": "The first keys",
+            "text": "The first family is handed the keys to a house that smells of fresh paint."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "demolished",
+            "title": "The house comes down",
+            "text": "The house is demolished, and a neighbor saves the porch rail."
+          },
+          {
+            "id": "returned",
+            "title": "Back in the family",
+            "text": "A great-grandchild of the first family buys the house back."
+          },
+          {
+            "id": "empty",
+            "title": "An empty house",
+            "text": "The last owner moves out, and the house stands empty and waiting."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Old houses", "Letters and photographs"],
+        "no": []
+      },
+      "note": "Each Period's Anchor is whoever lives in the house then. Change a trait every time the house changes hands."
+    },
+    {
+      "id": "toolkit.home.last-orders",
+      "title": "Last Orders",
+      "group": "close-to-home",
+      "ruleset": "lens",
+      "pitch": "The diner on Route 9 has been open since before the interstate. It has seen the town boom, bust and boom again, and the same six regulars have sat at the counter for decades, or their children have. Tonight it closes for good. The history is everything that happened before the last coffee was poured.",
+      "bigPicture": "A small-town diner outlives the town's good years and bad, until the night it closes for good.",
+      "questions": [
+        {
+          "id": "why",
+          "text": "Why is the diner closing?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "sold",
+              "text": "The land has been sold."
+            },
+            {
+              "id": "retire",
+              "text": "The owner is retiring, and no one will take it on."
+            },
+            {
+              "id": "road",
+              "text": "The new road bypasses the town."
+            },
+            {
+              "id": "secret",
+              "text": "No one will say."
+            }
+          ]
+        },
+        {
+          "id": "regulars",
+          "text": "Who are the regulars?",
+          "pick": "oneOrTwo",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "farmers",
+              "text": "Farmers before dawn."
+            },
+            {
+              "id": "shift",
+              "text": "Factory workers coming off shift."
+            },
+            {
+              "id": "teens",
+              "text": "Teenagers with nowhere else to go."
+            },
+            {
+              "id": "widowers",
+              "text": "Widowers who don't want to eat alone."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "opening",
+            "title": "Opening day",
+            "text": "The diner opens with six stools, one cook and a pie on the counter."
+          },
+          {
+            "id": "bought",
+            "title": "Bought on a bet",
+            "text": "The diner changes hands in a card game."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "last-cup",
+            "title": "The last coffee",
+            "text": "The last coffee is poured, and the regulars refuse to leave."
+          },
+          {
+            "id": "reopens",
+            "title": "Under new management",
+            "text": "The diner reopens under a new name, and the regulars come anyway."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Local diners and shops", "Small-town gossip"],
+        "no": []
+      }
+    },
+    {
+      "id": "toolkit.home.reunion",
+      "title": "The Reunion",
+      "group": "close-to-home",
+      "ruleset": "lens",
+      "pitch": "Every ten years the family gathers at the lake. Every ten years someone is missing, someone new arrives and an old argument starts up again. The history runs from the first reunion to the last, one decade at a time.",
+      "bigPicture": "One family's reunions at the lake, decade after decade, as people come and go and old arguments never quite end.",
+      "questions": [
+        {
+          "id": "argument",
+          "text": "What is the argument everyone avoids?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "land",
+              "text": "Who really owns the land by the lake."
+            },
+            {
+              "id": "mother",
+              "text": "What happened to Mother."
+            },
+            {
+              "id": "money",
+              "text": "The money that went missing."
+            },
+            {
+              "id": "marriage",
+              "text": "A marriage nobody approved of."
+            }
+          ]
+        },
+        {
+          "id": "keeper",
+          "text": "Who keeps the family together?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "matriarch",
+              "text": "A matriarch who outlives everyone."
+            },
+            {
+              "id": "cook",
+              "text": "Whoever does the cooking."
+            },
+            {
+              "id": "nobody",
+              "text": "Nobody, and it shows."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "first",
+            "title": "The first reunion",
+            "text": "Four siblings and their children meet at the lake for the first time since the funeral."
+          },
+          {
+            "id": "photo",
+            "title": "The first photograph",
+            "text": "The whole family squeezes into one photograph on the dock."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "last",
+            "title": "The last reunion",
+            "text": "Only two people come, and they decide it is enough."
+          },
+          {
+            "id": "biggest",
+            "title": "The biggest reunion",
+            "text": "More people come than ever, and most of them have never met."
+          },
+          {
+            "id": "sold",
+            "title": "The lake is sold",
+            "text": "The lake house is sold, and the family meets in a car park."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Family dinners", "Kitchen-table arguments"],
+        "no": []
+      }
+    }
+  ],
+  "generators": [
+    {
+      "id": "toolkit.home.small-hours",
+      "name": "Small Hours",
+      "group": "close-to-home",
+      "description": "A household history in four rolls: when, who or what, what happened, and to whom.",
+      "parts": [
+        {
+          "id": "when",
+          "label": "When",
+          "tableId": "toolkit.home.small-hours.when"
+        },
+        {
+          "id": "a",
+          "label": "Who",
+          "tableId": "toolkit.home.small-hours.a"
+        },
+        {
+          "id": "impact",
+          "label": "What",
+          "tableId": "toolkit.home.small-hours.impact"
+        },
+        {
+          "id": "b",
+          "label": "Who",
+          "tableId": "toolkit.home.small-hours.b"
+        }
+      ],
+      "template": "{when} {a} {impact} {b}.",
+      "swap": ["a", "b"]
+    }
+  ]
+}

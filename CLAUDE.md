@@ -29,9 +29,11 @@ engine  ←  content  ←  export / persistence  ←  store  ←  ui
 - `src/engine/` — pure TypeScript rules engine: types, rng, reducer, commands, placement, oracle,
   dials, chronicle, lint, undo, invariants. No DOM, storage, React, Dexie or Zustand; no `window`,
   `crypto`, `fetch` globals. Ids, time and content are injected through `Env`.
-- `src/content/` — zod pack schema (version 2: tables, decks, groups, seeds, generators) and
-  `BUNDLED_PACKS` (the starter pack and the startup sample), which the store installs and refreshes
-  on every load; bundled packs can be disabled but not removed.
+- `src/content/` — zod pack schema (version 3: tables with optional `slot` and `tags`, decks,
+  groups, seeds, generators) and `BUNDLED_PACKS` (the starter pack and the startup sample), which
+  the store installs and refreshes on every load; bundled packs can be disabled but not removed.
+- `toolkits/` — three CC0 genre toolkit packs (full v3 and `import-now/` v1). User content, not
+  bundled; `src/content/toolkit-schema.test.ts` keeps the two versions in step.
 - `src/export/` — game file / bundle (zod), Markdown manuscripts. Pure functions of state or log.
 - `src/persistence/` — Dexie (`solo-microscope` DB): games, events, snapshots, packs, meta;
   migrations; storage persistence API.
@@ -63,7 +65,9 @@ has `no-restricted-globals`.
   adds the `seed.answers` mode, off.
 - Startup commands (`RollSeedAnswer`, `ApplySeed`, `RollGenerator`, `AcceptGeneratorReading`) are
   valid only before the Bookends exist. Their events carry resolved text, never content ids to
-  look up, so replay stays content-free.
+  look up, so replay stays content-free. `ApplySeed` and `AcceptGeneratorReading` link the game to
+  their group's tagged tables with a `SettingsChanged` in the same batch (only when the active
+  tables change); `linkedActiveTables` in `settings.ts` computes the list for that and the UI.
 
 ## Mechanic-mode pattern
 

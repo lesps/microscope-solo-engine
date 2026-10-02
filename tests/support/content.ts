@@ -70,6 +70,54 @@ export const testTables: Table[] = [
   { id: 't-palette', name: 'Palette', category: 'palette', entries: list('palette', 8) },
   { id: 't-reversal', name: 'Reversals', category: 'reversal', entries: list('reversal', 4) },
   { id: 't-focus', name: 'Focus', category: 'focus', entries: list('focus', 5) },
+  {
+    id: 't-question',
+    name: 'Questions',
+    category: 'question',
+    entries: list('question', 4).map((e) => ({ text: `${e.text}?` })),
+  },
+  { id: 't-name', name: 'Names', category: 'person', slot: 'name', entries: list('Name', 4) },
+  { id: 't-role', name: 'Roles', category: 'person', slot: 'role', entries: list('role', 4) },
+  {
+    id: 't-want',
+    name: 'Wants',
+    category: 'person',
+    slot: 'want',
+    entries: list('to want', 4),
+  },
+];
+
+/** Tables linked to a group: inactive unless a game is linked to one of their tags. */
+export const testTaggedTables: Table[] = [
+  {
+    id: 'tag-grp-domain',
+    name: 'Group domains',
+    category: 'domain',
+    tags: ['grp'],
+    entries: list('grp domain', 3),
+  },
+  {
+    id: 'tag-grp-name',
+    name: 'Group names',
+    category: 'person',
+    slot: 'name',
+    tags: ['grp'],
+    entries: list('Grp', 3),
+  },
+  {
+    id: 'tag-other-question',
+    name: 'Other questions',
+    category: 'question',
+    tags: ['other'],
+    entries: [{ text: 'Other?' }],
+  },
+  {
+    id: 'tag-both-focus',
+    name: 'Shared focus',
+    category: 'focus',
+    tags: ['grp', 'other'],
+    entries: list('shared', 2),
+  },
 ];
 
 const from = { packId: 'test-pack', packName: 'Test pack' };
@@ -191,14 +239,30 @@ export const testGenerator: Generator = {
   swap: ['a', 'b'],
 };
 
+/** A seed in the second group, for relinking. */
+export const testOtherSeed: Seed = {
+  ...testAnySeed,
+  id: 'seed-other',
+  title: 'Other seed',
+  group: 'other',
+};
+
 export function testContent(): Content {
   const deck = testDeck();
   return {
-    tables: Object.fromEntries([...testTables, ...testGeneratorTables].map((t) => [t.id, t])),
+    tables: Object.fromEntries(
+      [...testTables, ...testTaggedTables, ...testGeneratorTables].map((t) => [t.id, t]),
+    ),
     decks: { [deck.id]: deck },
-    groups: { grp: { id: 'grp', name: 'Group', ...from } },
+    groups: {
+      grp: { id: 'grp', name: 'Group', ...from },
+      other: { id: 'other', name: 'Other group', ...from },
+    },
     seeds: Object.fromEntries(
-      [testSeed, testChronicleSeed, testAnySeed].map((x) => [x.id, { ...x, ...from }]),
+      [testSeed, testChronicleSeed, testAnySeed, testOtherSeed].map((x) => [
+        x.id,
+        { ...x, ...from },
+      ]),
     ),
     generators: { gen: { ...testGenerator, ...from } },
   };

@@ -3,6 +3,7 @@ import { wordCount, type Game, type Scene } from '../../engine';
 import { useApp, useAppStore } from '../StoreContext';
 import { Lock, ToneMark } from '../components/common';
 import { OracleForm } from '../components/OracleDialog';
+import { NewCharacterForm } from '../components/PromptTools';
 import { RollList } from '../components/RollList';
 import { useDispatch } from '../hooks/useGame';
 import { useHotkeys } from '../hooks/useHotkeys';
@@ -113,7 +114,6 @@ function Draft({ g, scene }: { g: Game; scene: Scene }) {
   const [text, setText] = useState(scene.prose);
   const [answer, setAnswer] = useState('');
   const [named, setNamed] = useState<string[]>([]);
-  const [newChar, setNewChar] = useState('');
   const [customReversal, setCustomReversal] = useState('');
   const [paused, setPaused] = useState(!(g.settings.scene.pause && !scene.prose));
   const area = useRef<HTMLTextAreaElement>(null);
@@ -282,31 +282,7 @@ function Draft({ g, scene }: { g: Game; scene: Scene }) {
 
         <section className="stack">
           <h3>Characters</h3>
-          <form
-            className="row"
-            onSubmit={async (e) => {
-              e.preventDefault();
-              if ((await dispatch({ type: 'CreateCharacter', name: newChar, description: '' })).ok)
-                setNewChar('');
-            }}
-          >
-            <input
-              aria-label="New character name"
-              placeholder="New character"
-              value={newChar}
-              onChange={(e) => setNewChar(e.target.value)}
-              style={{ flex: 1 }}
-            />
-            <button type="submit" disabled={!newChar.trim()}>
-              Add
-            </button>
-          </form>
-          <button
-            onClick={() => dispatch({ type: 'DrawPrompt', kind: 'character' })}
-            disabled={!g.deck}
-          >
-            Draw a character card
-          </button>
+          <NewCharacterForm g={g} />
         </section>
 
         <section className="stack">

@@ -4,9 +4,9 @@ import { wordCount } from './lint';
 import { effectiveOdds, qualifierFor } from './oracle';
 import { weightedSlots } from './placement';
 import { apply } from './reducer';
-import { fillTemplate } from './startup';
+import { fillTemplate, personText } from './startup';
 import { rollDie, seedToState } from './rng';
-import { clampDial, defaultSettings, focusModeFor } from './settings';
+import { clampDial, defaultSettings, focusModeFor, linkedActiveTables } from './settings';
 import {
   describePlacement,
   isLegalSlot,
@@ -29,6 +29,8 @@ import type {
   GameEvent,
   Id,
   ListTable,
+  PersonSlot,
+  PromptKind,
   Seed,
   SeedStartup,
   StartupBookend,
@@ -129,7 +131,7 @@ export type Command =
   | { type: 'DrawReversal'; entryId: Id }
   | { type: 'PlaceReversal'; entryId: Id; offset: number; text?: string }
   | { type: 'AskOracle'; question: string; odds: number; entryId?: Id }
-  | { type: 'DrawPrompt'; kind: 'domain' | 'wordPair' | 'card' | 'character' }
+  | { type: 'DrawPrompt'; kind: PromptKind }
   | { type: 'ResolveScene'; entryId: Id; answer: string; characterIds?: Id[] }
   | { type: 'CommitTurn' }
   | { type: 'RollEvict' }
@@ -763,7 +765,7 @@ const handlers: Handlers = {
     const settings = c.settings ?? {
       ...defaultSettings(),
       activeTables: Object.values(tx.env.content.tables)
-        .filter((t) => t.category !== 'generator')
+        .filter((t) => t.category !== 'generator' && !t.tags?.length)
         .map((t) => t.id),
     };
     const seats = c.seats ?? [
@@ -1262,11 +1264,32 @@ const handlers: Handlers = {
       });
       return;
     }
+    if (c.kind === 'person') {
+      const people = seatTables(g, tx.env.content, seat, 'person') as ListTable[];
+      const slots = PERSON_SLOTS.map(
+        (slot) => [slot, people.filter((t) => t.slot === slot)] as const,
+      ).filter(([, ts]) => ts.length);
+      check(slots.length, 'content-missing', 'no active person tables');
+      const parts: Partial<Record<PersonSlot, string>> = {};
+      slots.forEach(([slot, ts], i) => {
+        const table = ts.length === 1 ? ts[0]! : pickTable(tx, ts);
+        const last = i === slots.length - 1;
+        parts[slot] = tx.rollTable(
+          `prompt.person.${slot}`,
+          table,
+          last
+            ? (text) => ({ kind: 'person', text: personText({ ...parts, [slot]: text }) })
+            : undefined,
+        );
+      });
+      return;
+    }
     const tables = seatTables(g, tx.env.content, seat, c.kind);
     check(tables.length, 'content-missing', `no active ${c.kind} tables`);
     const table = tables.length === 1 ? tables[0]! : pickTable(tx, tables);
-    if (c.kind === 'domain') {
-      tx.rollTable('prompt.domain', table, (text) => ({ kind: 'domain', text }));
+    if (c.kind === 'domain' || c.kind === 'question') {
+      const kind = c.kind;
+      tx.rollTable(`prompt.${kind}`, table, (text) => ({ kind, text }));
     } else {
       const wp = table as Extract<Table, { category: 'wordPair' }>;
       const action = tx.rollList('prompt.wordPair.action', wp.id, wp.action, wp.die);
@@ -1592,6 +1615,7 @@ const handlers: Handlers = {
     if (seed.note) startup.note = seed.note;
     if (seed.palette) startup.palette = seed.palette;
     tx.emit('SeedApplied', { startup });
+    linkGroup(tx, seed.group);
   },
 
   RollGenerator: (tx, c) => {
@@ -1637,6 +1661,7 @@ const handlers: Handlers = {
         reading,
       },
     });
+    linkGroup(tx, gen.group);
   },
 };
 
@@ -1682,6 +1707,17 @@ function honorSeedRoll(
   }
   if (rolledId !== undefined && !picked.includes(rolledId))
     tx.override('seed.answers', rolledId, chosen, targetId);
+}
+
+const PERSON_SLOTS: PersonSlot[] = ['name', 'role', 'want'];
+
+/** After a seed or generator is applied: link its group's tables, if that changes anything. */
+function linkGroup(tx: Tx, group: Id | undefined) {
+  if (!group) return;
+  const s = tx.g.settings;
+  const activeTables = linkedActiveTables(tx.env.content, s.activeTables, [group]);
+  if (activeTables.join('\n') === s.activeTables.join('\n')) return;
+  tx.emit('SettingsChanged', { settings: { ...s, activeTables } });
 }
 
 function pickTable(tx: Tx, tables: Table[]): Table {

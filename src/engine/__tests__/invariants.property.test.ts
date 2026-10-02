@@ -41,10 +41,10 @@ function seededPick(seed: number[]): Pick {
 /** Extra, out-of-band commands mixed into play to stress the reducer. */
 /** Random startup commands during setup; rejections are expected and simply skipped. */
 function startupCommands(d: Driver, choices: number[]) {
-  const seeds = ['seed-lens', 'seed-chronicle', 'seed-any'];
+  const seeds = ['seed-lens', 'seed-chronicle', 'seed-any', 'seed-other'];
   const questions = ['q1', 'q2', 'q3', 'start', 'end'];
   for (const k of choices.slice(0, 8)) {
-    const seedId = seeds[k % 3]!;
+    const seedId = seeds[Math.floor(k / 4) % 4]!;
     const cmds: Command[] = [
       { type: 'RollSeedAnswer', seedId, questionId: questions[k % 5]! },
       {
@@ -82,7 +82,9 @@ function extra(d: Driver, k: number): Command | 'undo' | undefined {
     case 1:
       return {
         type: 'DrawPrompt',
-        kind: (['domain', 'wordPair', 'card', 'character'] as const)[k % 4]!,
+        kind: (['domain', 'wordPair', 'card', 'character', 'question', 'person'] as const)[
+          Math.floor(k / 8) % 6
+        ]!,
       };
     case 2:
       return 'undo';

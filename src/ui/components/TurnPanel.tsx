@@ -25,6 +25,7 @@ import { useDispatch } from '../hooks/useGame';
 import { navigate } from '../router';
 import { CharCount, ToneMark } from './common';
 import { RollList } from './RollList';
+import { NewCharacterForm, PersonRoll, QuestionIdea, useHasTables } from './PromptTools';
 
 const mode = (g: Game, m: keyof Settings['modes']): Mode => g.settings.modes[m];
 
@@ -157,6 +158,7 @@ interface EntryDraft {
   budgetMax: number;
   anchorId: string;
   anchorName: string;
+  anchorDescription: string;
   anchorImmortal: boolean;
   changeOp: TraitChange['op'];
   trait: string;
@@ -186,6 +188,7 @@ function TurnStep({ g, events }: { g: Game; events: GameEvent[] }) {
     budgetMax: g.settings.scene.defaultBudget.max,
     anchorId: '',
     anchorName: '',
+    anchorDescription: '',
     anchorImmortal: false,
     changeOp: 'add',
     trait: '',
@@ -229,7 +232,7 @@ function TurnStep({ g, events }: { g: Game; events: GameEvent[] }) {
     if (kind === 'period' && g.ruleset === 'chronicle') {
       const anchor: AnchorInput = d.anchorId
         ? { characterId: d.anchorId }
-        : { name: d.anchorName, immortal: d.anchorImmortal };
+        : { name: d.anchorName, description: d.anchorDescription, immortal: d.anchorImmortal };
       cmd.anchor = anchor;
       cmd.change =
         d.changeOp === 'modify'
@@ -398,6 +401,7 @@ function TurnStep({ g, events }: { g: Game; events: GameEvent[] }) {
                 Question <CharCount value={d.question} max={140} />
                 <input value={d.question} onChange={(e) => up({ question: e.target.value })} />
               </label>
+              <QuestionIdea g={g} onUse={(question) => up({ question })} />
               <label>
                 Setting (optional)
                 <input value={d.setting} onChange={(e) => up({ setting: e.target.value })} />
@@ -420,42 +424,46 @@ function TurnStep({ g, events }: { g: Game; events: GameEvent[] }) {
                   Dictated
                 </label>
               </div>
-              {characters.length > 0 && (
-                <>
-                  <label>
-                    Required characters (up to 2)
-                    <select
-                      multiple
-                      value={d.required}
-                      onChange={(e) =>
-                        up({
-                          required: Array.from(e.target.selectedOptions, (o) => o.value).slice(
-                            0,
-                            2,
-                          ),
-                        })
-                      }
-                    >
-                      {characters.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <label>
-                    Banned character
-                    <select value={d.banned} onChange={(e) => up({ banned: e.target.value })}>
-                      <option value="">none</option>
-                      {characters.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </>
-              )}
+              <fieldset>
+                <legend>Characters</legend>
+                {characters.length > 0 && (
+                  <>
+                    <label>
+                      Required characters (up to 2)
+                      <select
+                        multiple
+                        value={d.required}
+                        onChange={(e) =>
+                          up({
+                            required: Array.from(e.target.selectedOptions, (o) => o.value).slice(
+                              0,
+                              2,
+                            ),
+                          })
+                        }
+                      >
+                        {characters.map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      Banned character
+                      <select value={d.banned} onChange={(e) => up({ banned: e.target.value })}>
+                        <option value="">none</option>
+                        {characters.map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </>
+                )}
+                <NewCharacterForm g={g} />
+              </fieldset>
               <div className="row">
                 <label className="inline">
                   Budget
@@ -519,6 +527,21 @@ function TurnStep({ g, events }: { g: Game; events: GameEvent[] }) {
                     immortal
                   </label>
                 </div>
+              )}
+              {!d.anchorId && (
+                <>
+                  <input
+                    aria-label="Anchor description"
+                    placeholder="Description (optional)"
+                    value={d.anchorDescription}
+                    maxLength={140}
+                    onChange={(e) => up({ anchorDescription: e.target.value })}
+                  />
+                  <PersonRoll
+                    g={g}
+                    onUse={(p) => up({ anchorName: p.name, anchorDescription: p.description })}
+                  />
+                </>
               )}
               <label>
                 Change to the subject
@@ -786,6 +809,8 @@ function DialsStep({ g }: { g: Game }) {
 function Prompts({ g, onOracle }: { g: Game; onOracle: () => void }) {
   const dispatch = useDispatch();
   const prompts = g.turn?.prompts ?? [];
+  const questions = useHasTables(g, 'question');
+  const people = useHasTables(g, 'person');
   return (
     <section aria-label="Prompts" className="stack">
       <h3>On-demand prompts</h3>
@@ -803,6 +828,14 @@ function Prompts({ g, onOracle }: { g: Game; onOracle: () => void }) {
         >
           Character
         </button>
+        {questions && (
+          <button onClick={() => dispatch({ type: 'DrawPrompt', kind: 'question' })}>
+            Question
+          </button>
+        )}
+        {people && (
+          <button onClick={() => dispatch({ type: 'DrawPrompt', kind: 'person' })}>Person</button>
+        )}
         <button onClick={onOracle} aria-keyshortcuts="O">
           Oracle
         </button>

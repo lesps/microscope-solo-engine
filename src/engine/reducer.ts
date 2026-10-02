@@ -7,6 +7,7 @@ import type {
   GameEvent,
   Id,
   RolledValues,
+  PromptKind,
   Scene,
 } from './types';
 import { SCHEMA_VERSION } from './types';
@@ -115,7 +116,7 @@ function recordRolled(g: Draft, purpose: string, value: unknown, at: string, seq
     return;
   }
   if (purpose.startsWith('prompt.') && g.turn) {
-    const v = value as { kind: 'domain' | 'wordPair' | 'card' | 'character'; text: string };
+    const v = value as { kind: PromptKind; text: string };
     g.turn.prompts.push({ kind: v.kind, text: v.text, seq });
   }
   void at;
