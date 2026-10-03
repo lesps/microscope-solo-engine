@@ -1,4 +1,28 @@
-export function downloadText(filename: string, text: string, mime = 'text/plain') {
+type ShareNav = Pick<Navigator, 'canShare' | 'share'> & { standalone?: boolean };
+
+/**
+ * Saves text as a file. An iOS Home Screen app can't download reliably, so there the file goes to
+ * the share sheet (Save to Files, AirDrop, …); some share targets only take plain text.
+ */
+export async function downloadText(
+  filename: string,
+  text: string,
+  mime = 'text/plain',
+  nav: ShareNav = navigator as ShareNav,
+): Promise<void> {
+  if (nav.standalone && nav.share) {
+    for (const type of new Set([mime, 'text/plain'])) {
+      const files = [new File([text], filename, { type })];
+      if (!nav.canShare?.({ files })) continue;
+      try {
+        await nav.share({ files, title: filename });
+        return;
+      } catch (e) {
+        if ((e as Error).name === 'AbortError') return;
+        break;
+      }
+    }
+  }
   const blob = new Blob([text], { type: `${mime};charset=utf-8` });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');

@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { useApp, useAppStore } from './StoreContext';
 import { PersistIndicator } from './components/Status';
 import { UpdatePrompt } from './components/UpdatePrompt';
+import { localStore, rememberRoute } from './lib/standalone';
 import { href, useRoute } from './router';
 import LibraryScreen from './screens/LibraryScreen';
 
@@ -23,6 +24,7 @@ export function App({ pwa = true }: { pwa?: boolean }) {
   useEffect(() => {
     if (route.name === 'library') store.getState().closeGame();
   }, [route.name, store]);
+  useEffect(() => rememberRoute(localStore(window), window.location.hash), [route]);
 
   return (
     <div className="app">

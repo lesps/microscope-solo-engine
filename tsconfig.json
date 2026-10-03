@@ -17,5 +17,12 @@
     "types": ["vite/client", "vite-plugin-pwa/client", "node", "@testing-library/jest-dom"],
     "noEmit": true
   },
-  "include": ["src", "tests", "vite.config.ts", "playwright.config.ts", "eslint.config.js"]
+  "include": [
+    "src",
+    "tests",
+    "scripts",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "eslint.config.js"
+  ]
 }

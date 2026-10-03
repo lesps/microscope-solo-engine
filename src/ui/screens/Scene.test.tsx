@@ -76,6 +76,38 @@ describe('Scene editor: drafting', () => {
     );
   });
 
+  it('saves the draft at once when the app goes to the background', async () => {
+    const store = await makeStore();
+    const { gameId, entryId } = await openScene(store);
+    await renderApp(store, { name: 'scene', gameId, entryId });
+    const draft = await screen.findByLabelText('Scene draft');
+    fireEvent.change(draft, { target: { value: 'Written just before switching apps.' } });
+    const visibility = vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden');
+    await act(async () => {
+      document.dispatchEvent(new Event('visibilitychange'));
+    });
+    visibility.mockRestore();
+    // Well inside the 1.2 s typing debounce, so only the lifecycle event can have saved it.
+    await waitFor(
+      () =>
+        expect(state(store).entries[entryId]!.prose).toBe('Written just before switching apps.'),
+      {
+        timeout: 500,
+      },
+    );
+    fireEvent.change(draft, { target: { value: 'And once more on pagehide.' } });
+    await act(async () => {
+      window.dispatchEvent(new Event('pagehide'));
+    });
+    // Well inside the 1.2 s typing debounce, so only the lifecycle event can have saved it.
+    await waitFor(
+      () => expect(state(store).entries[entryId]!.prose).toBe('And once more on pagehide.'),
+      {
+        timeout: 500,
+      },
+    );
+  });
+
   it('autosaves after a pause in typing', async () => {
     const store = await makeStore();
     const { gameId, entryId } = await openScene(store);

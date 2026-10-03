@@ -144,6 +144,20 @@ function Draft({ g, scene }: { g: Game; scene: Scene }) {
     return () => clearTimeout(t);
   }, [text, flush]);
 
+  // iOS may evict a backgrounded Home Screen app without warning; save before it can.
+  useEffect(() => {
+    const save = () => {
+      if (document.visibilityState === 'hidden') void flush();
+    };
+    const hide = () => void flush();
+    document.addEventListener('visibilitychange', save);
+    window.addEventListener('pagehide', hide);
+    return () => {
+      document.removeEventListener('visibilitychange', save);
+      window.removeEventListener('pagehide', hide);
+    };
+  }, [flush]);
+
   const n = wordCount(text);
   const { min, max } = scene.budget;
   const outOfBudget = n < min || n > max;

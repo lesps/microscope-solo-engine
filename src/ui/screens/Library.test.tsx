@@ -2,7 +2,8 @@ import { act, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import lensFixture from '../../../tests/fixtures/lens-3-rounds.json';
-import { renderApp } from '../../../tests/support/app';
+import { go, renderApp } from '../../../tests/support/app';
+import { LAST_ROUTE_KEY } from '../lib/standalone';
 import { gameInPlay, makeStore } from '../../../tests/support/ui';
 import * as download from '../lib/download';
 
@@ -10,6 +11,14 @@ const file = (data: unknown, name = 'g.json') =>
   new File([JSON.stringify(data)], name, { type: 'application/json' });
 
 describe('App shell', () => {
+  it('remembers the current route, so a Home Screen launch can resume there', async () => {
+    const store = await makeStore();
+    await renderApp(store);
+    expect(localStorage.getItem(LAST_ROUTE_KEY)).toBe('#/');
+    await go({ name: 'packs' });
+    expect(localStorage.getItem(LAST_ROUTE_KEY)).toBe('#/packs');
+  });
+
   it('shows navigation, storage status and credits; unknown routes offer a way back', async () => {
     const store = await makeStore();
     await renderApp(store);
@@ -44,7 +53,7 @@ describe('Library screen', () => {
 
   it('lists games with ruleset, rounds and backup state; opens, duplicates, exports and deletes', async () => {
     const user = userEvent.setup();
-    const spy = vi.spyOn(download, 'downloadText').mockImplementation(() => {});
+    const spy = vi.spyOn(download, 'downloadText').mockImplementation(async () => {});
     const store = await makeStore();
     await gameInPlay(store, { start: false });
     await renderApp(store);
@@ -116,7 +125,7 @@ describe('Library screen', () => {
 
   it('exports all as a bundle and imports a bundle, copying existing games on request', async () => {
     const user = userEvent.setup();
-    const spy = vi.spyOn(download, 'downloadText').mockImplementation(() => {});
+    const spy = vi.spyOn(download, 'downloadText').mockImplementation(async () => {});
     const store = await makeStore();
     await gameInPlay(store, { start: false });
     await renderApp(store);

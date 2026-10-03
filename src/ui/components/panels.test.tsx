@@ -83,7 +83,7 @@ describe('Status', () => {
 
   it('BackupBanner appears when due, exports, and snoozes', async () => {
     const user = userEvent.setup();
-    const spy = vi.spyOn(download, 'downloadText').mockImplementation(() => {});
+    const spy = vi.spyOn(download, 'downloadText').mockImplementation(async () => {});
     const store = await makeStore();
     await store.getState().setBackupThresholds({ rounds: 1, days: 7 });
     const id = await gameInPlay(store, {
@@ -119,7 +119,7 @@ describe('Status', () => {
 
   it('ExportMenu downloads each format and closes after a pick or an outside click', async () => {
     const user = userEvent.setup();
-    const spy = vi.spyOn(download, 'downloadText').mockImplementation(() => {});
+    const spy = vi.spyOn(download, 'downloadText').mockImplementation(async () => {});
     const store = await makeStore();
     await gameInPlay(store, { focus: 'Tolls' });
     function Menu() {
@@ -175,6 +175,20 @@ describe('UpdatePrompt', () => {
     expect(pwaStub.updated).toBe(1);
     await user.click(screen.getByRole('button', { name: 'Later' }));
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('checks for a new version whenever the app comes back to the foreground', () => {
+    renderWith({} as AppStore, <UpdatePrompt />);
+    const update = vi.fn(async () => {});
+    pwaStub.options!.onRegisteredSW!('sw.js', { update } as unknown as ServiceWorkerRegistration);
+    const visibility = vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden');
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(update).not.toHaveBeenCalled();
+    visibility.mockReturnValue('visible');
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(update).toHaveBeenCalledOnce();
+    visibility.mockRestore();
+    pwaStub.options!.onRegisteredSW!('sw.js', undefined);
   });
 
   it('announces offline readiness', async () => {

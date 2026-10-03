@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import { splashLinks } from './scripts/ios-splash';
 
 // Project Pages serve from /<repo>/; the deploy workflow sets BASE_PATH. A custom domain uses '/'.
 const base = process.env.BASE_PATH ?? '/';
@@ -9,6 +10,7 @@ export default defineConfig({
   base,
   plugins: [
     react(),
+    { name: 'ios-splash', transformIndexHtml: () => splashLinks() },
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
@@ -35,6 +37,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,json}'],
+        // iOS reads launch images when the app is added to the Home Screen; caching ~60 of them
+        // offline would only slow the first load.
+        globIgnores: ['splash/**'],
         navigateFallback: 'index.html',
       },
     }),
