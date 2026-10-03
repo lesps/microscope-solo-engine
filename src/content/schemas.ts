@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import type { Card, Deck, Generator, Seed, StartupGroup, Table } from '../engine';
 
-/** The version written. Version 1 packs are still accepted and normalized to this. */
-export const PACK_SCHEMA_VERSION = 2;
+/** The version written. Versions 1 and 2 are still accepted and normalized to this. */
+export const PACK_SCHEMA_VERSION = 3;
 
 const text = z.string().trim().min(1, 'must not be empty').max(200, 'at most 200 characters');
 const id = z
@@ -22,13 +22,17 @@ export const tableEntrySchema = z
     path: ['range'],
   });
 
+const tags = z.array(id).min(1, '1–4 tags').max(4, '1–4 tags').optional();
+
 const listTable = z
   .object({
     id,
     name: text,
-    category: z.enum(['domain', 'palette', 'reversal', 'focus', 'generator']),
+    category: z.enum(['domain', 'palette', 'reversal', 'focus', 'generator', 'question', 'person']),
     die: z.number().int().min(1).max(1000).optional(),
     entries: z.array(tableEntrySchema).min(1, 'a table needs entries'),
+    slot: z.enum(['name', 'role', 'want']).optional(),
+    tags,
   })
   .strict();
 
@@ -40,6 +44,7 @@ const wordPairTable = z
     die: z.number().int().min(1).max(1000).optional(),
     action: z.array(tableEntrySchema).min(1),
     subject: z.array(tableEntrySchema).min(1),
+    tags,
   })
   .strict();
 
@@ -184,9 +189,47 @@ function uniqueIds(ctx: Ctx, items: { id: string }[], path: Path, kind: string) 
 
 const PLACEHOLDER = /\{([^{}]*)\}/g;
 
+const ENTRY_RULES: Record<string, { max: number; test?: (t: string) => boolean; rule?: string }> = {
+  question: { max: 140, test: (t) => t.endsWith('?'), rule: 'a question ends with "?"' },
+  name: { max: 40 },
+  want: { max: 120, test: (t) => t.startsWith('to '), rule: 'a want starts with "to "' },
+};
+
+function tableRules(ctx: Ctx, version: number, t: z.infer<typeof tableSchema>, path: Path) {
+  const issue = (at: Path, message: string) =>
+    ctx.addIssue({ code: 'custom', path: [...path, ...at], message });
+  if (version < 3) {
+    if (t.category === 'question' || t.category === 'person')
+      issue(['category'], `${t.category} tables need schemaVersion 3`);
+    if ('slot' in t && t.slot !== undefined) issue(['slot'], 'slots need schemaVersion 3');
+    if (t.tags) issue(['tags'], 'tags need schemaVersion 3');
+  }
+  if (t.tags) {
+    if (t.category === 'generator')
+      issue(['tags'], 'generator tables are never active, so they take no tags');
+    t.tags.forEach((tag, j) => {
+      if (t.tags!.indexOf(tag) !== j) issue(['tags', j], `duplicate tag "${tag}"`);
+    });
+  }
+  if (t.category === 'wordPair') return;
+  if (t.category === 'person' && !t.slot) issue(['slot'], 'person tables need a slot');
+  if (t.category !== 'person' && t.slot) issue(['slot'], 'only person tables have a slot');
+  const rules =
+    t.category === 'question'
+      ? ENTRY_RULES.question
+      : t.category === 'person' && t.slot
+        ? ENTRY_RULES[t.slot]
+        : undefined;
+  if (!rules) return;
+  t.entries.forEach((e, j) => {
+    if (e.text.length > rules.max) issue(['entries', j, 'text'], `at most ${rules.max} characters`);
+    else if (rules.test && !rules.test(e.text)) issue(['entries', j, 'text'], rules.rule!);
+  });
+}
+
 export const packSchema = z
   .object({
-    schemaVersion: z.union([z.literal(1), z.literal(PACK_SCHEMA_VERSION)]),
+    schemaVersion: z.union([z.literal(1), z.literal(2), z.literal(PACK_SCHEMA_VERSION)]),
     id,
     name: text,
     version: z.string().min(1).max(20),
@@ -210,6 +253,7 @@ export const packSchema = z
           message: `duplicate table id "${t.id}"`,
         });
       ids.add(t.id);
+      tableRules(ctx, p.schemaVersion, t, ['tables', i]);
       type Entry = z.infer<typeof tableEntrySchema>;
       const lists: Record<string, Entry[]> =
         t.category === 'wordPair'
@@ -404,19 +448,29 @@ export function formatPath(path: (string | number)[]): string {
 
 export type PackValidation = { ok: true; pack: Pack } | { ok: false; errors: PackError[] };
 
-/** Problems that don't block installing a pack but are worth showing. */
-export function packWarnings(pack: Pack): PackError[] {
+/**
+ * Problems that don't block installing a pack but are worth showing. `knownGroups` adds group ids
+ * from other installed packs, which tags may refer to.
+ */
+export function packWarnings(pack: Pack, knownGroups: Iterable<string> = []): PackError[] {
   const used = new Set(pack.generators.flatMap((g) => g.parts.map((part) => part.tableId)));
-  return pack.tables.flatMap((t, i) =>
-    t.category === 'generator' && !used.has(t.id)
+  const groups = new Set([...pack.groups.map((g) => g.id), ...knownGroups]);
+  return pack.tables.flatMap((t, i) => [
+    ...(t.category === 'generator' && !used.has(t.id)
       ? [
           {
             path: `tables[${i}]`,
             message: `generator table "${t.id}" is not used by any generator`,
           },
         ]
-      : [],
-  );
+      : []),
+    ...(t.tags ?? [])
+      .filter((tag) => !groups.has(tag))
+      .map((tag) => ({
+        path: `tables[${i}].tags`,
+        message: `tag "${tag}" matches no installed group`,
+      })),
+  ]);
 }
 
 export function validatePack(input: unknown): PackValidation {
@@ -442,7 +496,7 @@ export type _GeneratorFits = Assert<
   z.output<typeof generatorSchema> extends Generator ? true : false
 >;
 
-/** Brings a pack stored under schema 1 up to the schema-2 shape (the startup arrays default empty). */
+/** Brings a pack stored under schema 1 or 2 up to the current shape (the startup arrays default empty). */
 export function normalizePack(
   pack: Pack | (Omit<Pack, 'groups' | 'seeds' | 'generators'> & Partial<Pack>),
 ): Pack {

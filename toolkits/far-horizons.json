@@ -1,0 +1,1228 @@
+{
+  "schemaVersion": 3,
+  "id": "toolkit-far-horizons",
+  "name": "Far Horizons",
+  "version": "2.0.0",
+  "description": "A science-fiction toolkit: survey crews, lost colonies, strange signals and the slow arithmetic of light-years. Links its tables to games started from its seeds and generator.",
+  "author": "Solo Microscope",
+  "license": "CC0-1.0",
+  "tables": [
+    {
+      "id": "toolkit.far.focus",
+      "name": "Far Horizons: Focus",
+      "category": "focus",
+      "entries": [
+        {
+          "text": "The first faster-than-light jump"
+        },
+        {
+          "text": "A colony that goes silent"
+        },
+        {
+          "text": "Contact with an alien mind"
+        },
+        {
+          "text": "Mutiny on a generation ship"
+        },
+        {
+          "text": "Terraforming a dead world"
+        },
+        {
+          "text": "A derelict of unknown origin"
+        },
+        {
+          "text": "The last message from Earth"
+        },
+        {
+          "text": "A corporation claims a planet"
+        },
+        {
+          "text": "An artificial mind asks for rights"
+        },
+        {
+          "text": "Plague in the habitat rings"
+        },
+        {
+          "text": "Mapping a nebula"
+        },
+        {
+          "text": "A schism among the colonies"
+        },
+        {
+          "text": "Ruins found on a moon"
+        },
+        {
+          "text": "A pilot who never came back"
+        },
+        {
+          "text": "The founding of a free port"
+        },
+        {
+          "text": "A star about to go nova"
+        },
+        {
+          "text": "Exiles on an ice world"
+        },
+        {
+          "text": "The first child born in deep space"
+        },
+        {
+          "text": "A war fought across light-years"
+        },
+        {
+          "text": "An alien gift with no instructions"
+        },
+        {
+          "text": "The collapse of the jump network"
+        },
+        {
+          "text": "A pilgrimage to the origin world"
+        },
+        {
+          "text": "Smugglers on the frontier"
+        },
+        {
+          "text": "A mind uploaded into a ship"
+        },
+        {
+          "text": "The quarantine of a whole system"
+        },
+        {
+          "text": "A survey crew stranded"
+        },
+        {
+          "text": "The treaty of the outer worlds"
+        },
+        {
+          "text": "A signal hidden in starlight"
+        },
+        {
+          "text": "Engineers who rebuild a sun"
+        },
+        {
+          "text": "The return of a lost fleet"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.domains",
+      "name": "Far Horizons: Domains",
+      "category": "domain",
+      "entries": [
+        {
+          "text": "Ships and crews"
+        },
+        {
+          "text": "Colonies and settlement"
+        },
+        {
+          "text": "Contact and the alien"
+        },
+        {
+          "text": "Machines and minds"
+        },
+        {
+          "text": "Corporations and trade"
+        },
+        {
+          "text": "Science and discovery"
+        },
+        {
+          "text": "Politics between worlds"
+        },
+        {
+          "text": "Faith among the stars"
+        },
+        {
+          "text": "Survival and scarcity"
+        },
+        {
+          "text": "War and fleets"
+        },
+        {
+          "text": "Bodies and change"
+        },
+        {
+          "text": "Memory of Earth"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.reversals",
+      "name": "Far Horizons: Reversals",
+      "category": "reversal",
+      "entries": [
+        {
+          "text": "The signal was a warning."
+        },
+        {
+          "text": "Life support fails."
+        },
+        {
+          "text": "The aliens were here first."
+        },
+        {
+          "text": "The ship's mind has its own agenda."
+        },
+        {
+          "text": "The map is wrong."
+        },
+        {
+          "text": "Time dilation steals years."
+        },
+        {
+          "text": "A stowaway changes everything."
+        },
+        {
+          "text": "The colony does not want to be rescued."
+        },
+        {
+          "text": "The cargo is alive."
+        },
+        {
+          "text": "Contact breaks a taboo on both sides."
+        },
+        {
+          "text": "The jump drive misfires."
+        },
+        {
+          "text": "The corporation owns the crew's debt."
+        },
+        {
+          "text": "The quarantine traps the wrong people."
+        },
+        {
+          "text": "The terraforming turns."
+        },
+        {
+          "text": "A crew member is a clone."
+        },
+        {
+          "text": "The rescue arrives decades late."
+        },
+        {
+          "text": "The relic activates."
+        },
+        {
+          "text": "The founders lied about Earth."
+        },
+        {
+          "text": "The star is unstable."
+        },
+        {
+          "text": "The sleepers begin to wake."
+        },
+        {
+          "text": "Two colonies claim the same world."
+        },
+        {
+          "text": "The alien gift is a weapon."
+        },
+        {
+          "text": "Communications are cut."
+        },
+        {
+          "text": "Success makes them a target."
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.palette",
+      "name": "Far Horizons: Palette",
+      "category": "palette",
+      "entries": [
+        {
+          "text": "Faster-than-light travel"
+        },
+        {
+          "text": "Generation ships"
+        },
+        {
+          "text": "Artificial minds"
+        },
+        {
+          "text": "Ancient alien ruins"
+        },
+        {
+          "text": "Corporate charters"
+        },
+        {
+          "text": "Cryosleep"
+        },
+        {
+          "text": "Terraforming"
+        },
+        {
+          "text": "People adapted to new worlds"
+        },
+        {
+          "text": "Free ports and smugglers"
+        },
+        {
+          "text": "Orbital habitats"
+        },
+        {
+          "text": "First-contact protocols"
+        },
+        {
+          "text": "Derelict ships"
+        },
+        {
+          "text": "Pilgrims among the stars"
+        },
+        {
+          "text": "Swarms of solar collectors"
+        },
+        {
+          "text": "Uploaded minds"
+        },
+        {
+          "text": "Asteroid miners"
+        },
+        {
+          "text": "Messages that take years to arrive"
+        },
+        {
+          "text": "Colony charters"
+        },
+        {
+          "text": "Alien ecologies"
+        },
+        {
+          "text": "Explorers who outlive their families"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.pairs",
+      "name": "Far Horizons: Word pairs",
+      "category": "wordPair",
+      "action": [
+        {
+          "text": "Survey"
+        },
+        {
+          "text": "Signal"
+        },
+        {
+          "text": "Colonize"
+        },
+        {
+          "text": "Abandon"
+        },
+        {
+          "text": "Decode"
+        },
+        {
+          "text": "Salvage"
+        },
+        {
+          "text": "Quarantine"
+        },
+        {
+          "text": "Terraform"
+        },
+        {
+          "text": "Defect"
+        },
+        {
+          "text": "Awaken"
+        },
+        {
+          "text": "Jump"
+        },
+        {
+          "text": "Bargain"
+        },
+        {
+          "text": "Upload"
+        },
+        {
+          "text": "Mutiny"
+        },
+        {
+          "text": "Map"
+        },
+        {
+          "text": "Smuggle"
+        },
+        {
+          "text": "Harvest"
+        },
+        {
+          "text": "Contact"
+        },
+        {
+          "text": "Rescue"
+        },
+        {
+          "text": "Erase"
+        }
+      ],
+      "subject": [
+        {
+          "text": "the derelict"
+        },
+        {
+          "text": "a moon"
+        },
+        {
+          "text": "the colony"
+        },
+        {
+          "text": "the ship's mind"
+        },
+        {
+          "text": "an alien artifact"
+        },
+        {
+          "text": "the jump gate"
+        },
+        {
+          "text": "the crew"
+        },
+        {
+          "text": "a star"
+        },
+        {
+          "text": "the archive"
+        },
+        {
+          "text": "the sleepers"
+        },
+        {
+          "text": "the charter"
+        },
+        {
+          "text": "a probe"
+        },
+        {
+          "text": "the station"
+        },
+        {
+          "text": "the fleet"
+        },
+        {
+          "text": "a nebula"
+        },
+        {
+          "text": "the homeworld"
+        },
+        {
+          "text": "an outpost"
+        },
+        {
+          "text": "the beacon"
+        },
+        {
+          "text": "the seedship"
+        },
+        {
+          "text": "a stranger"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.questions",
+      "name": "Far Horizons: Scene Questions",
+      "category": "question",
+      "entries": [
+        {
+          "text": "What does the signal actually say?"
+        },
+        {
+          "text": "Who decides whether to wake the sleepers?"
+        },
+        {
+          "text": "Does the colony accept the newcomers?"
+        },
+        {
+          "text": "What did the survey team find on the far side?"
+        },
+        {
+          "text": "Can the ship's mind be trusted with the truth?"
+        },
+        {
+          "text": "Who pays for the rescue?"
+        },
+        {
+          "text": "Does the crew obey the corporation's order?"
+        },
+        {
+          "text": "What is the alien asking for?"
+        },
+        {
+          "text": "Who stays behind when the ship leaves?"
+        },
+        {
+          "text": "Will the quarantine hold?"
+        },
+        {
+          "text": "What does the derelict's log reveal?"
+        },
+        {
+          "text": "Who sabotaged the jump drive?"
+        },
+        {
+          "text": "Can the two colonies share the world?"
+        },
+        {
+          "text": "What do they tell the people back home?"
+        },
+        {
+          "text": "Does the captain open the artifact?"
+        },
+        {
+          "text": "Who will be the first to step outside?"
+        },
+        {
+          "text": "What did Earth never tell them?"
+        },
+        {
+          "text": "Can the dying star be saved?"
+        },
+        {
+          "text": "Does the stowaway get to stay?"
+        },
+        {
+          "text": "Who claims the discovery?"
+        },
+        {
+          "text": "What is the price of passage?"
+        },
+        {
+          "text": "Will the uploaded mind agree to be shut down?"
+        },
+        {
+          "text": "Who betrays the free port?"
+        },
+        {
+          "text": "How do they say goodbye across the light-years?"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.names",
+      "name": "Far Horizons: Names",
+      "category": "person",
+      "slot": "name",
+      "entries": [
+        {
+          "text": "Imani Vasquez"
+        },
+        {
+          "text": "Tomas Kade"
+        },
+        {
+          "text": "Juno Abara"
+        },
+        {
+          "text": "Priya Halloran"
+        },
+        {
+          "text": "Oleks Varga"
+        },
+        {
+          "text": "Mei Sato-Lund"
+        },
+        {
+          "text": "Ezra Quill"
+        },
+        {
+          "text": "Nadia Fenwick"
+        },
+        {
+          "text": "Kofi Maren"
+        },
+        {
+          "text": "Sela Dray"
+        },
+        {
+          "text": "Ravi Ostrander"
+        },
+        {
+          "text": "Lune"
+        },
+        {
+          "text": "Halcyon-7"
+        },
+        {
+          "text": "Teodor Ashe"
+        },
+        {
+          "text": "Yara Coll"
+        },
+        {
+          "text": "Wren Matsuda"
+        },
+        {
+          "text": "Idris Pell"
+        },
+        {
+          "text": "Anouk Strand"
+        },
+        {
+          "text": "Calder Rhee"
+        },
+        {
+          "text": "Zia Okafor"
+        },
+        {
+          "text": "Bastien Morrow"
+        },
+        {
+          "text": "Tamsin Loh"
+        },
+        {
+          "text": "Kestrel"
+        },
+        {
+          "text": "Femi Oyelaran"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.roles",
+      "name": "Far Horizons: Roles",
+      "category": "person",
+      "slot": "role",
+      "entries": [
+        {
+          "text": "a survey pilot with too many jumps logged"
+        },
+        {
+          "text": "a ship's mind in a borrowed body"
+        },
+        {
+          "text": "a xenolinguist"
+        },
+        {
+          "text": "a colony administrator"
+        },
+        {
+          "text": "a corporate auditor"
+        },
+        {
+          "text": "a salvage diver"
+        },
+        {
+          "text": "a medic on the habitat ring"
+        },
+        {
+          "text": "a smuggler with a clean record"
+        },
+        {
+          "text": "a sleeper woken too early"
+        },
+        {
+          "text": "a terraforming engineer"
+        },
+        {
+          "text": "a priest of the long voyage"
+        },
+        {
+          "text": "a deserter from the fleet"
+        },
+        {
+          "text": "a child born in transit"
+        },
+        {
+          "text": "an envoy from the outer worlds"
+        },
+        {
+          "text": "a quarantine officer"
+        },
+        {
+          "text": "an archivist of lost Earth"
+        },
+        {
+          "text": "a clone who knows it"
+        },
+        {
+          "text": "a miner from the belt"
+        },
+        {
+          "text": "a captain past retirement"
+        },
+        {
+          "text": "an alien who learned our language"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.wants",
+      "name": "Far Horizons: Wants",
+      "category": "person",
+      "slot": "want",
+      "entries": [
+        {
+          "text": "to see Earth with their own eyes"
+        },
+        {
+          "text": "to be the first to make contact"
+        },
+        {
+          "text": "to pay off the crew's debt"
+        },
+        {
+          "text": "to wake someone they left asleep"
+        },
+        {
+          "text": "to prove the signal is real"
+        },
+        {
+          "text": "to get everyone home alive"
+        },
+        {
+          "text": "to keep the colony independent"
+        },
+        {
+          "text": "to be recognized as a person"
+        },
+        {
+          "text": "to find out who sabotaged the ship"
+        },
+        {
+          "text": "to map the edge of the known"
+        },
+        {
+          "text": "to bury their crew properly"
+        },
+        {
+          "text": "to escape the corporation's contract"
+        },
+        {
+          "text": "to stop the quarantine from being lifted"
+        },
+        {
+          "text": "to start over on a new world"
+        },
+        {
+          "text": "to understand what the aliens want"
+        },
+        {
+          "text": "to keep a terrible discovery secret"
+        },
+        {
+          "text": "to command their own ship"
+        },
+        {
+          "text": "to reach a family light-years away"
+        },
+        {
+          "text": "to undo a decision made before they were born"
+        },
+        {
+          "text": "to leave a mark on an empty world"
+        }
+      ],
+      "tags": ["far-horizons"]
+    },
+    {
+      "id": "toolkit.far.deep-survey.where",
+      "name": "Deep Survey: Where",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "On a tidally locked world,"
+        },
+        {
+          "text": "Inside a gas giant's storms,"
+        },
+        {
+          "text": "Around a dying star,"
+        },
+        {
+          "text": "In the dark between galaxies,"
+        },
+        {
+          "text": "Beneath an ice moon's crust,"
+        },
+        {
+          "text": "At the edge of the jump network,"
+        },
+        {
+          "text": "In a ring of shattered planets,"
+        },
+        {
+          "text": "Near a wandering black hole,"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.far.deep-survey.a",
+      "name": "Deep Survey: Found",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "a silent derelict"
+        },
+        {
+          "text": "the survey crew"
+        },
+        {
+          "text": "a seedship"
+        },
+        {
+          "text": "an ancient machine"
+        },
+        {
+          "text": "a lost colony"
+        },
+        {
+          "text": "a swarm of probes"
+        },
+        {
+          "text": "the ship's mind"
+        },
+        {
+          "text": "an alien choir"
+        },
+        {
+          "text": "a smuggler fleet"
+        },
+        {
+          "text": "a sleeping city"
+        },
+        {
+          "text": "a corporate outpost"
+        },
+        {
+          "text": "a pilgrim convoy"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.far.deep-survey.impact",
+      "name": "Deep Survey: Effect",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "awakens"
+        },
+        {
+          "text": "hides from"
+        },
+        {
+          "text": "rescues"
+        },
+        {
+          "text": "devours"
+        },
+        {
+          "text": "misunderstands"
+        },
+        {
+          "text": "rewrites"
+        },
+        {
+          "text": "outlasts"
+        },
+        {
+          "text": "summons"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.far.deep-survey.b",
+      "name": "Deep Survey: Found",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "the homeworld"
+        },
+        {
+          "text": "an alien ecology"
+        },
+        {
+          "text": "the frontier colonies"
+        },
+        {
+          "text": "a forgotten war"
+        },
+        {
+          "text": "the jump gates"
+        },
+        {
+          "text": "a newborn star"
+        },
+        {
+          "text": "the first settlers"
+        },
+        {
+          "text": "a mind made of light"
+        },
+        {
+          "text": "the fleet"
+        },
+        {
+          "text": "a buried archive"
+        },
+        {
+          "text": "the last humans"
+        },
+        {
+          "text": "the beacon"
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "far-horizons",
+      "name": "Far Horizons",
+      "description": "Ships, signals and the long dark between the stars."
+    }
+  ],
+  "seeds": [
+    {
+      "id": "toolkit.far.long-signal",
+      "title": "The Long Signal",
+      "group": "far-horizons",
+      "ruleset": "lens",
+      "pitch": "A radio telescope picks up a signal from a star eighty light-years away. It is unmistakably artificial, and it is a reply to a message humanity has not sent yet. Deciding what to send takes generations; the answer takes longer. Will the signal bring humanity together, or tear it apart over what to say?",
+      "bigPicture": "Humanity receives a reply to a message it has not sent yet, and spends centuries deciding what to say.",
+      "questions": [
+        {
+          "id": "signal",
+          "text": "What is in the signal?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "math",
+              "text": "A mathematical greeting."
+            },
+            {
+              "id": "map",
+              "text": "A map with one point marked."
+            },
+            {
+              "id": "warning",
+              "text": "A warning."
+            },
+            {
+              "id": "voice",
+              "text": "A voice that sounds human."
+            }
+          ]
+        },
+        {
+          "id": "control",
+          "text": "Who controls the reply?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "nation",
+              "text": "One nation, which found it first."
+            },
+            {
+              "id": "corp",
+              "text": "The corporation that owns the telescope."
+            },
+            {
+              "id": "council",
+              "text": "A council of every world."
+            },
+            {
+              "id": "noone",
+              "text": "No one. Everyone sends their own reply."
+            }
+          ]
+        },
+        {
+          "id": "belief",
+          "text": "What do people come to believe about the senders?",
+          "pick": "oneOrTwo",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "future",
+              "text": "They are us, from the future."
+            },
+            {
+              "id": "gods",
+              "text": "They are gods."
+            },
+            {
+              "id": "dead",
+              "text": "They are long dead."
+            },
+            {
+              "id": "coming",
+              "text": "They are already on their way."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "night-shift",
+            "title": "An ordinary night shift",
+            "text": "The signal is detected on an ordinary night shift, by someone who almost ignores it."
+          },
+          {
+            "id": "announcement",
+            "title": "The announcement",
+            "text": "The signal is announced to the world, and nobody sleeps."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "arrival",
+            "title": "The senders arrive",
+            "text": "The senders arrive."
+          },
+          {
+            "id": "too-late",
+            "title": "No one to hear",
+            "text": "Humanity's reply finally reaches the star, and there is no one left to hear it."
+          },
+          {
+            "id": "second",
+            "title": "A second signal",
+            "text": "A second signal arrives, from much closer."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Messages that take years to arrive"],
+        "no": ["Faster-than-light travel"]
+      },
+      "note": "Light is slow: let decades pass between Periods. Turn on Faster-than-light travel only if you want the history to catch up with the signal."
+    },
+    {
+      "id": "toolkit.far.seedship",
+      "title": "Seedship",
+      "group": "far-horizons",
+      "ruleset": "lens",
+      "pitch": "A seedship carries ten thousand sleepers and a crew who will live and die aboard it on the way to a world none of them will see. The voyage takes four hundred years. The history is the ship's: the crew's generations, the sleepers in their vaults, and what is left of the mission when the ship arrives.",
+      "bigPicture": "A generation ship crosses four centuries of dark, and its crew forgets, remembers and remakes why it was sent.",
+      "questions": [
+        {
+          "id": "why",
+          "text": "Why did the ship leave Earth?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "dying",
+              "text": "Earth was dying."
+            },
+            {
+              "id": "faith",
+              "text": "A faith sent it, as a pilgrimage."
+            },
+            {
+              "id": "exile",
+              "text": "Its passengers were exiles."
+            },
+            {
+              "id": "choice",
+              "text": "Because someone could."
+            }
+          ]
+        },
+        {
+          "id": "mind",
+          "text": "Who runs the ship?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "captains",
+              "text": "Hereditary captains."
+            },
+            {
+              "id": "mind",
+              "text": "The ship's mind."
+            },
+            {
+              "id": "vote",
+              "text": "Everyone, by vote."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "launch",
+            "title": "Launch",
+            "text": "The seedship leaves orbit, and the first crew watches Earth shrink to a point."
+          },
+          {
+            "id": "waking",
+            "title": "The first waking",
+            "text": "The second generation of crew is born and never sees a sky."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "landfall",
+            "title": "Landfall",
+            "text": "The ship reaches orbit, and the sleepers are woken to a world no one has seen."
+          },
+          {
+            "id": "turned",
+            "title": "The ship turns back",
+            "text": "The crew votes to turn the ship around."
+          },
+          {
+            "id": "home",
+            "title": "The ship is home",
+            "text": "The ship arrives, and no one wants to leave it."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Generation ships", "Cryosleep"],
+        "no": ["Faster-than-light travel"]
+      }
+    },
+    {
+      "id": "toolkit.far.free-port",
+      "title": "The Free Port",
+      "group": "far-horizons",
+      "ruleset": "any",
+      "pitch": "At the last jump gate before the unmapped dark there is a station no government owns. Smugglers, pilgrims, deserters and dreamers pass through, and some of them stay. This is the history of the free port from its first hull plates to its last.",
+      "bigPicture": "A lawless station at the edge of known space rises and falls as everyone passing through tries to own it.",
+      "questions": [
+        {
+          "id": "built",
+          "text": "Who built the station?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "miners",
+              "text": "Miners who struck it rich."
+            },
+            {
+              "id": "mutineers",
+              "text": "A crew who mutinied and kept the ship."
+            },
+            {
+              "id": "aliens",
+              "text": "No one knows. It was already there."
+            }
+          ]
+        },
+        {
+          "id": "law",
+          "text": "What passes for law?",
+          "pick": "oneOrTwo",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "dock",
+              "text": "Whoever controls the docks."
+            },
+            {
+              "id": "debt",
+              "text": "Debt, and who holds it."
+            },
+            {
+              "id": "mind",
+              "text": "The station's mind, which keeps its own counsel."
+            },
+            {
+              "id": "nothing",
+              "text": "Nothing at all."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "first",
+            "title": "The first hull plate",
+            "text": "The first hull plate is welded into place by someone running from something."
+          },
+          {
+            "id": "opens",
+            "title": "The gate opens",
+            "text": "The jump gate opens for the first time, and the station is suddenly worth something."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "annexed",
+            "title": "Annexed",
+            "text": "The station is annexed, renamed and given a governor."
+          },
+          {
+            "id": "dark",
+            "title": "Lights out",
+            "text": "The last trader leaves, and the lights go out ring by ring."
+          },
+          {
+            "id": "city",
+            "title": "A city",
+            "text": "The free port becomes the capital of a new civilization."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Free ports and smugglers"],
+        "no": []
+      },
+      "note": "Works for Chronicle too: make the station your subject."
+    }
+  ],
+  "generators": [
+    {
+      "id": "toolkit.far.deep-survey",
+      "name": "Deep Survey",
+      "group": "far-horizons",
+      "description": "A survey report in four rolls: where, what was found, what it does, and to whom.",
+      "parts": [
+        {
+          "id": "where",
+          "label": "Where",
+          "tableId": "toolkit.far.deep-survey.where"
+        },
+        {
+          "id": "a",
+          "label": "Found",
+          "tableId": "toolkit.far.deep-survey.a"
+        },
+        {
+          "id": "impact",
+          "label": "Effect",
+          "tableId": "toolkit.far.deep-survey.impact"
+        },
+        {
+          "id": "b",
+          "label": "Found",
+          "tableId": "toolkit.far.deep-survey.b"
+        }
+      ],
+      "template": "{where} {a} {impact} {b}.",
+      "swap": ["a", "b"]
+    }
+  ]
+}

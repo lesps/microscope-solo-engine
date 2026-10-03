@@ -43,7 +43,15 @@ Setup opens on **Start** when an enabled pack has startup content:
 - **Roll a generator**: roll several tables into a Big Picture prompt ("the hoarding of salt
   starves the old dynasty"), swap two parts for a second reading, reroll as often as you like,
   then write your own Big Picture from it.
-- **Start blank**: write the premise yourself.
+- **Start blank**: write the premise yourself, after ticking any installed toolkits the game should
+  use.
+
+**Toolkits** are packs whose tables are tagged with a group (a genre). Tagged tables stay off
+until a game is linked to their group: by starting from one of the group's seeds or generators, by
+ticking it on a blank start, or in Game settings. Untagged tables are always available. Three CC0
+toolkits (Myth and Iron, Far Horizons, Close to Home) are in [`toolkits/`](toolkits/); import them
+from **Packs**. They also add Scene Question ideas and Roll a person, which appear beside the
+fields they help fill.
 
 The bundled _Startup sample_ pack has one original seed and one generator. Seeds and generators
 are modeled on how Microscope Explorer by Ben Robbins presents its starting points; Explorer's own

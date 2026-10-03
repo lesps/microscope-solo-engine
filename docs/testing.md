@@ -55,8 +55,12 @@ UPDATE_SEED_FIXTURE=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # le
   reader) sees the page. `tests/support/ui.tsx` has helpers to reach any game stage;
   `tests/support/app.tsx` renders the whole app at a hash route.
 - **E2E** runs the production build under the GitHub Pages sub-path: a full round with a Scene,
-  import and export of every format, Chronicle, content packs, game settings, offline after first
+  import and export of every format, Chronicle, content packs, game settings, startup seeds and
+  generators, toolkit linking (importing the three packs in `toolkits/`), offline after first
   load, the keyboard map and reduced motion.
+- **Toolkit packs** (`src/content/toolkit-schema.test.ts`) validate the three toolkits, check
+  their advertised table sizes and tags, and check that each import-now version is the full
+  version minus its v3 content, so the two cannot drift apart.
 - **Mutation testing** changes engine code (flipped conditions, removed statements, swapped
   operators) and reports mutants no test notices. The report is in `reports/mutation/index.html`.
 

@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   fillTemplate,
+  linkedActiveTables,
+  tablesByTag,
   type BookendAnswer,
   type BookendQuestion,
   type Content,
@@ -36,9 +38,19 @@ export function startupContent(content: Content, ruleset: Ruleset) {
   };
 }
 
+/** Installed groups that tag tables, offered on a blank start. */
+export function toolkits(content: Content) {
+  return [...tablesByTag(content)]
+    .flatMap(([id, tables]) => {
+      const group = content.groups[id];
+      return group ? [{ id, name: group.name, tables: tables.map((t) => t.id) }] : [];
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export function hasStartupContent(content: Content, ruleset: Ruleset): boolean {
   const c = startupContent(content, ruleset);
-  return c.seeds.length > 0 || c.generators.length > 0;
+  return c.seeds.length > 0 || c.generators.length > 0 || toolkits(content).length > 0;
 }
 
 function firstSentence(text: string): string {
@@ -68,7 +80,8 @@ type View =
   | { kind: 'seeds'; group: string }
   | { kind: 'seed'; seedId: Id }
   | { kind: 'generators' }
-  | { kind: 'generator'; generatorId: Id };
+  | { kind: 'generator'; generatorId: Id }
+  | { kind: 'toolkits' };
 
 export function StartupPicker({ g, onDone }: { g: Game; onDone: () => void }) {
   const content = useApp((s) => s.content);
@@ -112,11 +125,23 @@ export function StartupPicker({ g, onDone }: { g: Game; onDone: () => void }) {
             <strong>Roll a generator</strong>
             <span className="hint">A Big Picture prompt from rolled tables.</span>
           </button>
-          <button className="card startup-card" onClick={onDone}>
+          <button
+            className="card startup-card"
+            onClick={() => (toolkits(content).length ? setView({ kind: 'toolkits' }) : onDone())}
+          >
             <strong>Start blank</strong>
             <span className="hint">Write the premise yourself.</span>
           </button>
         </div>
+      </section>
+    );
+  }
+
+  if (view.kind === 'toolkits') {
+    return (
+      <section className="stack" aria-label="Toolkits">
+        {back({ kind: 'home' })}
+        <Toolkits g={g} content={content} onDone={onDone} />
       </section>
     );
   }
@@ -593,5 +618,57 @@ export function StartupNotes({ startup }: { startup: Game['startup'] }) {
         </p>
       )}
     </div>
+  );
+}
+
+function Toolkits({ g, content, onDone }: { g: Game; content: Content; onDone: () => void }) {
+  const dispatch = useDispatch();
+  const list = toolkits(content);
+  const active = new Set(g.settings.activeTables);
+  const [checked, setChecked] = useState(
+    () => new Set(list.filter((k) => k.tables.some((t) => active.has(t))).map((k) => k.id)),
+  );
+  return (
+    <>
+      <h2>Toolkits</h2>
+      <p className="hint">
+        Toolkit tables are off until a game is linked to them. Tick the genres this game should draw
+        from; untagged tables stay as they are.
+      </p>
+      <div className="stack">
+        {list.map((k) => (
+          <label key={k.id} className="inline">
+            <input
+              type="checkbox"
+              checked={checked.has(k.id)}
+              onChange={(e) => {
+                const next = new Set(checked);
+                if (e.target.checked) next.add(k.id);
+                else next.delete(k.id);
+                setChecked(next);
+              }}
+            />{' '}
+            {k.name} <span className="hint">({k.tables.length} tables)</span>
+          </label>
+        ))}
+      </div>
+      <button
+        className="primary"
+        onClick={async () => {
+          const current = g.settings.activeTables;
+          const activeTables = linkedActiveTables(content, current, [...checked]);
+          if (activeTables.join('\n') !== current.join('\n')) {
+            const r = await dispatch({
+              type: 'ChangeSettings',
+              settings: { ...g.settings, activeTables },
+            });
+            if (!r.ok) return;
+          }
+          onDone();
+        }}
+      >
+        Continue
+      </button>
+    </>
   );
 }

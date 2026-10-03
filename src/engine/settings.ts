@@ -1,4 +1,4 @@
-import type { Mode, Seat, Settings } from './types';
+import type { Content, Id, Mode, Seat, Settings, Table } from './types';
 
 export function defaultSettings(): Settings {
   return {
@@ -97,4 +97,29 @@ export function focusModeFor(settings: Settings, seat: Seat): Mode {
 
 export function clampDial(n: number): number {
   return Math.max(1, Math.min(9, n));
+}
+
+const tagsOf = (t: Table | undefined) => t?.tags ?? [];
+
+/**
+ * Active tables for a game linked to `groupIds`: every currently active untagged table (ids no
+ * longer installed included), plus every non-generator table tagged with any of the groups.
+ */
+export function linkedActiveTables(content: Content, current: Id[], groupIds: Id[]): Id[] {
+  const groups = new Set(groupIds);
+  const kept = current.filter((id) => !tagsOf(content.tables[id]).length);
+  const linked = Object.values(content.tables)
+    .filter((t) => t.category !== 'generator' && t.tags?.some((g) => groups.has(g)))
+    .map((t) => t.id);
+  return [...new Set([...kept, ...linked])];
+}
+
+/** Every tag on a non-generator table, with the tables carrying it, in content order. */
+export function tablesByTag(content: Content): Map<Id, Table[]> {
+  const by = new Map<Id, Table[]>();
+  for (const t of Object.values(content.tables)) {
+    if (t.category === 'generator') continue;
+    for (const tag of t.tags ?? []) by.set(tag, [...(by.get(tag) ?? []), t]);
+  }
+  return by;
 }

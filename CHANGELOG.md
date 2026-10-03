@@ -8,6 +8,28 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Toolkit linking: tables may carry `tags` (group ids). A tagged table starts inactive and is
+  linked into a game when it starts from a seed or generator in that group (recorded as a
+  `SettingsChanged` in the same command), from a **Toolkits** checklist on a blank start, or from
+  Game settings, where Active tables are now listed under their tags with a toggle per group.
+- On-demand prompts **Question** (`question` tables) and **Person** (`person` tables, one per
+  `name`, `role` and `want` slot, read as "{name}, {role}, who wants {want}"). A Question idea
+  button sits beside the Scene frame's Question field, and Roll a person beside every
+  new-character form (the Scene frame, the Scene editor, a Chronicle Period's new Anchor); Use
+  copies the result into the form. Both join the turn panel's prompt row. Roll purposes
+  `prompt.question` and `prompt.person.*`; engine helpers `linkedActiveTables`, `tablesByTag`,
+  `personText` and `personPromptParts`.
+- The Scene frame can create characters (name and description) so they can be required or banned
+  at once; a new Chronicle Anchor takes a description.
+- Three CC0 genre toolkits in `toolkits/`, as user content (not bundled): Myth and Iron, Far
+  Horizons and Close to Home, each in an import-now version (pack schema 1) and a full version
+  (pack schema 3) with Scene Questions, people, a group, three seeds and a generator.
+- Packs screen: counts of `question` and `person` tables, each table's slot and tags, and a
+  warning for a tag that matches no installed group.
+- Tests: schema v3 rules and the toolkit packs, prompts and linking in the engine, the two new
+  prompt kinds and a second-group seed in the property test, UI tests for every new control, an
+  import-over-import-now store test, and e2e flows for a Far Horizons seed start and a blank start
+  with Close to Home ticked.
 - Startup packs: pack content that takes a new game from a blank page to the Palette in a few
   choices. **Seeds** (a pitch, 0–6 multiple-choice questions with pick rules, Bookend questions,
   Palette suggestions, a designer note; Lens, Chronicle or either) and **generators** (parts rolled
@@ -29,24 +51,6 @@ All notable changes are documented here. The format follows
   replay, migration, a golden fixture started from The Salt Road, UI tests for every startup path,
   and e2e flows for a seed start, a generator start and an imported v2 pack. The property test now
   mixes random startup commands into setup.
-
-### Changed
-
-- Game schema 2: games and game files from schema 1 are migrated on load or import (the
-  `seed.answers` mode is added, off). Exports of old games are byte-identical; their replayed state
-  differs only by the new mode and `schemaVersion`.
-- Pack schema 2: adds `groups`, `seeds`, `generators` and the `generator` table category. Version
-  1 packs, installed or imported, are normalized to version 2.
-- `CreateGame` leaves `generator` tables out of the active tables.
-- `parseGameFile` requires a migrate function and validates payloads after migrating.
-
-### Not included
-
-- `explorer_to_pack.py`, the script that converts a personal copy of Microscope Explorer into a
-  pack, is delivered separately and is not part of this repository or its tests.
-
-### Added
-
 - Component and screen tests (Vitest + jsdom + Testing Library) for every UI component, hook and
   screen, driving a real store on fake-indexeddb.
 - Tests proving the invariant checker detects each kind of violation; soft Lens check tests;
@@ -64,8 +68,25 @@ All notable changes are documented here. The format follows
 - Stryker type-checks mutants and ignores rejection-message wording (`stryker-plugins.mjs`);
   runs are incremental locally.
 
+### Changed
+
+- Pack schema 3: adds the `question` and `person` table categories, `slot` and `tags`. Versions 1
+  and 2 are normalized to 3 on load, without tags.
+- `CreateGame` activates only untagged tables; tagged tables wait for a link.
+- `ApplySeed` and `AcceptGeneratorReading` may emit `SettingsChanged` after their startup event.
+- The Scene editor's character button is now **Add character**, beside a description field.
+- Game schema 2: games and game files from schema 1 are migrated on load or import (the
+  `seed.answers` mode is added, off). Exports of old games are byte-identical; their replayed state
+  differs only by the new mode and `schemaVersion`.
+- Pack schema 2: adds `groups`, `seeds`, `generators` and the `generator` table category. Version
+  1 packs, installed or imported, are normalized to version 2.
+- `CreateGame` leaves `generator` tables out of the active tables.
+- `parseGameFile` requires a migrate function and validates payloads after migrating.
+
 ### Fixed
 
+- The property test's prompt and seed choices were correlated with the command choice, so it only
+  ever drew word-pair prompts; it now covers every prompt kind and seed.
 - Game-file import now validates every event payload (`src/export/eventSchemas.ts`). Previously
   about 30% of events with a corrupted payload were accepted, leaving a game that could crash on
   the next roll.
@@ -75,6 +96,11 @@ All notable changes are documented here. The format follows
 ### Removed
 
 - Unused `nextUint32`, `placementOf` and `useGame`.
+
+### Not included
+
+- `explorer_to_pack.py`, the script that converts a personal copy of Microscope Explorer into a
+  pack, is delivered separately and is not part of this repository or its tests.
 
 ## [0.1.0] - 2026-09-27
 

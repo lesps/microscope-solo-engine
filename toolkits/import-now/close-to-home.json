@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "id": "toolkit-close-to-home",
+  "name": "Close to Home",
+  "version": "1.0.0",
+  "description": "A domestic toolkit: households, neighbors and small towns across the years, where the stakes are love, money and who gets the house. Tables only; version 2.0.0 adds Scene Questions, people, seeds and a generator.",
+  "author": "Solo Microscope",
+  "license": "CC0-1.0",
+  "tables": [
+    {
+      "id": "toolkit.home.focus",
+      "name": "Close to Home: Focus",
+      "category": "focus",
+      "entries": [
+        {
+          "text": "A family home changes hands"
+        },
+        {
+          "text": "The town's last factory closes"
+        },
+        {
+          "text": "A wedding that almost didn't happen"
+        },
+        {
+          "text": "A child who leaves and comes back"
+        },
+        {
+          "text": "The flood that spring"
+        },
+        {
+          "text": "A secret kept by the grandparents"
+        },
+        {
+          "text": "The corner shop"
+        },
+        {
+          "text": "A friendship that ends badly"
+        },
+        {
+          "text": "The church hall fire"
+        },
+        {
+          "text": "A newcomer moves in next door"
+        },
+        {
+          "text": "The night the power went out"
+        },
+        {
+          "text": "An inheritance nobody expected"
+        },
+        {
+          "text": "The school's last year"
+        },
+        {
+          "text": "A garden planted for someone gone"
+        },
+        {
+          "text": "The diner's regulars"
+        },
+        {
+          "text": "A long illness"
+        },
+        {
+          "text": "The bridge that finally got built"
+        },
+        {
+          "text": "A letter found in the attic"
+        },
+        {
+          "text": "Two families feuding over a fence"
+        },
+        {
+          "text": "The town festival"
+        },
+        {
+          "text": "A dog everyone knew"
+        },
+        {
+          "text": "The road out of town"
+        },
+        {
+          "text": "The first television on the street"
+        },
+        {
+          "text": "A teacher who changed everything"
+        },
+        {
+          "text": "Holiday dinners over the years"
+        },
+        {
+          "text": "The rumor that wouldn't die"
+        },
+        {
+          "text": "A storm that took the old oak"
+        },
+        {
+          "text": "A business started in a garage"
+        },
+        {
+          "text": "The reunion"
+        },
+        {
+          "text": "The house after everyone leaves"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.home.domains",
+      "name": "Close to Home: Domains",
+      "category": "domain",
+      "entries": [
+        {
+          "text": "Family and inheritance"
+        },
+        {
+          "text": "Neighbors and community"
+        },
+        {
+          "text": "Work and money"
+        },
+        {
+          "text": "Love and marriage"
+        },
+        {
+          "text": "Childhood and school"
+        },
+        {
+          "text": "Illness and care"
+        },
+        {
+          "text": "Faith and ritual"
+        },
+        {
+          "text": "Home and land"
+        },
+        {
+          "text": "The town changing"
+        },
+        {
+          "text": "Secrets and gossip"
+        },
+        {
+          "text": "Celebrations"
+        },
+        {
+          "text": "Grief and remembering"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.home.reversals",
+      "name": "Close to Home: Reversals",
+      "category": "reversal",
+      "entries": [
+        {
+          "text": "Someone overhears."
+        },
+        {
+          "text": "The money is gone."
+        },
+        {
+          "text": "An old letter surfaces."
+        },
+        {
+          "text": "The test results come back."
+        },
+        {
+          "text": "A relative arrives unannounced."
+        },
+        {
+          "text": "The house has to be sold."
+        },
+        {
+          "text": "The promise was never meant to be kept."
+        },
+        {
+          "text": "A child takes sides."
+        },
+        {
+          "text": "The storm knocks out the power."
+        },
+        {
+          "text": "Someone says the quiet part out loud."
+        },
+        {
+          "text": "The will says otherwise."
+        },
+        {
+          "text": "The factory announces layoffs."
+        },
+        {
+          "text": "An old flame returns."
+        },
+        {
+          "text": "The gift is misunderstood."
+        },
+        {
+          "text": "A pregnancy comes to light."
+        },
+        {
+          "text": "The dog goes missing."
+        },
+        {
+          "text": "The car breaks down on the way."
+        },
+        {
+          "text": "Someone was lying about where they were."
+        },
+        {
+          "text": "The photograph shows someone who shouldn't be there."
+        },
+        {
+          "text": "A neighbor calls the police."
+        },
+        {
+          "text": "The recipe was never written down."
+        },
+        {
+          "text": "The wrong person gets the credit."
+        },
+        {
+          "text": "Everyone remembers it differently."
+        },
+        {
+          "text": "Kindness comes from an unexpected person."
+        }
+      ]
+    },
+    {
+      "id": "toolkit.home.palette",
+      "name": "Close to Home: Palette",
+      "category": "palette",
+      "entries": [
+        {
+          "text": "Family dinners"
+        },
+        {
+          "text": "Small-town gossip"
+        },
+        {
+          "text": "Letters and photographs"
+        },
+        {
+          "text": "Old houses"
+        },
+        {
+          "text": "Seasonal festivals"
+        },
+        {
+          "text": "Local diners and shops"
+        },
+        {
+          "text": "Inheritances"
+        },
+        {
+          "text": "Weddings and funerals"
+        },
+        {
+          "text": "Kitchen-table arguments"
+        },
+        {
+          "text": "Long-held secrets"
+        },
+        {
+          "text": "Pets"
+        },
+        {
+          "text": "Church suppers"
+        },
+        {
+          "text": "Gardens"
+        },
+        {
+          "text": "Road trips"
+        },
+        {
+          "text": "Hand-me-downs"
+        },
+        {
+          "text": "Quiet ghosts"
+        },
+        {
+          "text": "Childhood friends"
+        },
+        {
+          "text": "Weather as an event"
+        },
+        {
+          "text": "Recipes passed down"
+        },
+        {
+          "text": "Porches and front steps"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.home.pairs",
+      "name": "Close to Home: Word pairs",
+      "category": "wordPair",
+      "action": [
+        {
+          "text": "Inherit"
+        },
+        {
+          "text": "Forgive"
+        },
+        {
+          "text": "Hide"
+        },
+        {
+          "text": "Sell"
+        },
+        {
+          "text": "Mend"
+        },
+        {
+          "text": "Leave"
+        },
+        {
+          "text": "Return"
+        },
+        {
+          "text": "Bake"
+        },
+        {
+          "text": "Bury"
+        },
+        {
+          "text": "Plant"
+        },
+        {
+          "text": "Confess"
+        },
+        {
+          "text": "Borrow"
+        },
+        {
+          "text": "Repaint"
+        },
+        {
+          "text": "Forget"
+        },
+        {
+          "text": "Visit"
+        },
+        {
+          "text": "Promise"
+        },
+        {
+          "text": "Lose"
+        },
+        {
+          "text": "Celebrate"
+        },
+        {
+          "text": "Argue about"
+        },
+        {
+          "text": "Keep"
+        }
+      ],
+      "subject": [
+        {
+          "text": "the house"
+        },
+        {
+          "text": "a letter"
+        },
+        {
+          "text": "the recipe"
+        },
+        {
+          "text": "the farm"
+        },
+        {
+          "text": "a ring"
+        },
+        {
+          "text": "the old truck"
+        },
+        {
+          "text": "the garden"
+        },
+        {
+          "text": "a photograph"
+        },
+        {
+          "text": "the shop"
+        },
+        {
+          "text": "the piano"
+        },
+        {
+          "text": "a quilt"
+        },
+        {
+          "text": "the dog"
+        },
+        {
+          "text": "the porch"
+        },
+        {
+          "text": "the family name"
+        },
+        {
+          "text": "a grudge"
+        },
+        {
+          "text": "the diner"
+        },
+        {
+          "text": "the attic"
+        },
+        {
+          "text": "a debt"
+        },
+        {
+          "text": "the wedding"
+        },
+        {
+          "text": "the neighbor"
+        }
+      ]
+    }
+  ]
+}

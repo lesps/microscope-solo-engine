@@ -22,7 +22,7 @@ describe('pack schema v2', () => {
     const r = validatePack(sample);
     expect(r.ok ? [] : r.errors).toEqual([]);
     if (r.ok) {
-      expect(r.pack.schemaVersion).toBe(2);
+      expect(r.pack.schemaVersion).toBe(3);
       expect(r.pack.seeds).toHaveLength(1);
       expect(r.pack.generators).toHaveLength(1);
       expect(r.pack.groups).toHaveLength(1);
@@ -30,12 +30,12 @@ describe('pack schema v2', () => {
     }
   });
 
-  it('a v1 pack normalizes to v2 with empty startup arrays', () => {
+  it('a v1 pack normalizes to the current schema with empty startup arrays', () => {
     const r = validatePack(v1);
     expect(r.ok).toBe(true);
     if (r.ok)
       expect(r.pack).toMatchObject({
-        schemaVersion: 2,
+        schemaVersion: 3,
         groups: [],
         seeds: [],
         generators: [],

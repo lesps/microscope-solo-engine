@@ -37,7 +37,7 @@ describe('ApplySeed', () => {
   it('emits SeedApplied with every text resolved from content', () => {
     const d = create();
     const evs = d.run(applySeed());
-    expect(d.types(evs)).toEqual(['SeedApplied']);
+    expect(d.types(evs)).toEqual(['SeedApplied', 'SettingsChanged']);
     expect(d.state.startup).toEqual({
       kind: 'seed',
       packId: 'test-pack',
@@ -269,7 +269,7 @@ describe('seed.answers mode', () => {
 
   it('prompt: unrolled questions are free choices', () => {
     const d = create(undefined, { 'seed.answers': 'prompt' });
-    expect(d.types(d.run(applySeed()))).toEqual(['SeedApplied']);
+    expect(d.types(d.run(applySeed()))).toEqual(['SeedApplied', 'SettingsChanged']);
   });
 
   it('enforce: the rolled option must be included; written answers and unrolled questions are refused', () => {
@@ -369,6 +369,7 @@ describe('generators', () => {
     again.run({ type: 'RollGenerator', generatorId: 'gen' });
     expect(d.types(d.run({ type: 'AcceptGeneratorReading', swapped: false }))).toEqual([
       'GeneratorReadingAccepted',
+      'SettingsChanged',
     ]);
     expect(d.state.startup).toEqual({
       kind: 'generator',

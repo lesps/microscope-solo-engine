@@ -125,7 +125,7 @@ describe('Scene editor: drafting', () => {
     const { gameId, entryId } = await openScene(store);
     await renderApp(store, { name: 'scene', gameId, entryId });
     await user.type(await screen.findByLabelText('New character name'), 'Cyr');
-    await user.click(screen.getByRole('button', { name: 'Add' }));
+    await user.click(screen.getByRole('button', { name: 'Add character' }));
     await waitFor(() =>
       expect(Object.values(state(store).characters).map((c) => c.name)).toContain('Cyr'),
     );

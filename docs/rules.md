@@ -53,8 +53,8 @@ A seat's own `focusMode` overrides both Focus defaults. Non-mode settings:
 
 ## Start (optional first setup step)
 
-When the enabled packs hold startup content for the game's ruleset, setup opens on **Start**, with
-three paths. All of them continue into the Premise step; nothing after the Palette changes.
+When the enabled packs hold startup content for the game's ruleset, or groups that tag tables,
+setup opens on **Start**, with three paths. All of them continue into the Premise step; nothing after the Palette changes.
 
 - **Start from a seed.** Pick a category (group), then a seed, then answer its questions. Each
   question takes one option, exactly two, or one or two, plus a written-in answer unless the seed
@@ -65,7 +65,19 @@ three paths. All of them continue into the Premise step; nothing after the Palet
   a Big Picture prompt such as "the hoarding of salt starves the old dynasty". If the generator has
   a swap pair, the player may exchange those two parts for a second reading. Rerolling is always
   allowed. The accepted reading is a prompt, never copied into the Big Picture.
-- **Start blank.** Setup proceeds exactly as without startup packs.
+- **Start blank.** Setup proceeds exactly as without startup packs. When installed groups tag
+  tables, a **Toolkits** checklist comes first (each group with its table count, ticked if its
+  tables are already active); Continue links the game to the ticked groups.
+
+**Active tables.** A new game activates every enabled untagged table except generator tables.
+Tagged (toolkit) tables start inactive. Applying a seed or accepting a generator reading whose
+`group` is set also links the game to that group in the same command: the active tables become the
+untagged ones already active plus every non-generator table tagged with the group, recorded as a
+`SettingsChanged` after the startup event. Nothing is emitted when the list would not change, or
+when the seed or generator has no group. Applying another seed relinks from scratch, so the last
+group wins. The Toolkits checklist does the same for the ticked groups, and **Game settings →
+Active tables** lists tables under their tags (Untagged first) with a toggle per group. Untagged
+tables stay active alongside a toolkit; turn them off in Game settings.
 
 Start can be revisited, and a new choice replaces the old one, until the Bookends are set. After
 that the startup is fixed (commands are rejected with `setup-advanced`).
@@ -128,7 +140,16 @@ Play starts with round 1 once all six are done. From then on tone is rolled.
      Rolling for a kind other than a rolled entry type is an entry-type override (prompt) or
      rejected (enforce).
    - **On-demand prompts** (any time a round is open): domain line, word pair (an action and a
-     subject rolled together), a card, or a character card (courts only).
+     subject rolled together), a card, a character card (courts only), a Scene Question idea, or a
+     person. A Question idea rolls one active `question` table (a `d(N)` picks the table first when
+     several are active). A person rolls one active `person` table per slot, in the order name,
+     role, want (each slot picks its table the same way), and reads "{name}, {role}, who wants
+     {want}", dropping the clause of a slot with no active table; with none at all the prompt is
+     rejected (`content-missing`). Question ideas sit beside the Scene frame's Question field and
+     people beside every new-character form (the Scene frame, the Scene editor and a Chronicle
+     Period's new Anchor). Use copies the result into the form for editing: the Question, or the
+     name plus "{role}, who wants {want}" as the description. Both buttons are hidden while no
+     table of their kind is active. Rolled people ignore the Palette; discard a bad roll.
    - **Write**: title required (≤ 60). Periods and Events take a description; Scenes are framed.
    - **Commit** locks the entry's facts. Scenes commit by resolving.
    - **Cohesion**: after a normal turn commits, if the round is below the cap and the mode is on,

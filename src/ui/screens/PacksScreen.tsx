@@ -8,7 +8,12 @@ const bundled = new Set(BUNDLED_PACKS.map((p) => p.id));
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 function packCounts(pack: Pack): string {
-  const parts = [plural(pack.tables.length, 'table'), plural(pack.decks.length, 'deck')];
+  const parts = [plural(pack.tables.length, 'table')];
+  for (const c of ['question', 'person'] as const) {
+    const n = pack.tables.filter((t) => t.category === c).length;
+    if (n) parts.push(plural(n, `${c} table`));
+  }
+  parts.push(plural(pack.decks.length, 'deck'));
   if (pack.groups.length) parts.push(plural(pack.groups.length, 'group'));
   if (pack.seeds.length) parts.push(plural(pack.seeds.length, 'seed'));
   if (pack.generators.length) parts.push(plural(pack.generators.length, 'generator'));
@@ -21,6 +26,7 @@ export default function PacksScreen() {
   const [errors, setErrors] = useState<PackError[] | undefined>();
   const [message, setMessage] = useState<string | undefined>();
   const file = useRef<HTMLInputElement>(null);
+  const groupIds = packs.filter((p) => p.enabled).flatMap((p) => p.pack.groups.map((g) => g.id));
   return (
     <div className="page stack">
       <div className="row spread">
@@ -105,8 +111,8 @@ export default function PacksScreen() {
               </div>
             </div>
             {p.pack.description && <p style={{ margin: 0 }}>{p.pack.description}</p>}
-            {packWarnings(p.pack).map((w) => (
-              <p key={w.path} className="warn" style={{ margin: 0 }}>
+            {packWarnings(p.pack, groupIds).map((w) => (
+              <p key={w.path + w.message} className="warn" style={{ margin: 0 }}>
                 Warning: {w.message}
               </p>
             ))}
@@ -149,7 +155,16 @@ export default function PacksScreen() {
                   <summary>
                     {t.name}{' '}
                     <span className="hint">
-                      ({t.category}, {t.id})
+                      (
+                      {[
+                        t.category,
+                        t.category !== 'wordPair' && t.slot,
+                        t.tags && `tags: ${t.tags.join(', ')}`,
+                        t.id,
+                      ]
+                        .filter(Boolean)
+                        .join(' · ')}
+                      )
                     </span>
                   </summary>
                   <ol className="hint">

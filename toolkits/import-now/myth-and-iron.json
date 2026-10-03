@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "id": "toolkit-myth-and-iron",
+  "name": "Myth and Iron",
+  "version": "1.0.0",
+  "description": "A mythic toolkit: gods who meddle, heroes who die young, oaths that outlive the people who swore them. Tables only; version 2.0.0 adds Scene Questions, people, seeds and a generator.",
+  "author": "Solo Microscope",
+  "license": "CC0-1.0",
+  "tables": [
+    {
+      "id": "toolkit.myth.focus",
+      "name": "Myth and Iron: Focus",
+      "category": "focus",
+      "entries": [
+        {
+          "text": "The first forge"
+        },
+        {
+          "text": "A god who walks among mortals"
+        },
+        {
+          "text": "An oath sworn on iron"
+        },
+        {
+          "text": "The fall of a hero"
+        },
+        {
+          "text": "A curse on a bloodline"
+        },
+        {
+          "text": "The last of the giants"
+        },
+        {
+          "text": "A sacred grove"
+        },
+        {
+          "text": "The price of immortality"
+        },
+        {
+          "text": "Fire stolen from the gods"
+        },
+        {
+          "text": "The kingslayer's blade"
+        },
+        {
+          "text": "A quarrel between divine siblings"
+        },
+        {
+          "text": "The road to the underworld"
+        },
+        {
+          "text": "A prophecy misread"
+        },
+        {
+          "text": "The making of a crown"
+        },
+        {
+          "text": "A city raised in a single night"
+        },
+        {
+          "text": "The first iron weapon"
+        },
+        {
+          "text": "A monster that was once a person"
+        },
+        {
+          "text": "The tithe paid to the mountain"
+        },
+        {
+          "text": "The keeper of the dead"
+        },
+        {
+          "text": "A marriage between a god and a mortal"
+        },
+        {
+          "text": "The breaking of a sacred law"
+        },
+        {
+          "text": "Wanderers who carry the old songs"
+        },
+        {
+          "text": "A drought sent as punishment"
+        },
+        {
+          "text": "The feast of the gods"
+        },
+        {
+          "text": "A hero's tomb"
+        },
+        {
+          "text": "The smith who forged the stars"
+        },
+        {
+          "text": "A bargain with the sea"
+        },
+        {
+          "text": "The twilight of an old pantheon"
+        },
+        {
+          "text": "A mortal who outwits a god"
+        },
+        {
+          "text": "The spear that never misses"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.myth.domains",
+      "name": "Myth and Iron: Domains",
+      "category": "domain",
+      "entries": [
+        {
+          "text": "Gods and worship"
+        },
+        {
+          "text": "Forge and craft"
+        },
+        {
+          "text": "Kinship and blood-feud"
+        },
+        {
+          "text": "War and champions"
+        },
+        {
+          "text": "The dead and the underworld"
+        },
+        {
+          "text": "Kingship and oaths"
+        },
+        {
+          "text": "Beasts and monsters"
+        },
+        {
+          "text": "Prophecy and fate"
+        },
+        {
+          "text": "The wild and the hunt"
+        },
+        {
+          "text": "Hospitality and guest-right"
+        },
+        {
+          "text": "Songs and memory"
+        },
+        {
+          "text": "Sacrifice and tribute"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.myth.reversals",
+      "name": "Myth and Iron: Reversals",
+      "category": "reversal",
+      "entries": [
+        {
+          "text": "An oath must be broken to keep another."
+        },
+        {
+          "text": "The god was lying."
+        },
+        {
+          "text": "The weapon turns in its wielder's hand."
+        },
+        {
+          "text": "A rival claims the deed."
+        },
+        {
+          "text": "The dead refuse to stay buried."
+        },
+        {
+          "text": "The guest is a god in disguise."
+        },
+        {
+          "text": "The prophecy names someone else."
+        },
+        {
+          "text": "The iron runs out."
+        },
+        {
+          "text": "A child inherits the curse."
+        },
+        {
+          "text": "The monster was protecting something."
+        },
+        {
+          "text": "The feast is poisoned."
+        },
+        {
+          "text": "The sacrifice is refused."
+        },
+        {
+          "text": "The hero is remembered wrongly."
+        },
+        {
+          "text": "An ally owes the enemy a blood-debt."
+        },
+        {
+          "text": "The sacred place is defiled."
+        },
+        {
+          "text": "A storm strands everyone together."
+        },
+        {
+          "text": "The king dies without an heir."
+        },
+        {
+          "text": "The bargain had a hidden clause."
+        },
+        {
+          "text": "The smith forged two of them."
+        },
+        {
+          "text": "Someone hears what they should not."
+        },
+        {
+          "text": "The song tells a different story."
+        },
+        {
+          "text": "Winter comes early."
+        },
+        {
+          "text": "The gods take sides."
+        },
+        {
+          "text": "Victory costs the thing it was meant to save."
+        }
+      ]
+    },
+    {
+      "id": "toolkit.myth.palette",
+      "name": "Myth and Iron: Palette",
+      "category": "palette",
+      "entries": [
+        {
+          "text": "Bronze giving way to iron"
+        },
+        {
+          "text": "Gods with human appetites"
+        },
+        {
+          "text": "Curses that run in families"
+        },
+        {
+          "text": "Talking beasts"
+        },
+        {
+          "text": "Heroes who die young"
+        },
+        {
+          "text": "Sacred hospitality"
+        },
+        {
+          "text": "Journeys to the underworld"
+        },
+        {
+          "text": "Forges as temples"
+        },
+        {
+          "text": "Oath-rings"
+        },
+        {
+          "text": "The wild hunt"
+        },
+        {
+          "text": "Shape-shifters"
+        },
+        {
+          "text": "Seers who speak in riddles"
+        },
+        {
+          "text": "Sea-kings and longships"
+        },
+        {
+          "text": "Hill forts"
+        },
+        {
+          "text": "Feuds that last generations"
+        },
+        {
+          "text": "Giants in the mountains"
+        },
+        {
+          "text": "Grave goods"
+        },
+        {
+          "text": "Twin gods"
+        },
+        {
+          "text": "Blood-price"
+        },
+        {
+          "text": "Songs as law"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.myth.pairs",
+      "name": "Myth and Iron: Word pairs",
+      "category": "wordPair",
+      "action": [
+        {
+          "text": "Forge"
+        },
+        {
+          "text": "Swear"
+        },
+        {
+          "text": "Betray"
+        },
+        {
+          "text": "Bury"
+        },
+        {
+          "text": "Summon"
+        },
+        {
+          "text": "Hunt"
+        },
+        {
+          "text": "Bargain"
+        },
+        {
+          "text": "Sacrifice"
+        },
+        {
+          "text": "Curse"
+        },
+        {
+          "text": "Crown"
+        },
+        {
+          "text": "Exile"
+        },
+        {
+          "text": "Wake"
+        },
+        {
+          "text": "Steal"
+        },
+        {
+          "text": "Shatter"
+        },
+        {
+          "text": "Bless"
+        },
+        {
+          "text": "Hide"
+        },
+        {
+          "text": "Avenge"
+        },
+        {
+          "text": "Marry"
+        },
+        {
+          "text": "Outwit"
+        },
+        {
+          "text": "Sing"
+        }
+      ],
+      "subject": [
+        {
+          "text": "an oath-ring"
+        },
+        {
+          "text": "the hall"
+        },
+        {
+          "text": "a god"
+        },
+        {
+          "text": "the giant"
+        },
+        {
+          "text": "the blade"
+        },
+        {
+          "text": "a bloodline"
+        },
+        {
+          "text": "the grove"
+        },
+        {
+          "text": "the barrow"
+        },
+        {
+          "text": "the hearth"
+        },
+        {
+          "text": "a prophecy"
+        },
+        {
+          "text": "the sea-king"
+        },
+        {
+          "text": "the wolf"
+        },
+        {
+          "text": "the crown"
+        },
+        {
+          "text": "the tithe"
+        },
+        {
+          "text": "a bride"
+        },
+        {
+          "text": "the mountain"
+        },
+        {
+          "text": "the song"
+        },
+        {
+          "text": "the forge-fire"
+        },
+        {
+          "text": "a stranger"
+        },
+        {
+          "text": "the dead"
+        }
+      ]
+    }
+  ]
+}

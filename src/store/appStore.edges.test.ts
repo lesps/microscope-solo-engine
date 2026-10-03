@@ -5,6 +5,8 @@ import { SoloDB } from '../persistence';
 import * as repo from '../persistence/repo';
 import { createAppStore } from './appStore';
 import { selectStep, selectWarnings } from './selectors';
+import farNow from '../../toolkits/import-now/far-horizons.json';
+import far from '../../toolkits/far-horizons.json';
 
 let n = 0;
 async function make() {
@@ -195,7 +197,23 @@ describe('store edge cases', () => {
     });
     await store.getState().init();
     const old = store.getState().packs.find((p) => p.id === 'old')!.pack;
-    expect(old).toMatchObject({ schemaVersion: 2, groups: [], seeds: [], generators: [] });
+    expect(old).toMatchObject({ schemaVersion: 3, groups: [], seeds: [], generators: [] });
     expect(store.getState().content.tables['old.t']).toBeDefined();
+  });
+
+  it('a full toolkit imported over its import-now version replaces it in place', async () => {
+    const store = await make();
+    expect(await store.getState().importPack(farNow)).toEqual({ ok: true });
+    const id = await store.getState().createGame({ title: 'T', ruleset: 'lens' });
+    expect(store.getState().current!.state.settings.activeTables).toContain('toolkit.far.focus');
+    expect(await store.getState().importPack(far)).toEqual({ ok: true });
+    const installed = store.getState().packs.filter((p) => p.id === far.id);
+    expect(installed.map((p) => p.pack.version)).toEqual(['2.0.0']);
+    expect(store.getState().content.tables['toolkit.far.focus']!.tags).toEqual(['far-horizons']);
+    // A game keeps the tables it already had; newer tagged tables wait for a link.
+    await store.getState().openGame(id);
+    const active = store.getState().current!.state.settings.activeTables;
+    expect(active).toContain('toolkit.far.focus');
+    expect(active).not.toContain('toolkit.far.questions');
   });
 });

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   PRESETS,
+  tablesByTag,
   type Mode,
   type ModedMechanic,
   type PresetId,
@@ -72,6 +73,17 @@ const MODE_LABEL: Record<Mode, string> = {
   enforce: 'enforce — rolled, no override',
 };
 
+const UNTAGGED = '';
+const CATEGORIES: Table['category'][] = [
+  'domain',
+  'focus',
+  'wordPair',
+  'palette',
+  'reversal',
+  'question',
+  'person',
+];
+
 function SettingsForm() {
   const dispatch = useDispatch();
   const cur = useApp((s) => s.current)!;
@@ -86,8 +98,18 @@ function SettingsForm() {
   const turnOpen = !!g.turn;
   const r = g.rounds[g.rounds.length - 1];
   const betweenRounds = !r || r.ended;
-  const tables = Object.values(content.tables);
-  const byCat = (c: Table['category']) => tables.filter((t) => t.category === c);
+  const tableGroups = [
+    {
+      id: UNTAGGED,
+      name: 'Untagged',
+      tables: Object.values(content.tables).filter(
+        (t) => t.category !== 'generator' && !t.tags?.length,
+      ),
+    },
+    ...[...tablesByTag(content)]
+      .map(([id, tables]) => ({ id, name: content.groups[id]?.name ?? id, tables }))
+      .sort((a, b) => a.name.localeCompare(b.name)),
+  ];
   const num = (v: number, set: (n: number) => void, min = 0, max = 1000) => (
     <input
       type="number"
@@ -186,35 +208,59 @@ function SettingsForm() {
           ))}
         </div>
       </section>
-      <section className="card stack">
-        <h2>Active tables</h2>
-        {(['domain', 'focus', 'wordPair', 'palette', 'reversal'] as const).map((c) => (
-          <div key={c}>
-            <strong>{c}</strong>
-            <div>
-              {byCat(c).map((t) => (
-                <label key={t.id} className="inline">
-                  <input
-                    type="checkbox"
-                    checked={s.activeTables.includes(t.id)}
-                    onChange={(e) =>
-                      up({
-                        activeTables: e.target.checked
-                          ? [...s.activeTables, t.id]
-                          : s.activeTables.filter((x) => x !== t.id),
-                      })
-                    }
-                  />
-                  {t.name}
-                </label>
-              ))}
-              {!byCat(c).length && <span className="hint">none installed</span>}
-            </div>
-          </div>
-        ))}
+      <section className="card stack" aria-labelledby="active-tables">
+        <h2 id="active-tables">Active tables</h2>
+        {tableGroups.map((grp) => {
+          const all = grp.tables.every((t) => s.activeTables.includes(t.id));
+          return (
+            <fieldset key={grp.id} className="stack">
+              <legend>{grp.name}</legend>
+              <label className="inline">
+                <input
+                  type="checkbox"
+                  checked={all}
+                  onChange={() => {
+                    const ids = new Set(grp.tables.map((t) => t.id));
+                    const rest = s.activeTables.filter((x) => !ids.has(x));
+                    up({ activeTables: all ? rest : [...rest, ...ids] });
+                  }}
+                />{' '}
+                <strong>All {grp.id === UNTAGGED ? 'untagged' : grp.name} tables</strong>
+              </label>
+              {CATEGORIES.map((c) => {
+                const ts = grp.tables.filter((t) => t.category === c);
+                if (!ts.length) return null;
+                return (
+                  <div key={c}>
+                    <span className="hint">{c}</span>
+                    <div>
+                      {ts.map((t) => (
+                        <label key={t.id} className="inline">
+                          <input
+                            type="checkbox"
+                            checked={s.activeTables.includes(t.id)}
+                            onChange={(e) =>
+                              up({
+                                activeTables: e.target.checked
+                                  ? [...s.activeTables, t.id]
+                                  : s.activeTables.filter((x) => x !== t.id),
+                              })
+                            }
+                          />
+                          {t.name}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </fieldset>
+          );
+        })}
         <p className="hint">
-          Add or ban tables for this game. More tables arrive as <a href="#/packs">content packs</a>
-          .
+          Add or ban tables for this game. Tagged tables belong to a toolkit and are linked when a
+          game starts from one of its seeds. More tables arrive as{' '}
+          <a href="#/packs">content packs</a>.
         </p>
       </section>
       <section className="card stack">

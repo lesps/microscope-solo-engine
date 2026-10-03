@@ -51,13 +51,19 @@ export interface TableEntry {
   weight?: number;
   range?: [number, number];
 }
-export type TableCategory = 'domain' | 'wordPair' | 'palette' | 'reversal' | 'focus' | 'generator';
+export type TableCategory =
+  'domain' | 'wordPair' | 'palette' | 'reversal' | 'focus' | 'generator' | 'question' | 'person';
+export type PersonSlot = 'name' | 'role' | 'want';
 export interface ListTable {
   id: Id;
   name: string;
   category: Exclude<TableCategory, 'wordPair'>;
   die?: number;
   entries: TableEntry[];
+  /** Person tables only: which part of a person this table rolls. */
+  slot?: PersonSlot;
+  /** Group ids: a tagged table is active only in games linked to one of its groups. */
+  tags?: Id[];
 }
 export interface WordPairTable {
   id: Id;
@@ -66,6 +72,7 @@ export interface WordPairTable {
   die?: number;
   action: TableEntry[];
   subject: TableEntry[];
+  tags?: Id[];
 }
 export type Table = ListTable | WordPairTable;
 
@@ -330,8 +337,9 @@ export interface OpenTurn {
   prompts: PromptResult[];
 }
 
+export type PromptKind = 'domain' | 'wordPair' | 'card' | 'character' | 'question' | 'person';
 export interface PromptResult {
-  kind: 'domain' | 'wordPair' | 'card' | 'character';
+  kind: PromptKind;
   text: string;
   seq: number;
 }

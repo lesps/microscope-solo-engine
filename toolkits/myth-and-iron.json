@@ -1,0 +1,1254 @@
+{
+  "schemaVersion": 3,
+  "id": "toolkit-myth-and-iron",
+  "name": "Myth and Iron",
+  "version": "2.0.0",
+  "description": "A mythic toolkit: gods who meddle, heroes who die young, oaths that outlive the people who swore them. Links its tables to games started from its seeds and generator.",
+  "author": "Solo Microscope",
+  "license": "CC0-1.0",
+  "tables": [
+    {
+      "id": "toolkit.myth.focus",
+      "name": "Myth and Iron: Focus",
+      "category": "focus",
+      "entries": [
+        {
+          "text": "The first forge"
+        },
+        {
+          "text": "A god who walks among mortals"
+        },
+        {
+          "text": "An oath sworn on iron"
+        },
+        {
+          "text": "The fall of a hero"
+        },
+        {
+          "text": "A curse on a bloodline"
+        },
+        {
+          "text": "The last of the giants"
+        },
+        {
+          "text": "A sacred grove"
+        },
+        {
+          "text": "The price of immortality"
+        },
+        {
+          "text": "Fire stolen from the gods"
+        },
+        {
+          "text": "The kingslayer's blade"
+        },
+        {
+          "text": "A quarrel between divine siblings"
+        },
+        {
+          "text": "The road to the underworld"
+        },
+        {
+          "text": "A prophecy misread"
+        },
+        {
+          "text": "The making of a crown"
+        },
+        {
+          "text": "A city raised in a single night"
+        },
+        {
+          "text": "The first iron weapon"
+        },
+        {
+          "text": "A monster that was once a person"
+        },
+        {
+          "text": "The tithe paid to the mountain"
+        },
+        {
+          "text": "The keeper of the dead"
+        },
+        {
+          "text": "A marriage between a god and a mortal"
+        },
+        {
+          "text": "The breaking of a sacred law"
+        },
+        {
+          "text": "Wanderers who carry the old songs"
+        },
+        {
+          "text": "A drought sent as punishment"
+        },
+        {
+          "text": "The feast of the gods"
+        },
+        {
+          "text": "A hero's tomb"
+        },
+        {
+          "text": "The smith who forged the stars"
+        },
+        {
+          "text": "A bargain with the sea"
+        },
+        {
+          "text": "The twilight of an old pantheon"
+        },
+        {
+          "text": "A mortal who outwits a god"
+        },
+        {
+          "text": "The spear that never misses"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.domains",
+      "name": "Myth and Iron: Domains",
+      "category": "domain",
+      "entries": [
+        {
+          "text": "Gods and worship"
+        },
+        {
+          "text": "Forge and craft"
+        },
+        {
+          "text": "Kinship and blood-feud"
+        },
+        {
+          "text": "War and champions"
+        },
+        {
+          "text": "The dead and the underworld"
+        },
+        {
+          "text": "Kingship and oaths"
+        },
+        {
+          "text": "Beasts and monsters"
+        },
+        {
+          "text": "Prophecy and fate"
+        },
+        {
+          "text": "The wild and the hunt"
+        },
+        {
+          "text": "Hospitality and guest-right"
+        },
+        {
+          "text": "Songs and memory"
+        },
+        {
+          "text": "Sacrifice and tribute"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.reversals",
+      "name": "Myth and Iron: Reversals",
+      "category": "reversal",
+      "entries": [
+        {
+          "text": "An oath must be broken to keep another."
+        },
+        {
+          "text": "The god was lying."
+        },
+        {
+          "text": "The weapon turns in its wielder's hand."
+        },
+        {
+          "text": "A rival claims the deed."
+        },
+        {
+          "text": "The dead refuse to stay buried."
+        },
+        {
+          "text": "The guest is a god in disguise."
+        },
+        {
+          "text": "The prophecy names someone else."
+        },
+        {
+          "text": "The iron runs out."
+        },
+        {
+          "text": "A child inherits the curse."
+        },
+        {
+          "text": "The monster was protecting something."
+        },
+        {
+          "text": "The feast is poisoned."
+        },
+        {
+          "text": "The sacrifice is refused."
+        },
+        {
+          "text": "The hero is remembered wrongly."
+        },
+        {
+          "text": "An ally owes the enemy a blood-debt."
+        },
+        {
+          "text": "The sacred place is defiled."
+        },
+        {
+          "text": "A storm strands everyone together."
+        },
+        {
+          "text": "The king dies without an heir."
+        },
+        {
+          "text": "The bargain had a hidden clause."
+        },
+        {
+          "text": "The smith forged two of them."
+        },
+        {
+          "text": "Someone hears what they should not."
+        },
+        {
+          "text": "The song tells a different story."
+        },
+        {
+          "text": "Winter comes early."
+        },
+        {
+          "text": "The gods take sides."
+        },
+        {
+          "text": "Victory costs the thing it was meant to save."
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.palette",
+      "name": "Myth and Iron: Palette",
+      "category": "palette",
+      "entries": [
+        {
+          "text": "Bronze giving way to iron"
+        },
+        {
+          "text": "Gods with human appetites"
+        },
+        {
+          "text": "Curses that run in families"
+        },
+        {
+          "text": "Talking beasts"
+        },
+        {
+          "text": "Heroes who die young"
+        },
+        {
+          "text": "Sacred hospitality"
+        },
+        {
+          "text": "Journeys to the underworld"
+        },
+        {
+          "text": "Forges as temples"
+        },
+        {
+          "text": "Oath-rings"
+        },
+        {
+          "text": "The wild hunt"
+        },
+        {
+          "text": "Shape-shifters"
+        },
+        {
+          "text": "Seers who speak in riddles"
+        },
+        {
+          "text": "Sea-kings and longships"
+        },
+        {
+          "text": "Hill forts"
+        },
+        {
+          "text": "Feuds that last generations"
+        },
+        {
+          "text": "Giants in the mountains"
+        },
+        {
+          "text": "Grave goods"
+        },
+        {
+          "text": "Twin gods"
+        },
+        {
+          "text": "Blood-price"
+        },
+        {
+          "text": "Songs as law"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.pairs",
+      "name": "Myth and Iron: Word pairs",
+      "category": "wordPair",
+      "action": [
+        {
+          "text": "Forge"
+        },
+        {
+          "text": "Swear"
+        },
+        {
+          "text": "Betray"
+        },
+        {
+          "text": "Bury"
+        },
+        {
+          "text": "Summon"
+        },
+        {
+          "text": "Hunt"
+        },
+        {
+          "text": "Bargain"
+        },
+        {
+          "text": "Sacrifice"
+        },
+        {
+          "text": "Curse"
+        },
+        {
+          "text": "Crown"
+        },
+        {
+          "text": "Exile"
+        },
+        {
+          "text": "Wake"
+        },
+        {
+          "text": "Steal"
+        },
+        {
+          "text": "Shatter"
+        },
+        {
+          "text": "Bless"
+        },
+        {
+          "text": "Hide"
+        },
+        {
+          "text": "Avenge"
+        },
+        {
+          "text": "Marry"
+        },
+        {
+          "text": "Outwit"
+        },
+        {
+          "text": "Sing"
+        }
+      ],
+      "subject": [
+        {
+          "text": "an oath-ring"
+        },
+        {
+          "text": "the hall"
+        },
+        {
+          "text": "a god"
+        },
+        {
+          "text": "the giant"
+        },
+        {
+          "text": "the blade"
+        },
+        {
+          "text": "a bloodline"
+        },
+        {
+          "text": "the grove"
+        },
+        {
+          "text": "the barrow"
+        },
+        {
+          "text": "the hearth"
+        },
+        {
+          "text": "a prophecy"
+        },
+        {
+          "text": "the sea-king"
+        },
+        {
+          "text": "the wolf"
+        },
+        {
+          "text": "the crown"
+        },
+        {
+          "text": "the tithe"
+        },
+        {
+          "text": "a bride"
+        },
+        {
+          "text": "the mountain"
+        },
+        {
+          "text": "the song"
+        },
+        {
+          "text": "the forge-fire"
+        },
+        {
+          "text": "a stranger"
+        },
+        {
+          "text": "the dead"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.questions",
+      "name": "Myth and Iron: Scene Questions",
+      "category": "question",
+      "entries": [
+        {
+          "text": "Who breaks the oath first?"
+        },
+        {
+          "text": "What does the god demand in return?"
+        },
+        {
+          "text": "Will the hero accept the crown?"
+        },
+        {
+          "text": "Who forged the blade, and what did it cost them?"
+        },
+        {
+          "text": "Does the guest reveal their true name?"
+        },
+        {
+          "text": "Who survives the night in the barrow?"
+        },
+        {
+          "text": "Can the curse be lifted without a death?"
+        },
+        {
+          "text": "Which child does the mother choose?"
+        },
+        {
+          "text": "What does the seer refuse to say?"
+        },
+        {
+          "text": "Does the champion fight or yield?"
+        },
+        {
+          "text": "Who remembers the old song correctly?"
+        },
+        {
+          "text": "Will the king pay the blood-price?"
+        },
+        {
+          "text": "What follows the hunters home?"
+        },
+        {
+          "text": "Does the smith give up the secret of iron?"
+        },
+        {
+          "text": "Who betrays the hall to the raiders?"
+        },
+        {
+          "text": "Will the dead accept the offering?"
+        },
+        {
+          "text": "What is the monster guarding?"
+        },
+        {
+          "text": "Does the exile return in time?"
+        },
+        {
+          "text": "Who will carry the body home?"
+        },
+        {
+          "text": "Can the bride refuse the god?"
+        },
+        {
+          "text": "What does the hero trade to cross the river of the dead?"
+        },
+        {
+          "text": "Who claims the fallen king's ring?"
+        },
+        {
+          "text": "Does the prophecy come true as spoken?"
+        },
+        {
+          "text": "What wakes beneath the mountain?"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.names",
+      "name": "Myth and Iron: Names",
+      "category": "person",
+      "slot": "name",
+      "entries": [
+        {
+          "text": "Ardric"
+        },
+        {
+          "text": "Brenna Ashborn"
+        },
+        {
+          "text": "Corvan"
+        },
+        {
+          "text": "Dagny"
+        },
+        {
+          "text": "Eskil One-Hand"
+        },
+        {
+          "text": "Fenna"
+        },
+        {
+          "text": "Gorm the Quiet"
+        },
+        {
+          "text": "Hild"
+        },
+        {
+          "text": "Ivar Stormsworn"
+        },
+        {
+          "text": "Jorunn"
+        },
+        {
+          "text": "Kael"
+        },
+        {
+          "text": "Liv of the Ford"
+        },
+        {
+          "text": "Morcant"
+        },
+        {
+          "text": "Nessa"
+        },
+        {
+          "text": "Orm"
+        },
+        {
+          "text": "Rhoswen"
+        },
+        {
+          "text": "Sigrun"
+        },
+        {
+          "text": "Tavish"
+        },
+        {
+          "text": "Ulla Greycloak"
+        },
+        {
+          "text": "Vigdis"
+        },
+        {
+          "text": "Yrsa"
+        },
+        {
+          "text": "Brand Hollow-Eye"
+        },
+        {
+          "text": "Edda Ninefold"
+        },
+        {
+          "text": "Hakon the Young"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.roles",
+      "name": "Myth and Iron: Roles",
+      "category": "person",
+      "slot": "role",
+      "entries": [
+        {
+          "text": "a smith who works by moonlight"
+        },
+        {
+          "text": "a seer blind in one eye"
+        },
+        {
+          "text": "an exiled prince"
+        },
+        {
+          "text": "a shield-maiden"
+        },
+        {
+          "text": "a priest of the mountain god"
+        },
+        {
+          "text": "a skald who never forgets"
+        },
+        {
+          "text": "a widow who keeps the hall"
+        },
+        {
+          "text": "a giant's foundling"
+        },
+        {
+          "text": "a hostage raised by enemies"
+        },
+        {
+          "text": "a ferryman of the dead"
+        },
+        {
+          "text": "a raider turned farmer"
+        },
+        {
+          "text": "a demigod who hides it"
+        },
+        {
+          "text": "the king's champion"
+        },
+        {
+          "text": "a herb-wife from the marsh"
+        },
+        {
+          "text": "a thrall who can read the runes"
+        },
+        {
+          "text": "a hunter of monsters"
+        },
+        {
+          "text": "a fallen oath-keeper"
+        },
+        {
+          "text": "a twin cursed by the gods"
+        },
+        {
+          "text": "a wanderer in a grey hood"
+        },
+        {
+          "text": "the chieftain's youngest daughter"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.wants",
+      "name": "Myth and Iron: Wants",
+      "category": "person",
+      "slot": "want",
+      "entries": [
+        {
+          "text": "to be remembered in song"
+        },
+        {
+          "text": "to lift the curse on their family"
+        },
+        {
+          "text": "to avenge a murdered brother"
+        },
+        {
+          "text": "to win the favor of a god"
+        },
+        {
+          "text": "to steal fire from the forge of the gods"
+        },
+        {
+          "text": "to see the sea before they die"
+        },
+        {
+          "text": "to keep the hall safe for one more winter"
+        },
+        {
+          "text": "to break an oath without dishonor"
+        },
+        {
+          "text": "to bury their father properly"
+        },
+        {
+          "text": "to prove the prophecy wrong"
+        },
+        {
+          "text": "to marry for love, not alliance"
+        },
+        {
+          "text": "to forge a blade that cannot break"
+        },
+        {
+          "text": "to return home from exile"
+        },
+        {
+          "text": "to find the giant who raised them"
+        },
+        {
+          "text": "to pay a blood-debt"
+        },
+        {
+          "text": "to learn their true name"
+        },
+        {
+          "text": "to bring someone back from the dead"
+        },
+        {
+          "text": "to keep a secret from the gods"
+        },
+        {
+          "text": "to end the feud"
+        },
+        {
+          "text": "to be free of their lord"
+        }
+      ],
+      "tags": ["myth-and-iron"]
+    },
+    {
+      "id": "toolkit.myth.old-tellings.when",
+      "name": "Old Tellings: Age",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "Before the first dawn,"
+        },
+        {
+          "text": "In the age of bronze,"
+        },
+        {
+          "text": "When the gods still walked,"
+        },
+        {
+          "text": "In the long winter,"
+        },
+        {
+          "text": "After the great flood,"
+        },
+        {
+          "text": "When the giants ruled,"
+        },
+        {
+          "text": "At the end of the old kings,"
+        },
+        {
+          "text": "In the year of two suns,"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.myth.old-tellings.a",
+      "name": "Old Tellings: Who",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "a one-eyed smith"
+        },
+        {
+          "text": "the youngest god"
+        },
+        {
+          "text": "a giant's daughter"
+        },
+        {
+          "text": "a nameless wanderer"
+        },
+        {
+          "text": "the sea-king"
+        },
+        {
+          "text": "a pair of twins"
+        },
+        {
+          "text": "the oldest wolf"
+        },
+        {
+          "text": "a cursed queen"
+        },
+        {
+          "text": "a shepherd"
+        },
+        {
+          "text": "the keeper of the dead"
+        },
+        {
+          "text": "a raven"
+        },
+        {
+          "text": "a band of exiles"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.myth.old-tellings.deed",
+      "name": "Old Tellings: Deed",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "steals from"
+        },
+        {
+          "text": "marries"
+        },
+        {
+          "text": "outwits"
+        },
+        {
+          "text": "slays"
+        },
+        {
+          "text": "buries"
+        },
+        {
+          "text": "frees"
+        },
+        {
+          "text": "betrays"
+        },
+        {
+          "text": "is swallowed by"
+        }
+      ]
+    },
+    {
+      "id": "toolkit.myth.old-tellings.b",
+      "name": "Old Tellings: Whom",
+      "category": "generator",
+      "entries": [
+        {
+          "text": "the mountain"
+        },
+        {
+          "text": "the sun"
+        },
+        {
+          "text": "the ruler of the gods"
+        },
+        {
+          "text": "the first serpent"
+        },
+        {
+          "text": "a drowned city"
+        },
+        {
+          "text": "the world-tree"
+        },
+        {
+          "text": "the queen of winter"
+        },
+        {
+          "text": "a sleeping army"
+        },
+        {
+          "text": "the river of the dead"
+        },
+        {
+          "text": "the forge of the stars"
+        },
+        {
+          "text": "the oldest oak"
+        },
+        {
+          "text": "the moon"
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "myth-and-iron",
+      "name": "Myth and Iron",
+      "description": "Gods, oaths and the coming of iron: histories told like old sagas."
+    }
+  ],
+  "seeds": [
+    {
+      "id": "toolkit.myth.iron-gift",
+      "title": "The Iron Gift",
+      "group": "myth-and-iron",
+      "ruleset": "lens",
+      "pitch": "In the age of bronze the gods kept one secret: how to draw iron out of stone. Then one of them gave it away. Mortals with iron no longer had to beg the gods for anything, and the old order began to crack. Did the gift free humanity, or only teach it to make better weapons?",
+      "bigPicture": "When a god gives mortals the secret of iron, the age of the gods begins to end.",
+      "questions": [
+        {
+          "id": "giver",
+          "text": "Which god gave the secret away?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "smith",
+              "text": "The smith of the gods, out of pity."
+            },
+            {
+              "id": "trickster",
+              "text": "A trickster, to spite the others."
+            },
+            {
+              "id": "dying",
+              "text": "A dying god, as a last act."
+            },
+            {
+              "id": "lover",
+              "text": "A god in love with a mortal."
+            }
+          ]
+        },
+        {
+          "id": "punishment",
+          "text": "What did the other gods do to the giver?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "chained",
+              "text": "Chained them beneath a mountain."
+            },
+            {
+              "id": "mortal",
+              "text": "Made them mortal."
+            },
+            {
+              "id": "erased",
+              "text": "Struck their name from every song."
+            },
+            {
+              "id": "nothing",
+              "text": "Nothing. They never found out who it was."
+            }
+          ]
+        },
+        {
+          "id": "first",
+          "text": "Who used iron first?",
+          "pick": "oneOrTwo",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "farmers",
+              "text": "Farmers, for ploughs."
+            },
+            {
+              "id": "raiders",
+              "text": "Raiders, for swords."
+            },
+            {
+              "id": "priests",
+              "text": "Priests, to bind a god."
+            },
+            {
+              "id": "healers",
+              "text": "Healers, for knives that do not shatter."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "quench",
+            "title": "The first quenching",
+            "text": "The first iron blade is quenched in a mortal forge, and every god feels it."
+          },
+          {
+            "id": "trial",
+            "title": "The trial of the giver",
+            "text": "The giver stands before the assembled gods and will not say why."
+          },
+          {
+            "id": "theft",
+            "title": "The theft at the forge",
+            "text": "A mortal sneaks into the forge of the gods and watches how it is done."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "abandoned",
+            "title": "The empty temples",
+            "text": "The last temple is abandoned, and no one remembers who it was built for."
+          },
+          {
+            "id": "equals",
+            "title": "One table",
+            "text": "Gods and mortals sit at one table, as equals, for the first time."
+          },
+          {
+            "id": "rust",
+            "title": "Rust",
+            "text": "The iron rusts away, the secret is forgotten, and the gods return."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Forges as temples", "Gods with human appetites"],
+        "no": ["Gunpowder"]
+      },
+      "note": "Let iron change something in every Period: war, farming, worship, trade. The gods are characters, not scenery; give them Scenes."
+    },
+    {
+      "id": "toolkit.myth.drowned-hall",
+      "title": "The Drowned Hall",
+      "group": "myth-and-iron",
+      "ruleset": "lens",
+      "pitch": "A sea-king swore an oath to the ocean: give my people safe harbor and you may have my hall when I die. He died, his heirs refused, and the sea has been taking its due ever since, one tide at a time. Will the bloodline keep the oath, break it for good, or find a third way?",
+      "bigPicture": "A royal bloodline refuses to pay the sea what its founder promised, and the sea keeps coming to collect.",
+      "questions": [
+        {
+          "id": "sworn",
+          "text": "What did the king swear by?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "ring",
+              "text": "An oath-ring of drowned gold."
+            },
+            {
+              "id": "blood",
+              "text": "His own blood, poured into the surf."
+            },
+            {
+              "id": "child",
+              "text": "The name of his firstborn."
+            }
+          ]
+        },
+        {
+          "id": "refused",
+          "text": "Who first refused to pay?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "heir",
+              "text": "His heir, who never believed in the oath."
+            },
+            {
+              "id": "queen",
+              "text": "His widow, who wanted the hall for herself."
+            },
+            {
+              "id": "priest",
+              "text": "A priest, who said the sea had no right to it."
+            }
+          ]
+        },
+        {
+          "id": "sea",
+          "text": "How does the sea collect?",
+          "pick": "oneOrTwo",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "floods",
+              "text": "Floods that reach a little further each year."
+            },
+            {
+              "id": "drowned",
+              "text": "The drowned walk up the beach."
+            },
+            {
+              "id": "fish",
+              "text": "The fish leave, and hunger follows."
+            },
+            {
+              "id": "voices",
+              "text": "Voices in the waves that only the bloodline hears."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "oath",
+            "title": "The oath in the surf",
+            "text": "The first sea-king wades into the surf and swears."
+          },
+          {
+            "id": "funeral",
+            "title": "The funeral ship",
+            "text": "The sea-king is laid in his funeral ship, and the tide will not take it out."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "paid",
+            "title": "The hall goes under",
+            "text": "The last of the line walks the hall into the sea and the oath is kept."
+          },
+          {
+            "id": "broken",
+            "title": "The sea withdraws",
+            "text": "The bloodline breaks the oath for good, and the sea falls silent."
+          },
+          {
+            "id": "third",
+            "title": "A hall on the water",
+            "text": "The people build a new hall on rafts, belonging to neither land nor sea."
+          }
+        ]
+      },
+      "palette": {
+        "yes": ["Sea-kings and longships", "Oath-rings"],
+        "no": []
+      },
+      "note": "Each Period is a generation. Ask who sits in the hall now, and what they owe."
+    },
+    {
+      "id": "toolkit.myth.last-giant",
+      "title": "The Last Giant",
+      "group": "myth-and-iron",
+      "ruleset": "any",
+      "pitch": "The giants raised the mountains and built the first walls. Now only one is left, asleep beneath the hills, and every generation someone tries to wake it, kill it or worship it. This history follows the giant's long sleep and the small folk who build in its shadow.",
+      "bigPicture": "The last giant sleeps beneath the hills while the small folk build, fight and pray around it.",
+      "questions": [
+        {
+          "id": "why",
+          "text": "Why does the giant sleep?",
+          "pick": "one",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "grief",
+              "text": "It is grieving the others."
+            },
+            {
+              "id": "bound",
+              "text": "The gods bound it there."
+            },
+            {
+              "id": "waiting",
+              "text": "It is waiting for something."
+            },
+            {
+              "id": "tired",
+              "text": "It is simply very old and very tired."
+            }
+          ]
+        },
+        {
+          "id": "folk",
+          "text": "What do the small folk believe about it?",
+          "pick": "oneOrTwo",
+          "allowCustom": true,
+          "options": [
+            {
+              "id": "god",
+              "text": "It is a god, and must be fed."
+            },
+            {
+              "id": "threat",
+              "text": "It will wake and destroy them."
+            },
+            {
+              "id": "ancestor",
+              "text": "They are its children."
+            },
+            {
+              "id": "myth",
+              "text": "It is a story for frightening children."
+            }
+          ]
+        }
+      ],
+      "startBookend": {
+        "text": "How does the history begin?",
+        "options": [
+          {
+            "id": "last-fall",
+            "title": "The last giant lies down",
+            "text": "The last giant walks into the hills, lies down and closes its eyes."
+          },
+          {
+            "id": "first-farm",
+            "title": "The first farm",
+            "text": "The small folk plough their first field on the giant's shoulder."
+          }
+        ]
+      },
+      "endBookend": {
+        "text": "How does the history end?",
+        "options": [
+          {
+            "id": "wakes",
+            "title": "It wakes",
+            "text": "The giant opens its eyes and looks at what the small folk have made."
+          },
+          {
+            "id": "dies",
+            "title": "It dies",
+            "text": "The giant dies in its sleep, and the hills begin to settle."
+          },
+          {
+            "id": "forgotten",
+            "title": "No one remembers",
+            "text": "No one remembers there was ever a giant; the hills are only hills."
+          }
+        ]
+      },
+      "note": "Works for Chronicle too: make the giant your subject."
+    }
+  ],
+  "generators": [
+    {
+      "id": "toolkit.myth.old-tellings",
+      "name": "Old Tellings",
+      "group": "myth-and-iron",
+      "description": "A history in the shape of a myth: when it happened, who did it, what they did, and to what.",
+      "parts": [
+        {
+          "id": "when",
+          "label": "Age",
+          "tableId": "toolkit.myth.old-tellings.when"
+        },
+        {
+          "id": "a",
+          "label": "Who",
+          "tableId": "toolkit.myth.old-tellings.a"
+        },
+        {
+          "id": "deed",
+          "label": "Deed",
+          "tableId": "toolkit.myth.old-tellings.deed"
+        },
+        {
+          "id": "b",
+          "label": "Whom",
+          "tableId": "toolkit.myth.old-tellings.b"
+        }
+      ],
+      "template": "{when} {a} {deed} {b}.",
+      "swap": ["a", "b"]
+    }
+  ]
+}
