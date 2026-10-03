@@ -66,6 +66,23 @@ settings → Active tables**. The schema and a worked example are in
 [docs/content-packs.md](docs/content-packs.md). Lens's own tables are not bundled; import them as a
 pack if you have the right to.
 
+### On iPhone and iPad
+
+In Safari, tap **Share → Add to Home Screen**. The app then opens full screen from its icon, like
+an installed app:
+
+- a launch screen in your light or dark theme, and the app's own bar under the status bar;
+- no zoom when you tap into a field, no page bounce, touch-sized buttons;
+- it reopens where you left off, even after iOS has closed it in the background, and a Scene draft
+  is saved the moment you switch away;
+- exports (game files, manuscripts, backups) open the share sheet: **Save to Files**, AirDrop or
+  another app;
+- it checks for a new version each time you return to it, and asks before reloading.
+
+An installed app also keeps its storage (Safari's 7-day deletion doesn't apply to it). Games in
+Safari and in the Home Screen app are stored separately: to move games into the installed app, use
+**Library → Export all** in Safari, then **Import…** in the app.
+
 ### Keep your games safe
 
 Games are stored in this browser's IndexedDB. Clearing site data deletes them, browsers may evict

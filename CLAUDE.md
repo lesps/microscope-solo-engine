@@ -18,6 +18,7 @@ BASE_PATH=/microscope-solo-engine/ npm run build && BASE_PATH=/microscope-solo-e
 UPDATE_FIXTURES=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # re-record the schema-1 fixtures
 UPDATE_SEED_FIXTURE=1 npx vitest run tests/fixtures/make-fixtures.test.ts  # re-record lens-seed-start
 npx vitest run tests/golden.test.ts -u                                   # accept golden changes
+UPDATE_SPLASH=1 npx vitest run tests/ios-splash.test.ts                  # re-render the iOS launch images
 ```
 
 ## Modules and the import rule
@@ -40,6 +41,10 @@ engine  ←  content  ←  export / persistence  ←  store  ←  ui
 - `src/store/` — Zustand vanilla store, the only writer. Runs commands through the engine, appends
   events, handles undo, import/export, packs, backup reminder.
 - `src/ui/` — React screens, components, hooks. Talks to the store, never to persistence.
+  `src/ui/lib/standalone.ts` handles the installed app (iOS Home Screen): the `standalone` class on
+  `<html>` that styles key off, and resuming the last route.
+- `scripts/ios-splash.ts` — the iOS launch-image device list; a Vite plugin injects its `<link>`
+  tags and `public/splash/` holds the PNGs.
 
 ESLint (`eslint.config.js`) enforces these boundaries with `no-restricted-imports`; the engine also
 has `no-restricted-globals`.

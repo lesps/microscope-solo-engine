@@ -30,6 +30,7 @@ FC_SEED=123456 npx vitest run src/engine/__tests__/invariants.property.test.ts
 # Re-record golden fixtures (then accept snapshots with -u)
 UPDATE_FIXTURES=1 npx vitest run tests/fixtures/make-fixtures.test.ts       # schema-1 games
 UPDATE_SEED_FIXTURE=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # lens-seed-start
+UPDATE_SPLASH=1 npx vitest run tests/ios-splash.test.ts   # re-render iOS launch images
 ```
 
 ## What each layer guards
@@ -57,7 +58,12 @@ UPDATE_SEED_FIXTURE=1 npx vitest run tests/fixtures/make-fixtures.test.ts   # le
 - **E2E** runs the production build under the GitHub Pages sub-path: a full round with a Scene,
   import and export of every format, Chronicle, content packs, game settings, startup seeds and
   generators, toolkit linking (importing the three packs in `toolkits/`), offline after first
-  load, the keyboard map and reduced motion.
+  load, the keyboard map, reduced motion, and an iOS Home Screen app emulated in Chromium (touch
+  viewport, `navigator.standalone`, a share-sheet stub): launch-image links all served, no focus
+  zoom, 44 px targets, the colored top bar, resuming after relaunch, exports to the share sheet.
+  Real iOS rendering (status bar, which launch image iOS picks) needs a device.
+- **Launch images** (`tests/ios-splash.test.ts`) check that every PNG listed in
+  `scripts/ios-splash.ts` exists at its exact pixel size and that their colors match `styles.css`.
 - **Toolkit packs** (`src/content/toolkit-schema.test.ts`) validate the three toolkits, check
   their advertised table sizes and tags, and check that each import-now version is the full
   version minus its v3 content, so the two cannot drift apart.
