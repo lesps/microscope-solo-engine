@@ -57,6 +57,7 @@ const seat = z.object({
   placementBias: z.enum(['uniform', 'early', 'late', 'sparse']),
   entryTypeWeights: weights.optional(),
   focusMode: mode.optional(),
+  inspiration: z.enum(['cards', 'dice', 'echoes']).optional(),
 });
 
 const traitChange = z.object({

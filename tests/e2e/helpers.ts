@@ -46,7 +46,7 @@ export async function newGame(
   await page.getByLabel(/^Title/).fill('The canal years');
   await page.getByRole('button', { name: 'Add First Pass entry' }).click();
   await expect(
-    page.getByRole('heading', { name: `First Pass — ${opts.phantomName ?? 'The Stranger'}` }),
+    page.getByRole('heading', { name: `First Pass — ${opts.phantomName ?? 'The Reader'}` }),
   ).toBeVisible();
   await page.getByLabel('Event').check();
   await page.getByLabel(/^Title/).fill('The first bridge is built');

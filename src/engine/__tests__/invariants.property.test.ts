@@ -83,8 +83,8 @@ function extra(d: Driver, k: number): Command | 'undo' | undefined {
     case 1:
       return {
         type: 'DrawPrompt',
-        kind: (['domain', 'wordPair', 'card', 'character', 'question', 'person'] as const)[
-          Math.floor(k / 8) % 6
+        kind: (['domain', 'wordPair', 'card', 'character', 'question', 'person', 'echo'] as const)[
+          Math.floor(k / 8) % 7
         ]!,
       };
     case 2:

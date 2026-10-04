@@ -62,7 +62,8 @@ Chronicle, `characters` holds any Anchors created with them.
 
 ### `SeatsConfigured`
 
-`{ seats: Seat[] }`
+`{ seats: Seat[] }` — a seat is `{ id, name, kind, tables, placementBias, entryTypeWeights?,
+focusMode?, inspiration? }`; `inspiration` (`cards`, `dice` or `echoes`) is phantom-only.
 
 ### `DialsSet`
 

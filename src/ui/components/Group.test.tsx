@@ -34,7 +34,7 @@ describe('New game: Players option', () => {
     await screen.findByRole('list', { name: 'Setup steps' });
     expect(state(store).seats.map((s) => [s.name, s.kind])).toEqual([
       ['You', 'player'],
-      ['The Stranger', 'phantom'],
+      ['The Reader', 'phantom'],
     ]);
   });
 
@@ -71,7 +71,7 @@ describe('New game: Players option', () => {
       ['Ana', 'player'],
       ['Ben', 'player'],
       ['Cy', 'player'],
-      ['The Stranger', 'phantom'],
+      ['The Reader', 'phantom'],
     ]);
   });
 

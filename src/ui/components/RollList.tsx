@@ -21,6 +21,7 @@ const LABEL: Record<string, string> = {
   'prompt.card': 'Card',
   'prompt.character': 'Character',
   'prompt.question': 'Question idea',
+  'prompt.echo': 'Echo',
   'prompt.person.name': 'Person name',
   'prompt.person.role': 'Person role',
   'prompt.person.want': 'Person want',

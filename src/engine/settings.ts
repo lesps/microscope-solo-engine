@@ -1,4 +1,4 @@
-import type { Content, Id, Mode, Seat, Settings, Table } from './types';
+import type { Content, Id, Inspiration, Mode, PlacementBias, Seat, Settings, Table } from './types';
 
 export function defaultSettings(): Settings {
   return {
@@ -122,4 +122,28 @@ export function tablesByTag(content: Content): Map<Id, Table[]> {
     for (const tag of t.tags ?? []) by.set(tag, [...(by.get(tag) ?? []), t]);
   }
   return by;
+}
+
+/** Default phantom seats, in the order they are added. */
+export const PHANTOM_PERSONAS: {
+  name: string;
+  inspiration: Inspiration;
+  placementBias: PlacementBias;
+}[] = [
+  { name: 'The Reader', inspiration: 'cards', placementBias: 'late' },
+  { name: 'The Gambler', inspiration: 'dice', placementBias: 'uniform' },
+  { name: 'The Archivist', inspiration: 'echoes', placementBias: 'sparse' },
+];
+
+/** The `index`-th phantom seat (0-based) with its persona's name, inspiration and bias. */
+export function phantomSeat(index: number, id: Id): Seat {
+  const p = PHANTOM_PERSONAS[index];
+  return {
+    id,
+    name: p?.name ?? `Phantom ${index + 1}`,
+    kind: 'phantom',
+    tables: [],
+    placementBias: p?.placementBias ?? 'sparse',
+    ...(p ? { inspiration: p.inspiration } : {}),
+  };
 }
