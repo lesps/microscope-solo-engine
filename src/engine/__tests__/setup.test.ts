@@ -135,6 +135,30 @@ describe('Palette', () => {
     d.run({ type: 'AssignPaletteRoll', list: 'yes' });
     expect(d.rejection({ type: 'RollPaletteItem' }).code).toBe('cap-reached');
   });
+  it('rolls as many items as paletteRollCount allows, including none', () => {
+    const d = ready();
+    d.run({ type: 'ChangeSettings', settings: { ...d.state.settings, paletteRollCount: 3 } });
+    for (let i = 0; i < 3; i++) {
+      d.run({ type: 'RollPaletteItem' });
+      d.run({ type: 'AssignPaletteRoll', list: 'yes' });
+    }
+    expect(d.rejection({ type: 'RollPaletteItem' }).code).toBe('cap-reached');
+    const z = ready();
+    z.run({ type: 'ChangeSettings', settings: { ...z.state.settings, paletteRollCount: 0 } });
+    expect(z.rejection({ type: 'RollPaletteItem' }).code).toBe('cap-reached');
+  });
+  it('paletteRollCount must be a whole number from 0 to 6', () => {
+    const d = ready();
+    for (const n of [-1, 7, 1.5])
+      expect(
+        d.rejection({
+          type: 'ChangeSettings',
+          settings: { ...d.state.settings, paletteRollCount: n },
+        }).code,
+      ).toBe('invalid');
+    d.run({ type: 'ChangeSettings', settings: { ...d.state.settings, paletteRollCount: 6 } });
+    expect(d.state.settings.paletteRollCount).toBe(6);
+  });
   it('allows no reroll in enforce mode and no roll when off', () => {
     const d = ready();
     const s = d.state.settings;

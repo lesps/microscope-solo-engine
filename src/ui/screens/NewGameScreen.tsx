@@ -202,6 +202,8 @@ function NameForm({
           const id = await s.createGame({ title, ruleset, deckId: deckId || undefined });
           const created = store.getState().current!.state.settings;
           let settings = preset === 'default' ? created : PRESETS[preset].apply(created);
+          // A group Palette goes round the table: one rolled item per player, at least two.
+          if (group) settings = { ...settings, paletteRollCount: Math.max(2, names.length) };
           if (linked.length)
             settings = {
               ...settings,

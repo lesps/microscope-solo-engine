@@ -183,6 +183,10 @@ function SettingsForm() {
         <label className="inline">
           Turn cap per round {num(s.cohesionCap, (n) => up({ cohesionCap: n }), 1, 50)}
         </label>
+        <label className="inline">
+          Rolled Palette items at setup{' '}
+          {num(s.paletteRollCount, (n) => up({ paletteRollCount: n }), 0, 6)}
+        </label>
       </section>
       <section className="card stack">
         <h2>Weights</h2>

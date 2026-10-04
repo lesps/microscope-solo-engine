@@ -8,6 +8,9 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Game settings → **Rolled Palette items at setup** (0–6): how many Palette items setup rolls
+  (previously fixed at 2 with no way to change it). Group games default to one per player, at least
+  two. `ChangeSettings` rejects counts outside 0–6.
 - Group play on one device: New game → Options → Players → **Group** seats 2–4 named players
   (Solo stays the default), with phantom seats filling up to Microscope's four. The Seats editor
   adds and removes players. In group games the Oracle form asks who is asking and records it
