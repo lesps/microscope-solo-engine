@@ -122,12 +122,31 @@ written answers are refused. Pure Lens: off. High Friction: enforce.
    whenever no turn is open, and removed before play or between rounds.
 4. **Seats.** At least one player seat and at most four seats in all (Microscope's maximum), so
    1–4 players and 0–3 phantoms. Default (Solo): _You_ (uniform bias) and one phantom, _The
-   Stranger_ (sparse bias). **Group** play (New game → Options → Players) seats 2–4 named players
+   Reader_. New phantoms take the next persona (see Phantom inspiration below). **Group** play (New game → Options → Players) seats 2–4 named players
    sharing one device, plus phantoms up to four seats; players sit ahead of phantoms. Turns and the
    Lens rotate through every seat in order. Where the rules say "the player seat" (the Bookends'
    seat, the setup Palette rolls, draws outside a round) it means the first player seat. The
    roster is fixed once the First Pass starts; profiles (bias, tables, weights, Focus mode) can
    change before play and between rounds.
+
+   **Phantom inspiration.** A phantom seat may have an `inspiration`; player seats may not. The
+   personas, in the order phantoms are added:
+
+   | Persona       | Inspiration | Bias    | Its turn opens with                    | Its Focus, when it holds the Lens |
+   | ------------- | ----------- | ------- | -------------------------------------- | --------------------------------- |
+   | The Reader    | `cards`     | late    | a card draw (`prompt.card`)            | the deck                          |
+   | The Gambler   | `dice`      | uniform | a word pair, else a domain line        | the domain and Focus tables       |
+   | The Archivist | `echoes`    | sparse  | an echo of the history (`prompt.echo`) | a Legacy, else an echo            |
+
+   Starting a phantom's turn records its draw in the turn's prompts, and the turn panel shows it in
+   the phantom's voice ("The Reader turns over The Tower: upheaval."). The draw is a suggestion,
+   never binding; with nothing to draw from (no deck, no active tables, nothing in the history) it
+   is skipped. When the phantom holds the Lens, its inspiration picks the Focus source instead of
+   the `focusSourceWeights` roll, falling back to that roll when its source is empty;
+   `focus.sourcePhantom` still decides whether the rolled Focus is binding. A phantom with no
+   inspiration (such as _The Stranger_ in older games) behaves as before. Names, bias and
+   inspiration are editable in the Seats editor.
+
 5. **First Pass.** Each seat, in seat order, adds one Period (strictly between the Bookends) or one
    Event (in any Period). The player chooses the tone. First Pass entries lock on creation.
 6. **Dials.** Mood 1–9 (default 5), Cohesion 1–9 (default 5), Chaos 1–9 (default 5) only when Chaos
@@ -159,8 +178,10 @@ Play starts with round 1 once all six are done. From then on tone is rolled.
      Rolling for a kind other than a rolled entry type is an entry-type override (prompt) or
      rejected (enforce).
    - **On-demand prompts** (any time a round is open): domain line, word pair (an action and a
-     subject rolled together), a card, a character card (courts only), a Scene Question idea, or a
-     person. A Question idea rolls one active `question` table (a `d(N)` picks the table first when
+     subject rolled together), a card, a character card (courts only), a Scene Question idea, a
+     person, or an echo. An echo recalls one thing already in the history, uniformly from the
+     locked entries, Legacies, characters and Yes items of the Palette (rejected with
+     `content-missing` while there is none). A Question idea rolls one active `question` table (a `d(N)` picks the table first when
      several are active). A person rolls one active `person` table per slot, in the order name,
      role, want (each slot picks its table the same way), and reads "{name}, {role}, who wants
      {want}", dropping the clause of a slot with no active table; with none at all the prompt is

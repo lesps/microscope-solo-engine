@@ -214,6 +214,7 @@ export function setupGame(
         kind: 'phantom' as const,
         tables: [],
         placementBias: (['early', 'late', 'sparse'] as const)[i % 3]!,
+        inspiration: (['cards', 'dice', 'echoes'] as const)[i % 3]!,
       })),
     ];
     d.run({ type: 'ConfigureSeats', seats });

@@ -79,7 +79,7 @@ describe('Setup wizard (Lens)', () => {
     await user.type(screen.getByLabelText(/^Title/), 'Canals');
     await user.click(screen.getByRole('button', { name: 'Add First Pass entry' }));
     expect(
-      await screen.findByRole('heading', { name: 'First Pass — The Stranger' }),
+      await screen.findByRole('heading', { name: 'First Pass — The Reader' }),
     ).toBeInTheDocument();
     await user.click(screen.getByLabelText('Event'));
     const placement = screen.getByLabelText('Placement') as HTMLSelectElement;
@@ -158,7 +158,7 @@ describe('Setup wizard (Chronicle, High Friction)', () => {
     await user.type(screen.getByLabelText('From trait'), 'bright');
     await user.type(screen.getByLabelText('To trait'), 'dim');
     await user.click(screen.getByRole('button', { name: 'Add First Pass entry' }));
-    await screen.findByRole('heading', { name: 'First Pass — The Stranger' });
+    await screen.findByRole('heading', { name: 'First Pass — The Reader' });
     await user.click(screen.getByLabelText('Event'));
     await user.type(screen.getByLabelText(/^Title/), 'A wreck');
     await user.click(screen.getByRole('button', { name: 'Add First Pass entry' }));

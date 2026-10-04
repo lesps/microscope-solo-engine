@@ -32,7 +32,7 @@ test('group play on one device: three players and a phantom set up and play a tu
   await page.getByRole('button', { name: 'Continue to the First Pass' }).click();
 
   // The First Pass goes round every seat, players first.
-  for (const [i, who] of ['Ana', 'Ben', 'Cy', 'The Stranger'].entries()) {
+  for (const [i, who] of ['Ana', 'Ben', 'Cy', 'The Reader'].entries()) {
     await expect(page.getByRole('heading', { name: `First Pass — ${who}` })).toBeVisible();
     if (i > 0) await page.getByLabel('Event').check();
     await page.getByLabel(/^Title/).fill(`${who}'s first entry`);

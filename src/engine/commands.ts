@@ -6,7 +6,13 @@ import { weightedSlots } from './placement';
 import { apply } from './reducer';
 import { fillTemplate, personText } from './startup';
 import { rollDie, seedToState } from './rng';
-import { clampDial, defaultSettings, focusModeFor, linkedActiveTables } from './settings';
+import {
+  clampDial,
+  defaultSettings,
+  focusModeFor,
+  linkedActiveTables,
+  phantomSeat,
+} from './settings';
 import {
   describePlacement,
   isLegalSlot,
@@ -28,6 +34,7 @@ import type {
   Game,
   GameEvent,
   Id,
+  Inspiration,
   ListTable,
   PersonSlot,
   PromptKind,
@@ -674,6 +681,62 @@ function startTurn(tx: Tx, seat: Seat, kind: 'normal' | 'legacy', legacyId?: Id)
   tx.emit('TurnStarted', p);
   rollTone(tx);
   rollEntryType(tx, seat, kind === 'legacy');
+  // Only phantoms can have an inspiration (validateSeats).
+  if (seat.inspiration) inspire(tx, seat);
+}
+
+/** A phantom opens its turn with a draw of its kind; with nothing to draw from it stays silent. */
+function inspire(tx: Tx, seat: Seat) {
+  const g = tx.g;
+  if (seat.inspiration === 'cards') {
+    if (!g.deck || !tx.env.content.decks[g.deck.deckId]) return;
+    tx.drawCard('prompt.card', {
+      valueFor: (card, kw) => ({ kind: 'card', text: `${card.name}: ${kw}` }),
+    });
+  } else if (seat.inspiration === 'dice') {
+    const pairs = seatTables(g, tx.env.content, seat, 'wordPair');
+    if (pairs.length) return rollWordPair(tx, pairs);
+    const domains = seatTables(g, tx.env.content, seat, 'domain');
+    if (!domains.length) return;
+    const table = domains.length === 1 ? domains[0]! : pickTable(tx, domains);
+    tx.rollTable('prompt.domain', table, (text) => ({ kind: 'domain', text }));
+  } else if (echoOptions(g).length) {
+    rollEcho(tx);
+  }
+}
+
+/** Things already in the history a turn can recall: locked entries, Legacies, characters, Yes items. */
+export function echoOptions(g: Game): string[] {
+  return [
+    ...Object.values(g.entries)
+      .filter((e) => e.locked)
+      .map((e) => `“${e.title}” (${e.kind})`),
+    ...g.legacies.map((l) => `Legacy: ${l.text}`),
+    ...Object.values(g.characters).map((c) => `Character: ${c.name}`),
+    ...g.palette.yes.map((p) => `Palette: ${p.text}`),
+  ];
+}
+
+function rollEcho(tx: Tx) {
+  const options = echoOptions(tx.g);
+  check(options.length, 'content-missing', 'nothing in the history to echo yet');
+  tx.weighted(
+    'prompt.echo',
+    options.map((text) => ({ item: { kind: 'echo', text }, weight: 1 })),
+    (v) => v.text,
+  );
+}
+
+function rollWordPair(tx: Tx, tables: Table[]) {
+  const wp = (tables.length === 1 ? tables[0]! : pickTable(tx, tables)) as Extract<
+    Table,
+    { category: 'wordPair' }
+  >;
+  const action = tx.rollList('prompt.wordPair.action', wp.id, wp.action, wp.die);
+  tx.rollList('prompt.wordPair', wp.id, wp.subject, wp.die, (subject) => ({
+    kind: 'wordPair',
+    text: `${action} ${subject}`,
+  }));
 }
 
 /** Resolve a player's choice against a rolled value under a mode. Returns the effective value. */
@@ -776,13 +839,7 @@ const handlers: Handlers = {
     };
     const seats = c.seats ?? [
       { id: tx.env.newId(), name: 'You', kind: 'player', tables: [], placementBias: 'uniform' },
-      {
-        id: tx.env.newId(),
-        name: 'The Stranger',
-        kind: 'phantom',
-        tables: [],
-        placementBias: 'sparse',
-      },
+      phantomSeat(0, tx.env.newId()),
     ];
     validateSeats(seats);
     const deckId = c.deckId ?? Object.keys(tx.env.content.decks)[0];
@@ -1287,6 +1344,7 @@ const handlers: Handlers = {
       });
       return;
     }
+    if (c.kind === 'echo') return rollEcho(tx);
     if (c.kind === 'person') {
       const people = seatTables(g, tx.env.content, seat, 'person') as ListTable[];
       const slots = PERSON_SLOTS.map(
@@ -1314,12 +1372,7 @@ const handlers: Handlers = {
       const kind = c.kind;
       tx.rollTable(`prompt.${kind}`, table, (text) => ({ kind, text }));
     } else {
-      const wp = table as Extract<Table, { category: 'wordPair' }>;
-      const action = tx.rollList('prompt.wordPair.action', wp.id, wp.action, wp.die);
-      tx.rollList('prompt.wordPair', wp.id, wp.subject, wp.die, (subject) => ({
-        kind: 'wordPair',
-        text: `${action} ${subject}`,
-      }));
+      rollWordPair(tx, [table]);
     }
   },
 
@@ -1805,12 +1858,32 @@ function rollFocus(tx: Tx, seat: Seat): { text: string; source: string } {
     ...seatTables(g, tx.env.content, seat, 'domain'),
     ...seatTables(g, tx.env.content, seat, 'focus'),
   ];
+  const deckLoaded = !!g.deck && !!tx.env.content.decks[g.deck.deckId];
   const sources: { item: 'legacy' | 'domain' | 'deck'; weight: number }[] = [
     { item: 'legacy', weight: g.legacies.length ? w.legacy : 0 },
     { item: 'domain', weight: domain.length ? w.domain : 0 },
-    { item: 'deck', weight: g.deck && tx.env.content.decks[g.deck.deckId] ? w.deck : 0 },
+    { item: 'deck', weight: deckLoaded ? w.deck : 0 },
   ];
-  const source = tx.weighted('focus.source', sources, (s) => s, false);
+  const preferred: Record<Inspiration, 'legacy' | 'domain' | 'deck'> = {
+    cards: 'deck',
+    dice: 'domain',
+    echoes: 'legacy',
+  };
+  const wanted = seat.inspiration && preferred[seat.inspiration];
+  // A phantom's own source counts whenever it exists, whatever the game-wide weights say.
+  const exists = { legacy: g.legacies.length > 0, domain: domain.length > 0, deck: deckLoaded };
+  if (seat.inspiration === 'echoes' && !g.legacies.length && echoOptions(g).length) {
+    return tx.weighted(
+      'focus',
+      echoOptions(g).map((text) => ({
+        item: { text: text.slice(0, MAX.focus), source: 'echo' },
+        weight: 1,
+      })),
+      (v) => v.text,
+    );
+  }
+  const source =
+    wanted && exists[wanted] ? wanted : tx.weighted('focus.source', sources, (s) => s, false);
   if (source === 'legacy') {
     return tx.weighted(
       'focus',
@@ -1852,6 +1925,11 @@ function validateSeats(seats: Seat[]) {
     'at least one player seat',
   );
   check(seats.length <= MAX_SEATS, 'invalid', `at most ${MAX_SEATS} seats in all`);
+  check(
+    seats.every((s) => s.kind === 'phantom' || s.inspiration === undefined),
+    'invalid',
+    'only phantom seats have an inspiration',
+  );
   check(
     new Set(seats.map((s) => s.id)).size === seats.length,
     'invalid',

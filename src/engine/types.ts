@@ -180,6 +180,9 @@ export interface PaletteItem {
   rolled: boolean;
 }
 
+/** What a phantom seat draws on: tarot cards, dice on tables, or echoes of the history so far. */
+export type Inspiration = 'cards' | 'dice' | 'echoes';
+
 export interface Seat {
   id: Id;
   name: string;
@@ -188,6 +191,8 @@ export interface Seat {
   placementBias: PlacementBias;
   entryTypeWeights?: Record<EntryKind, number>;
   focusMode?: Mode;
+  /** Phantoms only: picks the Focus source and the draw that opens the seat's turns. */
+  inspiration?: Inspiration;
 }
 
 export interface Revision {
@@ -339,7 +344,8 @@ export interface OpenTurn {
   prompts: PromptResult[];
 }
 
-export type PromptKind = 'domain' | 'wordPair' | 'card' | 'character' | 'question' | 'person';
+export type PromptKind =
+  'domain' | 'wordPair' | 'card' | 'character' | 'question' | 'person' | 'echo';
 export interface PromptResult {
   kind: PromptKind;
   text: string;

@@ -8,6 +8,13 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Phantom inspiration: phantom seats can have an `inspiration` (`cards`, `dice` or `echoes`). The
+  default personas are **The Reader** (cards, late bias), **The Gambler** (dice, uniform) and
+  **The Archivist** (echoes, sparse), added in that order. A phantom's turn opens with a draw of its
+  kind, shown in the turn panel in its voice; its Focus comes from the same source when it holds the
+  Lens. Engine: `PHANTOM_PERSONAS`, `phantomSeat`, `Inspiration`.
+- **Echo** prompt (`DrawPrompt` kind `echo`, roll purpose `prompt.echo`): recalls a locked entry,
+  Legacy, character or Yes item.
 - Game settings → **Rolled Palette items at setup** (0–6): how many Palette items setup rolls
   (previously fixed at 2 with no way to change it). Group games default to one per player, at least
   two. `ChangeSettings` rejects counts outside 0–6.
@@ -102,6 +109,8 @@ All notable changes are documented here. The format follows
 
 ### Changed
 
+- New games' default phantom is **The Reader** (cards, late bias) instead of The Stranger (sparse,
+  no inspiration). Existing games keep their seats.
 - Seat limits: at least one player and at most four seats in all (previously exactly one player
   and up to three phantoms, the same four-seat total). `MAX_SEATS` and `isGroupGame` are exported
   from the engine.

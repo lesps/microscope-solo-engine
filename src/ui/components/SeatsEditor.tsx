@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import {
   MAX_SEATS,
+  phantomSeat,
   type Game,
+  type Inspiration,
   type Mode,
   type PlacementBias,
   type Seat,
@@ -25,13 +27,11 @@ export function SeatsEditor({ g, rosterLocked }: { g: Game; rosterLocked: boolea
   const full = seats.length >= MAX_SEATS;
   const add = (kind: Seat['kind']) => {
     setSaved(false);
-    const seat: Seat = {
-      id: `seat-${Date.now().toString(36)}-${seats.length}`,
-      name: kind === 'player' ? `Player ${players + 1}` : `Phantom ${phantoms + 1}`,
-      kind,
-      tables: [],
-      placementBias: kind === 'player' ? 'uniform' : 'sparse',
-    };
+    const id = `seat-${Date.now().toString(36)}-${seats.length}`;
+    const seat: Seat =
+      kind === 'player'
+        ? { id, name: `Player ${players + 1}`, kind, tables: [], placementBias: 'uniform' }
+        : phantomSeat(phantoms, id);
     // Players sit ahead of phantoms, so the people at the table take the first turns.
     setSeats((xs) =>
       kind === 'player' ? [...xs.slice(0, players), seat, ...xs.slice(players)] : [...xs, seat],
@@ -62,6 +62,23 @@ export function SeatsEditor({ g, rosterLocked }: { g: Game; rosterLocked: boolea
                 <option value="sparse">sparse (thin areas)</option>
               </select>
             </label>
+            {s.kind === 'phantom' && (
+              <label>
+                Inspiration
+                <select
+                  value={s.inspiration ?? ''}
+                  onChange={(e) => {
+                    const v = e.target.value as Inspiration | '';
+                    up(i, { inspiration: v || undefined });
+                  }}
+                >
+                  <option value="">none</option>
+                  <option value="cards">cards (tarot)</option>
+                  <option value="dice">dice (tables)</option>
+                  <option value="echoes">echoes (the history)</option>
+                </select>
+              </label>
+            )}
             <label>
               Focus mode
               <select

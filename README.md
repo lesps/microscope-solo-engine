@@ -68,6 +68,15 @@ are modeled on how Microscope Explorer by Ben Robbins presents its starting poin
 content is not included (see [docs/content-packs.md](docs/content-packs.md) for building a
 personal pack from your copy).
 
+### Phantom seats
+
+A phantom seat takes turns like a player, but you write its entries. Each default phantom has a
+personality that shapes its turns: **The Reader** draws tarot cards, **The Gambler** rolls dice on
+the tables, and **The Archivist** recalls something already in the history and asks what came of it.
+When a phantom's turn starts, its draw appears in the turn panel as a suggestion; when it holds the
+Lens, its Focus comes from the same source. Change a phantom's name or inspiration in the Seats
+editor. Anyone can also tap **Echo** in the prompts row for a callback to the history.
+
 ### Playing with a group
 
 By default a game is solo: you plus a phantom seat. For several people sharing one device, choose

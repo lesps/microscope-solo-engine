@@ -26,7 +26,7 @@ describe('LeftRail', () => {
     expect(legacies).toHaveTextContent('Legacies (0/6)');
     const seats = screen.getByRole('region', { name: 'Seats' });
     expect(seats).toHaveTextContent('You');
-    expect(seats).toHaveTextContent('The Stranger');
+    expect(seats).toHaveTextContent('The Reader');
     expect(seats).toHaveTextContent('holds the Lens');
     expect(screen.getByRole('meter', { name: 'Mood' })).toHaveAttribute('aria-valuenow', '5');
     expect(screen.queryByRole('meter', { name: 'Chaos' })).not.toBeInTheDocument();

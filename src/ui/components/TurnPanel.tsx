@@ -837,6 +837,7 @@ function Prompts({ g, onOracle }: { g: Game; onOracle: () => void }) {
         {people && (
           <button onClick={() => dispatch({ type: 'DrawPrompt', kind: 'person' })}>Person</button>
         )}
+        <button onClick={() => dispatch({ type: 'DrawPrompt', kind: 'echo' })}>Echo</button>
         <button onClick={onOracle} aria-keyshortcuts="O">
           Oracle
         </button>
@@ -892,6 +893,7 @@ export function TurnPanel({
         )}
       </div>
       {r && !r.ended && <StepList step={step} />}
+      {g.turn && <InspirationNote g={g} events={events} />}
       <div key={turnKey} aria-live="polite">
         {step === 'start-round' && (
           <div className="stack">
@@ -943,5 +945,26 @@ export function TurnPanel({
       )}
       {r && !r.ended && <Prompts g={g} onOracle={onOracle} />}
     </div>
+  );
+}
+
+/** The draw a phantom opened its turn with, in the phantom's voice. */
+function InspirationNote({ g, events }: { g: Game; events: GameEvent[] }) {
+  const t = g.turn!;
+  const seat = g.seats.find((s) => s.id === t.seatId);
+  if (seat?.kind !== 'phantom' || !seat.inspiration) return null;
+  const opening = new Set(events.filter((e) => e.batch === t.startSeq).map((e) => e.seq));
+  const p = t.prompts.find((x) => opening.has(x.seq));
+  if (!p) return null;
+  const line =
+    seat.inspiration === 'cards'
+      ? `${seat.name} turns over ${p.text}.`
+      : seat.inspiration === 'dice'
+        ? `${seat.name} rolls: ${p.text}.`
+        : `${seat.name} recalls ${p.text}. What came of it?`;
+  return (
+    <p role="note" aria-label="Inspiration" className="facts" style={{ margin: 0 }}>
+      <em>{line}</em>
+    </p>
   );
 }

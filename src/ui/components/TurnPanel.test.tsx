@@ -363,7 +363,7 @@ describe('TurnPanel: cohesion, Legacies, dials', () => {
       await user.click(screen.getByRole('button', { name: 'Add Legacy (override)' }));
     } else {
       await user.click(
-        screen.getByRole('button', { name: /Take another turn \(The Stranger\) \(override\)/ }),
+        screen.getByRole('button', { name: /Take another turn \(The Reader\) \(override\)/ }),
       );
     }
     expect(state(store).stats.overrides).toBe(1);
@@ -457,7 +457,7 @@ describe('TurnPanel: cohesion, Legacies, dials', () => {
     await eventTurn(store);
     await run(store, { type: 'AddLegacy', text: 'Toll-house' });
     renderWith(store, <Panel />);
-    expect(screen.getByText(/The Stranger/)).toBeInTheDocument();
+    expect(screen.getByText(/The Reader/)).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Roll a Legacy' }));
     expect(
       (screen.getByLabelText('Legacy to explore') as HTMLSelectElement).selectedOptions[0],

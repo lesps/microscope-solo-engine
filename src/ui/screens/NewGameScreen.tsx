@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   MAX_SEATS,
   PRESETS,
+  phantomSeat,
   linkedActiveTables,
   type Content,
   type FromPack,
@@ -211,7 +212,7 @@ function NameForm({
             };
           if (settings !== created) await s.dispatch({ type: 'ChangeSettings', settings });
           if (group) {
-            const [you, stranger] = store.getState().current!.state.seats;
+            const [you, firstPhantom] = store.getState().current!.state.seats;
             const seat = (i: number, kind: Seat['kind'], name: string, base?: Seat): Seat => ({
               id: base?.id ?? `seat-${Date.now().toString(36)}-${i}`,
               name,
@@ -226,11 +227,11 @@ function NameForm({
                   seat(i, 'player', n.trim() || `Player ${i + 1}`, i === 0 ? you : undefined),
                 ),
                 ...Array.from({ length: Math.min(phantomCount, maxPhantoms) }, (_, i) =>
-                  seat(
-                    names.length + i,
-                    'phantom',
-                    i === 0 ? 'The Stranger' : `Phantom ${i + 1}`,
-                    i === 0 ? stranger : undefined,
+                  phantomSeat(
+                    i,
+                    i === 0 && firstPhantom
+                      ? firstPhantom.id
+                      : `seat-${Date.now().toString(36)}-p${i}`,
                   ),
                 ),
               ],
