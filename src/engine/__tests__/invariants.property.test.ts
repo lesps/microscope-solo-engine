@@ -77,6 +77,7 @@ function extra(d: Driver, k: number): Command | 'undo' | undefined {
         type: 'AskOracle',
         question: 'q?',
         odds: 1 + (k % 9),
+        askedBy: g.seats[Math.floor(k / 8) % g.seats.length]?.id,
         entryId: t?.entryId && g.entries[t.entryId]?.kind === 'scene' ? t.entryId : undefined,
       };
     case 1:
@@ -126,14 +127,20 @@ describe('property: invariants hold and replay is deterministic', () => {
     fc.assert(
       fc.property(
         settingsArb,
-        fc.integer({ min: 0, max: 3 }),
+        // Solo and group tables: 1–4 players, phantoms filling up to four seats.
+        fc.integer({ min: 1, max: 4 }).chain((players) =>
+          fc.record({
+            players: fc.constant(players),
+            phantoms: fc.integer({ min: 0, max: 4 - players }),
+          }),
+        ),
         fc.constantFrom<'lens' | 'chronicle'>('lens', 'chronicle'),
         fc.array(fc.integer({ min: 0, max: 1_000_000 }), { minLength: 20, maxLength: 60 }),
-        (cfg, phantoms, ruleset, choices) => {
+        (cfg, table, ruleset, choices) => {
           const d = new Driver();
           setupGame(d, {
             ruleset,
-            phantoms,
+            ...table,
             settings: (s) => ({
               ...s,
               modes: {

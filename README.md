@@ -68,6 +68,15 @@ are modeled on how Microscope Explorer by Ben Robbins presents its starting poin
 content is not included (see [docs/content-packs.md](docs/content-packs.md) for building a
 personal pack from your copy).
 
+### Playing with a group
+
+By default a game is solo: you plus a phantom seat. For several people sharing one device, choose
+**New game → Options → Players → Group** and name 2–4 players. Microscope plays with at most four,
+so phantom seats can fill any empty places. Turns and the Lens rotate through every seat; the turn
+panel names whose turn it is and the Scene editor whose Scene it is. Anyone can ask the Oracle at
+any time, and each answer is credited to whoever asked. Seats can be added, renamed or removed in
+setup until the First Pass starts.
+
 ### Content packs
 
 Tables and decks arrive as JSON content packs. Import them from **Packs**; a pack with errors is not

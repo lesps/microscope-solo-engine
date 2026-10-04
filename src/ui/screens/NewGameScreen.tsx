@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  MAX_SEATS,
   PRESETS,
   linkedActiveTables,
   type Content,
@@ -7,6 +8,7 @@ import {
   type Generator,
   type PresetId,
   type Ruleset,
+  type Seat,
   type Seed,
 } from '../../engine';
 import { useApp, useAppStore } from '../StoreContext';
@@ -156,6 +158,10 @@ function NameForm({
   const [preset, setPreset] = useState<PresetId>(lastPreset);
   const [deckId, setDeckId] = useState(decks[0]?.id ?? '');
   const [linked, setLinked] = useState<string[]>([]);
+  const [group, setGroup] = useState(false);
+  const [names, setNames] = useState(['Player 1', 'Player 2']);
+  const [phantomCount, setPhantomCount] = useState(0);
+  const maxPhantoms = MAX_SEATS - names.length;
   const [busy, setBusy] = useState(false);
 
   const from =
@@ -202,6 +208,32 @@ function NameForm({
               activeTables: linkedActiveTables(content, settings.activeTables, linked),
             };
           if (settings !== created) await s.dispatch({ type: 'ChangeSettings', settings });
+          if (group) {
+            const [you, stranger] = store.getState().current!.state.seats;
+            const seat = (i: number, kind: Seat['kind'], name: string, base?: Seat): Seat => ({
+              id: base?.id ?? `seat-${Date.now().toString(36)}-${i}`,
+              name,
+              kind,
+              tables: [],
+              placementBias: kind === 'player' ? 'uniform' : 'sparse',
+            });
+            await s.dispatch({
+              type: 'ConfigureSeats',
+              seats: [
+                ...names.map((n, i) =>
+                  seat(i, 'player', n.trim() || `Player ${i + 1}`, i === 0 ? you : undefined),
+                ),
+                ...Array.from({ length: Math.min(phantomCount, maxPhantoms) }, (_, i) =>
+                  seat(
+                    names.length + i,
+                    'phantom',
+                    i === 0 ? 'The Stranger' : `Phantom ${i + 1}`,
+                    i === 0 ? stranger : undefined,
+                  ),
+                ),
+              ],
+            });
+          }
           localStore(window).setItem(LAST_PRESET_KEY, preset);
           const start: StartChoice =
             choice.kind === 'blank'
@@ -272,6 +304,85 @@ function NameForm({
         <details>
           <summary>Options</summary>
           <div className="stack" style={{ marginTop: '0.6em' }}>
+            <fieldset className="stack">
+              <legend>Players</legend>
+              <label className="inline">
+                <input
+                  type="radio"
+                  name="players"
+                  checked={!group}
+                  onChange={() => setGroup(false)}
+                />{' '}
+                Solo — you, with a phantom seat for company
+              </label>
+              <label className="inline">
+                <input
+                  type="radio"
+                  name="players"
+                  checked={group}
+                  onChange={() => setGroup(true)}
+                />{' '}
+                Group — 2–{MAX_SEATS} people sharing this device, taking turns
+              </label>
+              {group && (
+                <>
+                  {names.map((n, i) => (
+                    <div key={i} className="row">
+                      <label style={{ flex: 1 }}>
+                        Player {i + 1} name
+                        <input
+                          value={n}
+                          maxLength={40}
+                          onChange={(e) =>
+                            setNames((xs) => xs.map((x, j) => (j === i ? e.target.value : x)))
+                          }
+                        />
+                      </label>
+                      {i >= 2 && (
+                        <button
+                          type="button"
+                          aria-label={`Remove Player ${i + 1}`}
+                          onClick={() => setNames((xs) => xs.filter((_, j) => j !== i))}
+                          style={{ alignSelf: 'flex-end' }}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <div className="row">
+                    <button
+                      type="button"
+                      disabled={names.length >= MAX_SEATS}
+                      onClick={() => {
+                        setNames((xs) => [...xs, `Player ${xs.length + 1}`]);
+                        setPhantomCount((p) => Math.min(p, MAX_SEATS - names.length - 1));
+                      }}
+                    >
+                      Add player
+                    </button>
+                    <label className="inline">
+                      Phantom seats{' '}
+                      <select
+                        value={Math.min(phantomCount, maxPhantoms)}
+                        onChange={(e) => setPhantomCount(+e.target.value)}
+                        style={{ width: 'auto' }}
+                      >
+                        {Array.from({ length: maxPhantoms + 1 }, (_, k) => (
+                          <option key={k} value={k}>
+                            {k}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                  <p className="hint" style={{ margin: 0 }}>
+                    Up to {MAX_SEATS} seats in all, as in Microscope. Phantom seats roll their own
+                    turns.
+                  </p>
+                </>
+              )}
+            </fieldset>
             <label>
               Preset
               <select value={preset} onChange={(e) => setPreset(e.target.value as PresetId)}>

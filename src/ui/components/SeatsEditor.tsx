@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import type { Game, Mode, PlacementBias, Seat, Table } from '../../engine';
+import {
+  MAX_SEATS,
+  type Game,
+  type Mode,
+  type PlacementBias,
+  type Seat,
+  type Table,
+} from '../../engine';
 import { useApp } from '../StoreContext';
 import { useDispatch } from '../hooks/useGame';
 
@@ -14,12 +21,29 @@ export function SeatsEditor({ g, rosterLocked }: { g: Game; rosterLocked: boolea
     setSeats((xs) => xs.map((s, j) => (j === i ? { ...s, ...p } : s)));
   };
   const phantoms = seats.filter((s) => s.kind === 'phantom').length;
+  const players = seats.length - phantoms;
+  const full = seats.length >= MAX_SEATS;
+  const add = (kind: Seat['kind']) => {
+    setSaved(false);
+    const seat: Seat = {
+      id: `seat-${Date.now().toString(36)}-${seats.length}`,
+      name: kind === 'player' ? `Player ${players + 1}` : `Phantom ${phantoms + 1}`,
+      kind,
+      tables: [],
+      placementBias: kind === 'player' ? 'uniform' : 'sparse',
+    };
+    // Players sit ahead of phantoms, so the people at the table take the first turns.
+    setSeats((xs) =>
+      kind === 'player' ? [...xs.slice(0, players), seat, ...xs.slice(players)] : [...xs, seat],
+    );
+  };
   return (
     <div className="stack">
       {seats.map((s, i) => (
         <fieldset key={s.id}>
           <legend>
-            {s.kind === 'player' ? 'Your seat' : 'Phantom seat'} {i + 1}
+            {s.kind === 'phantom' ? 'Phantom seat' : players > 1 ? 'Player seat' : 'Your seat'}{' '}
+            {i + 1}
           </legend>
           <div className="row">
             <label style={{ flex: 1 }}>
@@ -117,7 +141,7 @@ export function SeatsEditor({ g, rosterLocked }: { g: Game; rosterLocked: boolea
               </div>
             )}
           </details>
-          {s.kind === 'phantom' && !rosterLocked && (
+          {(s.kind === 'phantom' || players > 1) && !rosterLocked && (
             <button
               className="danger"
               onClick={() => (setSaved(false), setSeats((xs) => xs.filter((x) => x.id !== s.id)))}
@@ -128,24 +152,15 @@ export function SeatsEditor({ g, rosterLocked }: { g: Game; rosterLocked: boolea
         </fieldset>
       ))}
       <div className="row">
-        {!rosterLocked && phantoms < 3 && (
-          <button
-            onClick={() => {
-              setSaved(false);
-              setSeats((xs) => [
-                ...xs,
-                {
-                  id: `seat-${Date.now().toString(36)}`,
-                  name: `Phantom ${phantoms + 1}`,
-                  kind: 'phantom',
-                  tables: [],
-                  placementBias: 'sparse',
-                },
-              ]);
-            }}
-          >
-            Add phantom seat
-          </button>
+        {!rosterLocked && (
+          <>
+            <button disabled={full} onClick={() => add('player')}>
+              Add player
+            </button>
+            <button disabled={full} onClick={() => add('phantom')}>
+              Add phantom seat
+            </button>
+          </>
         )}
         <button
           className="primary"
@@ -157,6 +172,12 @@ export function SeatsEditor({ g, rosterLocked }: { g: Game; rosterLocked: boolea
         </button>
         {saved && <span className="hint">Saved.</span>}
       </div>
+      {!rosterLocked && (
+        <p className="hint">
+          Up to {MAX_SEATS} seats in all, as in Microscope. Extra players share this device and take
+          turns in seat order.
+        </p>
+      )}
       {rosterLocked && (
         <p className="hint">
           The roster is fixed once the First Pass starts; profiles can still change between rounds.

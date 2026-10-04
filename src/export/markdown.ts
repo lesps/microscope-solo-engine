@@ -30,6 +30,11 @@ function paragraphs(prose: string): string {
   return t ? `${t}\n\n` : '';
 }
 
+const askedBy = (g: Game, id: string | undefined) => {
+  const name = id && g.seats.find((s) => s.id === id)?.name;
+  return name ? ` *(asked by ${name})*` : '';
+};
+
 export function statsFooter(g: Game): string {
   const entries = Object.values(g.entries);
   const by = (k: Entry['kind']) => {
@@ -234,7 +239,7 @@ export function playOrderManuscript(
       }
       case 'OracleAsked':
         pendingRolls.push(
-          `- ☯ Oracle: “${ev.payload.call.question}” (${ev.payload.call.effectiveOdds}/10) → ${describeOracle(ev.payload.call)}`,
+          `- ☯ Oracle: “${ev.payload.call.question}” (${ev.payload.call.effectiveOdds}/10) → ${describeOracle(ev.payload.call)}${askedBy(g, ev.payload.call.askedBy)}`,
         );
         break;
       case 'TurnCommitted': {

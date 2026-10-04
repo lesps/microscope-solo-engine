@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { wordCount, type Game, type Scene } from '../../engine';
+import { isGroupGame, wordCount, type Game, type Scene } from '../../engine';
 import { useApp, useAppStore } from '../StoreContext';
 import { Lock, ToneMark } from '../components/common';
 import { OracleForm } from '../components/OracleDialog';
@@ -90,6 +90,11 @@ function SceneEditor({ sceneId }: { sceneId: string }) {
             <span>{scene.title}</span>
             {scene.locked && <Lock />}
             <span className="badge">{scene.form}</span>
+            {isGroupGame(g) && (
+              <span className="badge">
+                {g.seats.find((s) => s.id === scene.seatId)?.name}’s Scene
+              </span>
+            )}
           </div>
           <button onClick={back}>Back to table</button>
         </div>
@@ -376,7 +381,9 @@ function Revise({ g, scene }: { g: Game; scene: Scene }) {
               {scene.oracleCalls
                 .map(
                   (c) =>
-                    `${c.question} → ${c.answer ? 'yes' : 'no'}${c.qualifier ? `, ${c.qualifier}` : ''}`,
+                    `${c.question} → ${c.answer ? 'yes' : 'no'}${c.qualifier ? `, ${c.qualifier}` : ''}${
+                      c.askedBy ? ` (${g.seats.find((s) => s.id === c.askedBy)?.name})` : ''
+                    }`,
                 )
                 .join('; ')}
             </div>

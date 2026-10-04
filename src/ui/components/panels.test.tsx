@@ -38,7 +38,7 @@ describe('SeatsEditor', () => {
     await user.type(period, '0');
     await user.click(screen.getByRole('button', { name: 'Add phantom seat' }));
     await user.click(screen.getByRole('button', { name: 'Add phantom seat' }));
-    expect(screen.queryByRole('button', { name: 'Add phantom seat' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Add phantom seat' })).toBeDisabled();
     await user.click(screen.getAllByRole('button', { name: 'Remove seat' })[2]!);
     await user.click(screen.getByRole('button', { name: 'Save seats' }));
     await screen.findByText('Saved.');

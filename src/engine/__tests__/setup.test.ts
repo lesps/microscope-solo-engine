@@ -154,7 +154,7 @@ describe('Palette', () => {
 });
 
 describe('ConfigureSeats', () => {
-  it('requires exactly one player and at most three phantoms', () => {
+  it('requires a player and at most four seats in all', () => {
     const d = new Driver();
     create(d);
     const p = {

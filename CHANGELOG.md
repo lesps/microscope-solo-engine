@@ -8,6 +8,11 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Group play on one device: New game → Options → Players → **Group** seats 2–4 named players
+  (Solo stays the default), with phantom seats filling up to Microscope's four. The Seats editor
+  adds and removes players. In group games the Oracle form asks who is asking and records it
+  (`askedBy` on the Oracle call, shown in the logs, Scene facts and play-order manuscript), and the
+  Scene editor names whose Scene it is.
 - **Back up all games** between rounds: one dated bundle of every game, through the share sheet on
   an iOS Home Screen app (Save to Files). The Storage screen shows when the last backup was made.
   Library → Export all uses the same backup.
@@ -94,6 +99,9 @@ All notable changes are documented here. The format follows
 
 ### Changed
 
+- Seat limits: at least one player and at most four seats in all (previously exactly one player
+  and up to three phantoms, the same four-seat total). `MAX_SEATS` and `isGroupGame` are exported
+  from the engine.
 - The New game form's "Create and set up" button is now **Begin**, after the start is chosen.
 - `downloadText` is async and takes an optional navigator (for the share sheet).
 - Pack schema 3: adds the `question` and `person` table categories, `slot` and `tags`. Versions 1
