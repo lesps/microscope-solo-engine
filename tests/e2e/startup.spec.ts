@@ -4,19 +4,17 @@ import { panel } from './helpers';
 
 const fixtures = path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'fixtures');
 
-async function create(page: Page, title: string, ruleset: 'Lens' | 'Chronicle' = 'Lens') {
+/** New game: choose the start first, then name the game (the title is prefilled). */
+async function startFrom(page: Page, card: RegExp, title: string) {
   await page.goto('./');
   await page.getByRole('link', { name: 'New game' }).click();
+  await page.getByRole('button', { name: card }).click();
   await page.getByLabel('Title').fill(title);
-  if (ruleset === 'Chronicle') await page.getByLabel(/Chronicle/).check();
-  await page.getByRole('button', { name: 'Create and set up' }).click();
+  await page.getByRole('button', { name: 'Begin' }).click();
 }
 
 test('The Salt Road: from a seed to the first round, then one turn', async ({ page }) => {
-  await create(page, 'Salt Road history');
-  await page.getByRole('button', { name: /Start from a seed/ }).click();
-  await page.getByRole('button', { name: /Frontiers/ }).click();
-  await page.getByRole('button', { name: /The Salt Road/ }).click();
+  await startFrom(page, /The Salt Road/, 'Salt Road history');
   const form = page.getByRole('region', { name: 'Seed: The Salt Road' });
   await form
     .getByRole('group', { name: 'Why is the sea drying up?' })
@@ -94,9 +92,7 @@ test('The Salt Road: from a seed to the first round, then one turn', async ({ pa
 });
 
 test('Crossroads: roll, swap, reroll and accept; the Big Picture stays empty', async ({ page }) => {
-  await create(page, 'Crossroads history');
-  await page.getByRole('button', { name: /Roll a generator/ }).click();
-  await page.getByRole('button', { name: /Crossroads/ }).click();
+  await startFrom(page, /Roll Crossroads/, 'Crossroads history');
   const gen = page.getByRole('region', { name: 'Generator: Crossroads' });
   await gen.getByRole('button', { name: 'Roll' }).click();
   const reading = gen.getByLabel('Reading');
@@ -123,10 +119,7 @@ test('an imported v2 pack adds a Chronicle seed and a generator', async ({ page 
     '2 tables · 0 decks · 1 group · 1 seed · 1 generator',
   );
 
-  await create(page, 'Lighthouse', 'Chronicle');
-  await page.getByRole('button', { name: /Start from a seed/ }).click();
-  await page.getByRole('button', { name: /Coastlines/ }).click();
-  await page.getByRole('button', { name: /The Keeper's Light/ }).click();
+  await startFrom(page, /The Keeper's Light/, 'Lighthouse');
   const form = page.getByRole('region', { name: "Seed: The Keeper's Light" });
   await form
     .getByRole('group', { name: 'Why was it built?' })

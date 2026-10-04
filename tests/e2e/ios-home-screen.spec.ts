@@ -42,11 +42,12 @@ test('index.html is set up for the Home Screen, and every launch image is served
 test('touch sizing: fields never trigger focus zoom, buttons are 44 px', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('link', { name: 'New game' }).click();
+  await page.getByRole('button', { name: /Start blank/ }).click();
   const title = page.getByLabel('Title');
   expect(
     parseFloat(await title.evaluate((e) => getComputedStyle(e).fontSize)),
   ).toBeGreaterThanOrEqual(16);
-  const create = page.getByRole('button', { name: 'Create and set up' });
+  const create = page.getByRole('button', { name: 'Begin' });
   expect((await create.boundingBox())!.height).toBeGreaterThanOrEqual(44);
 });
 

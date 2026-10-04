@@ -29,6 +29,7 @@ function everyEvent(): GameEvent[] {
     start: { optionId: 's1' },
     end: { custom: { text: 'An ending.' } },
   });
+  pre.run({ type: 'RenameGame', title: 'Renamed' });
   pre.run({ type: 'RollGenerator', generatorId: 'gen' });
   pre.run({ type: 'AcceptGeneratorReading', swapped: true });
   all.push(...pre.events);

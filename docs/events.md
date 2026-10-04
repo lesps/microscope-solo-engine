@@ -195,6 +195,11 @@ from the remaining pile. `purpose: 'scene.spread'` with `targetId` and `role` (`
 
 `{ entryId, prose }` — locked entries only; appends a revision.
 
+### `GameRenamed`
+
+`{ title }` — sets `game.title` (≤ 80 characters). The title is a label, not a fact of the history,
+so `RenameGame` is accepted at any time, including during a turn; it is not counted as a retcon.
+
 ### `Retconned`
 
 `{ targetId, field, before, after, reason }` — the only way a locked fact changes. Targets: an

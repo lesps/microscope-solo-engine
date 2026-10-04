@@ -16,14 +16,7 @@ async function importToolkits(page: Page) {
   ).toHaveCount(5);
 }
 
-async function create(page: Page, title: string) {
-  await page.goto('./');
-  await page.getByRole('link', { name: 'New game' }).click();
-  await page.getByLabel('Title').fill(title);
-  await page.getByRole('button', { name: 'Create and set up' }).click();
-  await expect(page.getByRole('button', { name: /Start blank/ })).toBeVisible();
-  return page.url().match(/#\/game\/([^/]+)\//)![1]!;
-}
+const gameIdOf = (page: Page) => page.url().match(/#\/game\/([^/]+)\//)![1]!;
 
 /** Game settings shows exactly `linked` (plus every untagged table) active. */
 async function expectLinked(page: Page, gameId: string, linked: string) {
@@ -42,11 +35,18 @@ test('a Far Horizons seed links only its toolkit; Question idea and Roll a perso
   page,
 }) => {
   await importToolkits(page);
-  const gameId = await create(page, 'Signal history');
-  await page.getByRole('button', { name: /Start from a seed/ }).click();
-  await page.getByRole('button', { name: /Far Horizons/ }).click();
-  await page.getByRole('button', { name: /The Long Signal/ }).click();
+  // The seed is chosen before the title, which it suggests.
+  await page.goto('./#/new');
+  await page
+    .getByRole('region', { name: 'Far Horizons' })
+    .getByRole('button', { name: /The Long Signal/ })
+    .click();
+  await expect(page.getByLabel('Title')).toHaveValue('The Long Signal');
+  await page.getByLabel('Title').fill('Signal history');
+  await page.getByRole('button', { name: 'Begin' }).click();
   const form = page.getByRole('region', { name: 'Seed: The Long Signal' });
+  await expect(form).toBeVisible();
+  const gameId = gameIdOf(page);
   await form
     .getByRole('group', { name: 'What is in the signal?' })
     .getByLabel(/A warning/)
@@ -112,11 +112,15 @@ test('a Far Horizons seed links only its toolkit; Question idea and Roll a perso
 
 test('a blank start with Close to Home ticked links only that toolkit', async ({ page }) => {
   await importToolkits(page);
-  const gameId = await create(page, 'Kitchen-table history');
+  await page.goto('./#/new');
   await page.getByRole('button', { name: /Start blank/ }).click();
-  const list = page.getByRole('region', { name: 'Toolkits' });
-  await list.getByRole('checkbox', { name: /Close to Home/ }).check();
-  await list.getByRole('button', { name: 'Continue' }).click();
+  await page
+    .getByRole('group', { name: 'Toolkits' })
+    .getByRole('checkbox', { name: /Close to Home/ })
+    .check();
+  await page.getByLabel('Title').fill('Kitchen-table history');
+  await page.getByRole('button', { name: 'Begin' }).click();
   await expect(page.getByLabel(/^Big Picture/)).toBeVisible();
+  const gameId = gameIdOf(page);
   await expectLinked(page, gameId, 'Close to Home');
 });

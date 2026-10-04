@@ -17,13 +17,13 @@ import { SeatsEditor } from '../components/SeatsEditor';
 import { StartupNotes, StartupPicker, hasStartupContent } from '../components/StartupPicker';
 import { useDispatch } from '../hooks/useGame';
 import { useOpenGame } from '../hooks/useOpenGame';
-import { navigate } from '../router';
+import { navigate, type StartChoice } from '../router';
 
-export default function SetupScreen({ gameId }: { gameId: string }) {
+export default function SetupScreen({ gameId, start }: { gameId: string; start?: StartChoice }) {
   const status = useOpenGame(gameId);
   if (status === 'missing') return <div className="page">That game was not found.</div>;
   if (status === 'loading') return <div className="page">Loading…</div>;
-  return <Wizard />;
+  return <Wizard start={start} />;
 }
 
 type StepKey = 'start' | 'premise' | 'bookends' | 'palette' | 'seats' | 'firstPass' | 'dials';
@@ -49,7 +49,7 @@ function firstIncomplete(g: Game, visited: Set<StepKey>, startup: boolean): Step
   return 'dials';
 }
 
-function Wizard() {
+function Wizard({ start }: { start?: StartChoice }) {
   const cur = useApp((s) => s.current)!;
   const content = useApp((s) => s.content);
   const g = cur.state;
@@ -65,9 +65,13 @@ function Wizard() {
     'firstPass',
     'dials',
   ];
-  const [visited, setVisited] = useState(new Set<StepKey>());
+  // A start chosen on the New game screen: blank skips Start; a seed or generator opens on it.
+  const chosen = start && start.kind !== 'blank' && !g.startup ? start : undefined;
+  const [visited, setVisited] = useState(
+    () => new Set<StepKey>(start?.kind === 'blank' ? ['start'] : []),
+  );
   const auto = firstIncomplete(g, visited, startup);
-  const [manual, setManual] = useState<StepKey | undefined>();
+  const [manual, setManual] = useState<StepKey | undefined>(chosen ? 'start' : undefined);
   const reachable = (k: StepKey) =>
     k === 'start' ? periods(g).length < 2 : steps.indexOf(k) <= steps.indexOf(auto);
   const step = manual !== undefined && reachable(manual) ? manual : auto;
@@ -102,7 +106,12 @@ function Wizard() {
       </ol>
       <div className="card">
         {step === 'start' && (
-          <StartupPicker key={g.startup ? 'chosen' : 'none'} g={g} onDone={advance} />
+          <StartupPicker
+            key={g.startup ? 'chosen' : 'none'}
+            g={g}
+            onDone={advance}
+            initial={chosen}
+          />
         )}
         {step === 'premise' && <PremiseStep g={g} />}
         {step === 'bookends' && <BookendsStep g={g} />}

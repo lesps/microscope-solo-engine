@@ -13,10 +13,9 @@ export async function newGame(
     await page.getByRole('link', { name: 'Library' }).click();
   }
   await page.getByRole('link', { name: 'New game' }).click();
-  await page.getByLabel('Title').fill(title);
-  await page.getByRole('button', { name: 'Create and set up' }).click();
-  // Setup opens on Start when startup content is installed; a blank start is the classic flow.
   await page.getByRole('button', { name: /Start blank/ }).click();
+  await page.getByLabel('Title').fill(title);
+  await page.getByRole('button', { name: 'Begin' }).click();
 
   await page.getByLabel(/^Big Picture/).fill('A river city rises from the delta and drowns.');
   await page.getByRole('button', { name: 'Set Big Picture' }).click();

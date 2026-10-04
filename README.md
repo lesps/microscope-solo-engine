@@ -35,16 +35,26 @@ Keyboard: `N` next step, `R` roll/draw, `O` oracle, `E` open editor, `Esc` close
 
 ### Starting a game
 
-Setup opens on **Start** when an enabled pack has startup content:
+**New game** asks first how you want to start, then what to call the game:
 
-- **Start from a seed**: pick a category, then a seed, answer a few multiple-choice questions and
-  choose how the history begins and ends. The Premise, Bookends and Palette come prefilled from
-  your answers; edit anything before committing it.
-- **Roll a generator**: roll several tables into a Big Picture prompt ("the hoarding of salt
-  starves the old dynasty"), swap two parts for a second reading, reroll as often as you like,
-  then write your own Big Picture from it.
-- **Start blank**: write the premise yourself, after ticking any installed toolkits the game should
-  use.
+1. **Choose a start.** Seeds and generators from your packs are listed by category (each toolkit
+   is a category).
+   - **A seed**: a premise you shape by answering a few multiple-choice questions, including how
+     the history begins and ends. The Premise, Bookends and Palette come prefilled from your
+     answers; edit anything before committing it.
+   - **A generator**: roll several tables into a Big Picture prompt ("the hoarding of salt starves
+     the old dynasty"), swap two parts for a second reading, reroll as often as you like, then
+     write your own Big Picture from it.
+   - **Start blank**: write the premise yourself, and tick any installed toolkits the game should
+     draw from.
+2. **Name it.** The title is suggested from the seed or generator. The ruleset follows from the
+   seed (it's only asked for blank starts and seeds that suit either). The preset and deck are
+   under **Options**; the last preset you used is remembered.
+3. **Begin.** Setup opens on the seed's questions or the generator's roll; a blank start goes
+   straight to the Premise. Until the Bookends are set, setup's **Start** step lets you pick a
+   different start.
+
+Rename a game at any time in **Game settings → Game name**.
 
 **Toolkits** are packs whose tables are tagged with a group (a genre). Tagged tables stay off
 until a game is linked to their group: by starting from one of the group's seeds or generators, by

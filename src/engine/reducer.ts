@@ -151,6 +151,9 @@ const handlers: Handlers = {
         : undefined,
     });
   },
+  GameRenamed: (g, p) => {
+    g.title = p.title;
+  },
   BigPictureSet: (g, p) => {
     g.bigPicture = p.text;
   },

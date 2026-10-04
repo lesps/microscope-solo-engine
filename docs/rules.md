@@ -53,8 +53,17 @@ A seat's own `focusMode` overrides both Focus defaults. Non-mode settings:
 
 ## Start (optional first setup step)
 
+**New game** chooses the start before the title: seeds and generators are listed by category,
+with Start blank offered up front. Choosing one suggests the title (the seed's title or the
+generator's name) and decides the ruleset where it can: a `lens` or `chronicle` seed sets it, a
+generator means Lens, and only blank starts and `any` seeds ask. Blank starts also offer the
+Toolkits checklist there. The game is then created and setup opens on the chosen seed's questions
+or the generator's roll (`#/game/<id>/setup/seed/<seedId>`, `…/generator/<generatorId>`); a blank
+start (`…/setup/blank`) skips the Start step. Nothing is applied until the player applies the seed
+or accepts a reading in setup, using the commands below.
+
 When the enabled packs hold startup content for the game's ruleset, or groups that tag tables,
-setup opens on **Start**, with three paths. All of them continue into the Premise step; nothing after the Palette changes.
+setup has a **Start** step, with three paths. All of them continue into the Premise step; nothing after the Palette changes.
 
 - **Start from a seed.** Pick a category (group), then a seed, then answer its questions. Each
   question takes one option, exactly two, or one or two, plus a written-in answer unless the seed
@@ -78,6 +87,9 @@ when the seed or generator has no group. Applying another seed relinks from scra
 group wins. The Toolkits checklist does the same for the ticked groups, and **Game settings →
 Active tables** lists tables under their tags (Untagged first) with a toggle per group. Untagged
 tables stay active alongside a toolkit; turn them off in Game settings.
+
+The game title is a label, not part of the history: `RenameGame` changes it at any time (Game
+settings → Game name), including mid-turn, and is not a retcon.
 
 Start can be revisited, and a new choice replaces the old one, until the Bookends are set. After
 that the startup is fixed (commands are rejected with `setup-advanced`).
