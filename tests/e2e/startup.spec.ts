@@ -134,6 +134,6 @@ test('an imported v2 pack adds a Chronicle seed and a generator', async ({ page 
     .getByLabel(/Last light/)
     .check();
   await form.getByRole('button', { name: 'Apply seed' }).click();
-  await expect(page.getByLabel('Name')).toHaveValue('Grey Point Light');
+  await expect(page.getByLabel('Name', { exact: true })).toHaveValue('Grey Point Light');
   await expect(page.getByLabel(/^Traits/)).toHaveValue('tall\nlonely\nbright');
 });
