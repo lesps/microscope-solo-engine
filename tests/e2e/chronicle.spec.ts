@@ -10,8 +10,10 @@ test('Chronicle: Subject, Anchors, and a Period with a Change', async ({ page })
   await page.getByText('Options').click();
   await page.getByLabel('Preset').selectOption('pure-lens');
   await page.getByRole('button', { name: 'Begin' }).click();
+  // Wait for setup: until it renders, the New game form ("Name your game") still matches "Name".
+  await expect(page.getByRole('list', { name: 'Setup steps' })).toBeVisible();
 
-  await page.getByLabel('Name').fill('Saltmark Light');
+  await page.getByLabel('Name', { exact: true }).fill('Saltmark Light');
   await page.getByLabel(/^One-sentence description/).fill('A lighthouse on a cold coast.');
   await page.getByLabel(/^Traits/).fill('tall\nlonely\nbright');
   await page.getByRole('button', { name: 'Set Subject' }).click();
