@@ -25,6 +25,7 @@ import { useDispatch } from '../hooks/useGame';
 import { navigate } from '../router';
 import { CharCount, ToneMark } from './common';
 import { RollList } from './RollList';
+import { backupAll } from '../lib/backup';
 import { NewCharacterForm, PersonRoll, QuestionIdea, useHasTables } from './PromptTools';
 
 const mode = (g: Game, m: keyof Settings['modes']): Mode => g.settings.modes[m];
@@ -893,9 +894,21 @@ export function TurnPanel({
       {r && !r.ended && <StepList step={step} />}
       <div key={turnKey} aria-live="polite">
         {step === 'start-round' && (
-          <button className="primary" data-primary onClick={() => dispatch({ type: 'StartRound' })}>
-            Start round {(r?.n ?? 0) + 1}
-          </button>
+          <div className="stack">
+            {r?.ended && (
+              <div className="row">
+                <button onClick={() => void backupAll(store)}>Back up all games</button>
+                <span className="hint">Round {r.n} ended: a good moment to save a copy.</span>
+              </div>
+            )}
+            <button
+              className="primary"
+              data-primary
+              onClick={() => dispatch({ type: 'StartRound' })}
+            >
+              Start round {(r?.n ?? 0) + 1}
+            </button>
+          </div>
         )}
         {step === 'focus' && <FocusStep g={g} />}
         {step === 'start-turn' && (

@@ -8,6 +8,9 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Back up all games** between rounds: one dated bundle of every game, through the share sheet on
+  an iOS Home Screen app (Save to Files). The Storage screen shows when the last backup was made.
+  Library → Export all uses the same backup.
 - New game asks how to start before asking for a title: seeds and generators by category (each
   toolkit is a category), Start blank up front. The title is suggested from the choice, the
   ruleset follows from the seed (asked only for blank starts and `any` seeds), blank starts get

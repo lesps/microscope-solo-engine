@@ -101,8 +101,11 @@ Games are stored in this browser's IndexedDB. Clearing site data deletes them, b
 
 - The app asks for durable storage on first launch; **Storage** shows the result and usage.
 - **Install the app** (Add to Home Screen, or your browser's install button). It works offline.
-- Export game files regularly. A banner reminds you after 3 completed rounds or 7 days since the
-  last export (configurable).
+- Back up regularly. When a round ends, **Back up all games** saves every game in one dated file
+  (`solo-microscope-backup-YYYY-MM-DD.json`); on iPhone it opens the share sheet, so **Save to
+  Files** keeps a copy in iCloud Drive or on the device. **Library → Export all** does the same at
+  any time, **Storage** shows when you last backed up, and a banner reminds you after 3 completed
+  rounds or 7 days without one (configurable). Restore with **Library → Import…**.
 
 > **Changing the app's URL loses access to your games.** A different domain, a custom domain, or a
 > repository moved to another user is a new browser origin with empty storage. Before any such
