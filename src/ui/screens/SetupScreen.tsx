@@ -460,7 +460,7 @@ function PaletteStep({ g, onNext }: { g: Game; onNext: () => void }) {
           </div>
         ))}
       </div>
-      {m !== 'off' && (
+      {m !== 'off' && g.settings.paletteRollCount > 0 && (
         <fieldset>
           <legend>
             Rolled items ({g.paletteRolled}/{g.settings.paletteRollCount})

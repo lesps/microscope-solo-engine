@@ -114,8 +114,10 @@ written answers are refused. Pure Lens: off. High Friction: enforce.
    Subject (see below).
 2. **Bookends.** First and last Period, each with title (required, ≤ 60), description and a tone the
    player chooses. Both lock immediately. Nothing may be placed outside them.
-3. **Palette.** Yes and No lists of short items (≤ 60 characters). With `palette.roll` on, two items
-   are drawn from the player seat's palette tables; the player assigns each to Yes or No. In prompt
+3. **Palette.** Yes and No lists of short items (≤ 60 characters). With `palette.roll` on,
+   `paletteRollCount` items (0–6; Game settings → Rolled Palette items at setup) are drawn from the
+   player seat's palette tables. The default is 2, or one per player (at least two) in a group
+   game; 0 rolls none, whatever the mode. Each rolled item is assigned to Yes or No by the player; the player assigns each to Yes or No. In prompt
    mode each rolled item may be rerolled once; in enforce mode not at all. Items can be added
    whenever no turn is open, and removed before play or between rounds.
 4. **Seats.** At least one player seat and at most four seats in all (Microscope's maximum), so

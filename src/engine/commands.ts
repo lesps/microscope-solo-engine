@@ -1004,6 +1004,11 @@ const handlers: Handlers = {
     const s = c.settings;
     check(s.cohesionCap >= 1 && s.cohesionCap <= 50, 'invalid', 'cohesion cap must be 1–50');
     check(
+      Number.isInteger(s.paletteRollCount) && s.paletteRollCount >= 0 && s.paletteRollCount <= 6,
+      'invalid',
+      'rolled Palette items must be 0–6',
+    );
+    check(
       Object.values(s.entryTypeWeights).every((w) => w >= 0),
       'invalid',
       'weights must be ≥ 0',
