@@ -127,6 +127,7 @@ function SettingsForm() {
         <h1>Game settings</h1>
         <a href={href({ name: 'table', gameId: g.id })}>Back to the table</a>
       </div>
+      <RenameForm title={g.title} />
       {turnOpen && <p className="warn">A turn is open: settings change between turns.</p>}
       <section className="card stack">
         <h2>Presets</h2>
@@ -366,5 +367,31 @@ function SettingsForm() {
         )}
       </section>
     </div>
+  );
+}
+
+function RenameForm({ title }: { title: string }) {
+  const dispatch = useDispatch();
+  const [draft, setDraft] = useState(title);
+  const changed = draft.trim() && draft.trim() !== title;
+  return (
+    <section className="card stack" aria-labelledby="game-name">
+      <h2 id="game-name">Game name</h2>
+      <form
+        className="row"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          if (changed) await dispatch({ type: 'RenameGame', title: draft });
+        }}
+      >
+        <label style={{ flex: 1 }}>
+          Title
+          <input value={draft} onChange={(e) => setDraft(e.target.value)} maxLength={80} />
+        </label>
+        <button type="submit" disabled={!changed} style={{ alignSelf: 'flex-end' }}>
+          Rename
+        </button>
+      </form>
+    </section>
   );
 }

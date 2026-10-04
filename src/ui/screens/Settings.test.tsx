@@ -115,6 +115,27 @@ describe('Game settings screen', () => {
     expect(screen.getByText('Seats change between rounds.')).toBeInTheDocument();
   });
 
+  it('renames the game at any time, even mid-turn; the Library shows the new title', async () => {
+    const user = userEvent.setup();
+    const store = await makeStore();
+    const id = await gameInPlay(store, { focus: 'Tolls' });
+    await run(store, { type: 'StartTurn' });
+    await renderApp(store, { name: 'game-settings', gameId: id });
+    const name = await screen.findByRole('region', { name: 'Game name' });
+    const title = within(name).getByLabelText('Title');
+    expect(title).toHaveValue('River');
+    expect(within(name).getByRole('button', { name: 'Rename' })).toBeDisabled();
+    await user.clear(title);
+    expect(within(name).getByRole('button', { name: 'Rename' })).toBeDisabled();
+    await user.type(title, 'The Drowned City');
+    await user.click(within(name).getByRole('button', { name: 'Rename' }));
+    await waitFor(() => expect(store.getState().current!.state.title).toBe('The Drowned City'));
+    await waitFor(() =>
+      expect(store.getState().games.find((m) => m.id === id)!.title).toBe('The Drowned City'),
+    );
+    expect(within(name).getByRole('button', { name: 'Rename' })).toBeDisabled();
+  });
+
   it('cannot save while a turn is open', async () => {
     const store = await makeStore();
     const id = await gameInPlay(store, { focus: 'Tolls' });

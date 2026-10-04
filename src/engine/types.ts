@@ -462,6 +462,7 @@ export interface EventPayloads {
   OverrideUsed: { mechanic: OverridableMechanic; rolled: unknown; chosen: unknown; targetId?: Id };
   ProseRevised: { entryId: Id; prose: string };
   Retconned: { targetId: Id; field: string; before: unknown; after: unknown; reason: string };
+  GameRenamed: { title: string };
   SeedApplied: { startup: SeedStartup };
   GeneratorReadingAccepted: { startup: GeneratorStartup };
 }
@@ -500,6 +501,7 @@ export const EVENT_TYPES = [
   'OverrideUsed',
   'ProseRevised',
   'Retconned',
+  'GameRenamed',
   'SeedApplied',
   'GeneratorReadingAccepted',
 ] as const satisfies readonly EventType[];

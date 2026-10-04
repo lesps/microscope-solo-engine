@@ -45,7 +45,7 @@ export function App({ pwa = true }: { pwa?: boolean }) {
         <Suspense fallback={<div className="page">Loading…</div>}>
           {route.name === 'library' && <LibraryScreen />}
           {route.name === 'new' && <NewGameScreen />}
-          {route.name === 'setup' && <SetupScreen gameId={route.gameId} />}
+          {route.name === 'setup' && <SetupScreen gameId={route.gameId} start={route.start} />}
           {route.name === 'table' && <TableScreen gameId={route.gameId} />}
           {route.name === 'scene' && <SceneScreen gameId={route.gameId} entryId={route.entryId} />}
           {route.name === 'game-settings' && <GameSettingsScreen gameId={route.gameId} />}

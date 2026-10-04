@@ -159,6 +159,7 @@ export const payloadSchemas: { [K in EventType]: z.ZodType<unknown> } = {
     deck: z.object({ deckId: id, cardIds: z.array(id) }).optional(),
     schemaVersion: int.min(1),
   }),
+  GameRenamed: z.object({ title: z.string().min(1).max(80) }),
   BigPictureSet: z.object({ text: z.string() }),
   SubjectSet: z.object({
     subject: z.object({ name: z.string(), description: z.string(), traits: z.array(z.string()) }),

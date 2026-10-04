@@ -53,7 +53,7 @@ export function hasStartupContent(content: Content, ruleset: Ruleset): boolean {
   return c.seeds.length > 0 || c.generators.length > 0 || toolkits(content).length > 0;
 }
 
-function firstSentence(text: string): string {
+export function firstSentence(text: string): string {
   const m = text.match(/^.*?[.!?](\s|$)/);
   return (m ? m[0] : text).trim();
 }
@@ -83,10 +83,25 @@ type View =
   | { kind: 'generator'; generatorId: Id }
   | { kind: 'toolkits' };
 
-export function StartupPicker({ g, onDone }: { g: Game; onDone: () => void }) {
+export function StartupPicker({
+  g,
+  onDone,
+  initial,
+}: {
+  g: Game;
+  onDone: () => void;
+  /** A seed or generator already chosen on the New game screen. */
+  initial?: { kind: 'seed' | 'generator'; id: Id };
+}) {
   const content = useApp((s) => s.content);
-  const [view, setView] = useState<View>({ kind: 'home' });
   const { seeds, generators } = startupContent(content, g.ruleset);
+  const [view, setView] = useState<View>(() => {
+    if (initial?.kind === 'seed' && seeds.some((s) => s.id === initial.id))
+      return { kind: 'seed', seedId: initial.id };
+    if (initial?.kind === 'generator' && generators.some((x) => x.id === initial.id))
+      return { kind: 'generator', generatorId: initial.id };
+    return { kind: 'home' };
+  });
   const back = (to: View) => (
     <button className="link" onClick={() => setView(to)}>
       ← Back

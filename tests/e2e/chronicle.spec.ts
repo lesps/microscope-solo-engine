@@ -4,10 +4,12 @@ import { panel } from './helpers';
 test('Chronicle: Subject, Anchors, and a Period with a Change', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('link', { name: 'New game' }).click();
+  await page.getByRole('button', { name: /Start blank/ }).click();
   await page.getByLabel('Title').fill('The Lighthouse');
   await page.getByLabel(/Chronicle/).check();
+  await page.getByText('Options').click();
   await page.getByLabel('Preset').selectOption('pure-lens');
-  await page.getByRole('button', { name: 'Create and set up' }).click();
+  await page.getByRole('button', { name: 'Begin' }).click();
 
   await page.getByLabel('Name').fill('Saltmark Light');
   await page.getByLabel(/^One-sentence description/).fill('A lighthouse on a cold coast.');

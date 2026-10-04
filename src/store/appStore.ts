@@ -254,8 +254,8 @@ export function createAppStore(deps: AppDeps) {
             const latest = get().current;
             if (latest?.id === cur.id)
               set({ current: { ...latest, save: 'saved', saveError: undefined } });
-            if (r.events.some((e) => e.type === 'RoundEnded' || e.type === 'RoundStarted'))
-              await get().refreshGames();
+            const listed = new Set(['RoundEnded', 'RoundStarted', 'GameRenamed']);
+            if (r.events.some((e) => listed.has(e.type))) await get().refreshGames();
           } catch (e) {
             const latest = get().current;
             if (latest?.id === cur.id)

@@ -114,6 +114,8 @@ function extra(d: Driver, k: number): Command | 'undo' | undefined {
         : undefined;
     case 6:
       return { type: 'CreateCharacter', name: `C${k}`, description: '' };
+    case 7:
+      return { type: 'RenameGame', title: `Title ${k}` };
     default:
       return undefined;
   }

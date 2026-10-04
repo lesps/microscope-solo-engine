@@ -141,6 +141,7 @@ export type Command =
   | { type: 'EndRound'; mood?: -1 | 0 | 1; cohesion?: -1 | 0 | 1 }
   | { type: 'ReviseProse'; entryId: Id; prose: string }
   | { type: 'Retcon'; targetId: Id; field: string; after: unknown; reason: string }
+  | { type: 'RenameGame'; title: string }
   | { type: 'RollSeedAnswer'; seedId: Id; questionId: string }
   | {
       type: 'ApplySeed';
@@ -793,6 +794,11 @@ const handlers: Handlers = {
     };
     if (deck) payload.deck = { deckId: deck.id, cardIds: deck.cards.map((x) => x.id) };
     tx.emit('GameCreated', payload);
+  },
+
+  // The title is a label, not a fact of the history: it can change at any time.
+  RenameGame: (tx, c) => {
+    tx.emit('GameRenamed', { title: requireText(c.title, 80, 'game title') });
   },
 
   SetBigPicture: (tx, c) => {

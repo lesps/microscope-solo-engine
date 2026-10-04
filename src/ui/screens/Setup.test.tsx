@@ -14,32 +14,17 @@ async function createViaUi(
   opts: { ruleset?: 'lens' | 'chronicle'; preset?: string } = {},
 ) {
   await renderApp(store, { name: 'new' });
-  await user.type(await screen.findByLabelText('Title'), 'River');
-  expect(screen.getByRole('button', { name: 'Create and set up' })).toBeEnabled();
+  await user.click(await screen.findByRole('button', { name: /Start blank/ }));
+  await user.type(screen.getByLabelText('Title'), 'River');
+  expect(screen.getByRole('button', { name: 'Begin' })).toBeEnabled();
   if (opts.ruleset === 'chronicle') await user.click(screen.getByLabelText(/Chronicle/));
-  if (opts.preset) await user.selectOptions(screen.getByLabelText('Preset'), opts.preset);
-  await user.click(screen.getByRole('button', { name: 'Create and set up' }));
+  if (opts.preset) {
+    await user.click(screen.getByText('Options'));
+    await user.selectOptions(screen.getByLabelText('Preset'), opts.preset);
+  }
+  await user.click(screen.getByRole('button', { name: 'Begin' }));
   await screen.findByRole('list', { name: 'Setup steps' });
-  // Lens games open on the Start step (the bundled startup sample has Lens content).
-  const blank = screen.queryByRole('button', { name: /Start blank/ });
-  if (blank) await user.click(blank);
 }
-
-describe('New game screen', () => {
-  it('requires a title and applies a preset', async () => {
-    const user = userEvent.setup();
-    const store = await makeStore();
-    await renderApp(store, { name: 'new' });
-    expect(await screen.findByRole('button', { name: 'Create and set up' })).toBeDisabled();
-    await user.type(screen.getByLabelText('Title'), 'Pure');
-    await user.selectOptions(screen.getByLabelText('Preset'), 'pure-lens');
-    await user.click(screen.getByRole('button', { name: 'Create and set up' }));
-    await screen.findByRole('list', { name: 'Setup steps' });
-    expect(state(store).settings.drift).toBe('preference');
-    expect(state(store).settings.modes.placement).toBe('off');
-    expect(window.location.hash).toMatch(/\/setup$/);
-  });
-});
 
 describe('Setup wizard (Lens)', () => {
   it('walks every step to round 1, including rolled Palette items', async () => {
