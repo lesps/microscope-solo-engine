@@ -1,6 +1,6 @@
 import { render, type RenderResult } from '@testing-library/react';
 import type { ReactElement } from 'react';
-import type { Command, Settings } from '../../src/engine';
+import type { Command, Seat, Settings } from '../../src/engine';
 import { SoloDB } from '../../src/persistence';
 import { createAppStore, type AppStore } from '../../src/store';
 import { StoreContext } from '../../src/ui/StoreContext';
@@ -45,6 +45,8 @@ export async function gameInPlay(
   opts: {
     ruleset?: 'lens' | 'chronicle';
     settings?: (s: Settings) => Settings;
+    /** Replace the two default seats (keep two: the First Pass below adds one entry per seat). */
+    seats?: (s: Seat[]) => Seat[];
     start?: boolean;
     focus?: string;
   } = {},
@@ -55,6 +57,11 @@ export async function gameInPlay(
     await run(store, {
       type: 'ChangeSettings',
       settings: opts.settings(store.getState().current!.state.settings),
+    });
+  if (opts.seats)
+    await run(store, {
+      type: 'ConfigureSeats',
+      seats: opts.seats(store.getState().current!.state.seats),
     });
   if (ruleset === 'chronicle') {
     await run(store, {

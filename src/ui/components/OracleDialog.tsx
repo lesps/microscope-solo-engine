@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import {
+  activeSeat,
   describeOracle,
+  isGroupGame,
   effectiveOdds,
   type Game,
   type GameEvent,
@@ -14,14 +16,39 @@ export function OracleForm({ g, entryId }: { g: Game; entryId?: string }) {
   const [q, setQ] = useState('');
   const [odds, setOdds] = useState(5);
   const chaos = g.settings.chaos ? g.dials.chaos : undefined;
+  const group = isGroupGame(g);
+  const players = g.seats.filter((s) => s.kind === 'player');
+  const holder = activeSeat(g);
+  const [askedBy, setAskedBy] = useState(
+    holder?.kind === 'player' ? holder.id : (players[0]?.id ?? ''),
+  );
   return (
     <form
       className="stack"
       onSubmit={async (e) => {
         e.preventDefault();
-        if ((await dispatch({ type: 'AskOracle', question: q, odds, entryId })).ok) setQ('');
+        const r = await dispatch({
+          type: 'AskOracle',
+          question: q,
+          odds,
+          entryId,
+          ...(group ? { askedBy } : {}),
+        });
+        if (r.ok) setQ('');
       }}
     >
+      {group && (
+        <label>
+          Asked by
+          <select value={askedBy} onChange={(e) => setAskedBy(e.target.value)}>
+            {players.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       <label>
         Yes/no question
         <input value={q} onChange={(e) => setQ(e.target.value)} />
@@ -46,6 +73,7 @@ export function OracleForm({ g, entryId }: { g: Game; entryId?: string }) {
         Ask
       </button>
       <OracleLog
+        g={g}
         calls={
           entryId && g.entries[entryId]?.kind === 'scene'
             ? (g.entries[entryId] as { oracleCalls: OracleCall[] }).oracleCalls
@@ -56,7 +84,12 @@ export function OracleForm({ g, entryId }: { g: Game; entryId?: string }) {
   );
 }
 
-function OracleLog({ calls }: { calls: OracleCall[] }) {
+function Asker({ g, call }: { g: Game; call: OracleCall }) {
+  const name = call.askedBy && g.seats.find((s) => s.id === call.askedBy)?.name;
+  return name ? <span className="hint"> ({name})</span> : null;
+}
+
+function OracleLog({ g, calls }: { g: Game; calls: OracleCall[] }) {
   if (!calls.length) return null;
   return (
     <ul className="rolls" aria-label="Oracle answers">
@@ -68,6 +101,7 @@ function OracleLog({ calls }: { calls: OracleCall[] }) {
           </span>
           <span>
             {c.question} — <strong>{describeOracle(c)}</strong>
+            <Asker g={g} call={c} />
           </span>
         </li>
       ))}
@@ -102,6 +136,7 @@ export function OracleDialog({
                   d10 {e.payload.call.roll}/{e.payload.call.effectiveOdds}
                 </span>
                 {e.payload.call.question} — <strong>{describeOracle(e.payload.call)}</strong>
+                <Asker g={g} call={e.payload.call} />
               </li>
             ) : null,
           )}

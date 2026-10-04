@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
 import { useApp, useAppStore } from '../StoreContext';
 import { exportGameFileTo } from '../components/Status';
-import { downloadText, readJsonFile } from '../lib/download';
+import { backupAll } from '../lib/backup';
+import { readJsonFile } from '../lib/download';
 import { href, navigate } from '../router';
 
 export default function LibraryScreen() {
@@ -45,16 +46,7 @@ export default function LibraryScreen() {
             New game
           </a>
           <button onClick={() => file.current?.click()}>Import…</button>
-          <button
-            disabled={!games.length}
-            onClick={async () =>
-              downloadText(
-                `solo-microscope-backup-${new Date().toISOString().slice(0, 10)}.json`,
-                JSON.stringify(await store.getState().exportAll(), null, 1),
-                'application/json',
-              )
-            }
-          >
+          <button disabled={!games.length} onClick={() => void backupAll(store)}>
             Export all
           </button>
           <input

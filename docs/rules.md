@@ -118,9 +118,14 @@ written answers are refused. Pure Lens: off. High Friction: enforce.
    are drawn from the player seat's palette tables; the player assigns each to Yes or No. In prompt
    mode each rolled item may be rerolled once; in enforce mode not at all. Items can be added
    whenever no turn is open, and removed before play or between rounds.
-4. **Seats.** Exactly one player seat and 0–3 phantom seats. Default: _You_ (uniform bias) and one
-   phantom, _The Stranger_ (sparse bias). The roster is fixed once the First Pass starts; profiles
-   (bias, tables, weights, Focus mode) can change before play and between rounds.
+4. **Seats.** At least one player seat and at most four seats in all (Microscope's maximum), so
+   1–4 players and 0–3 phantoms. Default (Solo): _You_ (uniform bias) and one phantom, _The
+   Stranger_ (sparse bias). **Group** play (New game → Options → Players) seats 2–4 named players
+   sharing one device, plus phantoms up to four seats; players sit ahead of phantoms. Turns and the
+   Lens rotate through every seat in order. Where the rules say "the player seat" (the Bookends'
+   seat, the setup Palette rolls, draws outside a round) it means the first player seat. The
+   roster is fixed once the First Pass starts; profiles (bias, tables, weights, Focus mode) can
+   change before play and between rounds.
 5. **First Pass.** Each seat, in seat order, adds one Period (strictly between the Bookends) or one
    Event (in any Period). The player chooses the tone. First Pass entries lock on creation.
 6. **Dials.** Mood 1–9 (default 5), Cohesion 1–9 (default 5), Chaos 1–9 (default 5) only when Chaos
@@ -225,7 +230,10 @@ In prompt mode the player may choose another legal slot (logged); in off mode th
 
 Odds 1–9 in 10. d10 ≤ effective odds is yes. With qualifiers, a d6: 1 adds "but", 6 adds "and",
 2–5 nothing. With Chaos on, effective odds = clamp(odds + floor((Chaos − 5) / 2), 1, 9). Asked from
-the Scene editor, the call attaches to the Scene and locks with it.
+the Scene editor, the call attaches to the Scene and locks with it. The Oracle can be asked at any
+time; in group games the form asks who is asking (any player seat, defaulting to the seat whose
+turn it is) and the call records it as `askedBy`, shown in the Oracle logs, the Scene's facts and
+the play-order manuscript. The Scene editor also names whose Scene it is.
 
 ## Deck
 

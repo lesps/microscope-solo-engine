@@ -68,6 +68,15 @@ are modeled on how Microscope Explorer by Ben Robbins presents its starting poin
 content is not included (see [docs/content-packs.md](docs/content-packs.md) for building a
 personal pack from your copy).
 
+### Playing with a group
+
+By default a game is solo: you plus a phantom seat. For several people sharing one device, choose
+**New game → Options → Players → Group** and name 2–4 players. Microscope plays with at most four,
+so phantom seats can fill any empty places. Turns and the Lens rotate through every seat; the turn
+panel names whose turn it is and the Scene editor whose Scene it is. Anyone can ask the Oracle at
+any time, and each answer is credited to whoever asked. Seats can be added, renamed or removed in
+setup until the First Pass starts.
+
 ### Content packs
 
 Tables and decks arrive as JSON content packs. Import them from **Packs**; a pack with errors is not
@@ -101,8 +110,11 @@ Games are stored in this browser's IndexedDB. Clearing site data deletes them, b
 
 - The app asks for durable storage on first launch; **Storage** shows the result and usage.
 - **Install the app** (Add to Home Screen, or your browser's install button). It works offline.
-- Export game files regularly. A banner reminds you after 3 completed rounds or 7 days since the
-  last export (configurable).
+- Back up regularly. When a round ends, **Back up all games** saves every game in one dated file
+  (`solo-microscope-backup-YYYY-MM-DD.json`); on iPhone it opens the share sheet, so **Save to
+  Files** keeps a copy in iCloud Drive or on the device. **Library → Export all** does the same at
+  any time, **Storage** shows when you last backed up, and a banner reminds you after 3 completed
+  rounds or 7 days without one (configurable). Restore with **Library → Import…**.
 
 > **Changing the app's URL loses access to your games.** A different domain, a custom domain, or a
 > repository moved to another user is a new browser origin with empty storage. Before any such

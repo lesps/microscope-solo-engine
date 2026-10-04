@@ -49,7 +49,7 @@ describe('New game: choose a start first', () => {
     const form = screen.getByRole('region', { name: 'Name your game' });
     expect(form).toHaveTextContent('Starting from The Salt Road');
     expect(within(form).getByLabelText('Title')).toHaveValue('The Salt Road');
-    expect(within(form).queryByRole('radio')).not.toBeInTheDocument();
+    expect(within(form).queryByRole('group', { name: 'Ruleset' })).not.toBeInTheDocument();
     expect(form).toHaveTextContent('Ruleset: Lens');
     await user.clear(within(form).getByLabelText('Title'));
     expect(screen.getByRole('button', { name: 'Begin' })).toBeDisabled();

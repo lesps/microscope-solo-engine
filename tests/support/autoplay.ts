@@ -181,6 +181,8 @@ export function setupGame(
     ruleset?: 'lens' | 'chronicle';
     settings?: (s: Settings) => Settings;
     phantoms?: number;
+    /** Player seats (group play); the first keeps the default seat's id. */
+    players?: number;
     /** Runs after the settings and seats are configured, before the premise and Bookends. */
     beforeBookends?: (d: Driver) => void;
   } = {},
@@ -194,11 +196,19 @@ export function setupGame(
     seed: '00112233445566778899aabbccddeeff',
   });
   if (opts.settings) d.run({ type: 'ChangeSettings', settings: opts.settings(d.state.settings) });
-  if (opts.phantoms !== undefined) {
+  if (opts.phantoms !== undefined || opts.players !== undefined) {
     const player = d.state.seats.find((s) => s.kind === 'player')!;
+    const phantoms = opts.phantoms ?? d.state.seats.filter((s) => s.kind === 'phantom').length;
     const seats = [
       player,
-      ...Array.from({ length: opts.phantoms }, (_, i) => ({
+      ...Array.from({ length: (opts.players ?? 1) - 1 }, (_, i) => ({
+        id: `player${i + 2}`,
+        name: `Player ${i + 2}`,
+        kind: 'player' as const,
+        tables: [],
+        placementBias: 'uniform' as const,
+      })),
+      ...Array.from({ length: phantoms }, (_, i) => ({
         id: `phantom${i}`,
         name: `Phantom ${i}`,
         kind: 'phantom' as const,

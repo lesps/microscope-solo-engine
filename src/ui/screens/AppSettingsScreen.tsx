@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useApp, useAppStore } from '../StoreContext';
+import { lastBackupLabel } from '../lib/backup';
 
 const fmt = (n?: number) =>
   n === undefined
@@ -14,6 +15,7 @@ export default function AppSettingsScreen() {
   const store = useAppStore();
   const storage = useApp((s) => s.storage);
   const backup = useApp((s) => s.backup);
+  const games = useApp((s) => s.games);
   const [rounds, setRounds] = useState(backup.rounds);
   const [days, setDays] = useState(backup.days);
   return (
@@ -49,6 +51,9 @@ export default function AppSettingsScreen() {
       </section>
       <section className="card stack">
         <h2>Backup reminder</h2>
+        <p style={{ margin: 0 }}>
+          Last backup: <strong>{lastBackupLabel(games, new Date())}</strong>
+        </p>
         <p className="hint">
           A banner offers a one-click game file export after this many completed rounds or days
           since the last export, whichever comes first.

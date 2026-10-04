@@ -75,6 +75,7 @@ const oracleCall = z.object({
   qualifierRoll: int.min(1).max(6).optional(),
   qualifier: z.enum(['but', 'and']).optional(),
   seq: nat,
+  askedBy: id.optional(),
 });
 
 const entryBase = {

@@ -130,7 +130,7 @@ export type Command =
   | { type: 'DrawSpread'; entryId: Id }
   | { type: 'DrawReversal'; entryId: Id }
   | { type: 'PlaceReversal'; entryId: Id; offset: number; text?: string }
-  | { type: 'AskOracle'; question: string; odds: number; entryId?: Id }
+  | { type: 'AskOracle'; question: string; odds: number; entryId?: Id; askedBy?: Id }
   | { type: 'DrawPrompt'; kind: PromptKind }
   | { type: 'ResolveScene'; entryId: Id; answer: string; characterIds?: Id[] }
   | { type: 'CommitTurn' }
@@ -413,6 +413,11 @@ export function nextSeat(g: Game): Seat {
   const s = g.seats[g.nextSeatIndex % Math.max(1, g.seats.length)];
   check(s, 'wrong-phase', 'no seats configured');
   return s;
+}
+
+/** More than one player seat: several people at one device. */
+export function isGroupGame(g: Game): boolean {
+  return g.seats.filter((s) => s.kind === 'player').length > 1;
 }
 
 /** The seat whose tables drive a draw right now: the turn's seat, else the Lens seat, else the player. */
@@ -1218,6 +1223,12 @@ const handlers: Handlers = {
   AskOracle: (tx, c) => {
     const g = tx.g;
     const question = requireText(c.question, 200, 'question');
+    if (c.askedBy !== undefined)
+      check(
+        g.seats.some((s) => s.id === c.askedBy),
+        'not-found',
+        `no seat ${c.askedBy} in this game`,
+      );
     check(Number.isInteger(c.odds) && c.odds >= 1 && c.odds <= 9, 'invalid', 'odds must be 1–9');
     if (c.entryId) {
       const e = g.entries[c.entryId];
@@ -1244,6 +1255,7 @@ const handlers: Handlers = {
       roll,
       answer: roll <= eff,
       seq: tx.g.seq + 1,
+      ...(c.askedBy !== undefined ? { askedBy: c.askedBy } : {}),
       ...(qualifierRoll !== undefined ? { qualifierRoll } : {}),
       ...(qualifierRoll !== undefined && qualifierFor(qualifierRoll)
         ? { qualifier: qualifierFor(qualifierRoll) }
@@ -1825,17 +1837,16 @@ export function currentTraits(g: Game): string[] {
   return traitsAt(g, null).traits;
 }
 
+/** Microscope plays with at most four people; phantom seats count toward that too. */
+export const MAX_SEATS = 4;
+
 function validateSeats(seats: Seat[]) {
   check(
-    seats.filter((s) => s.kind === 'player').length === 1,
+    seats.some((s) => s.kind === 'player'),
     'invalid',
-    'exactly one player seat',
+    'at least one player seat',
   );
-  check(
-    seats.filter((s) => s.kind === 'phantom').length <= 3,
-    'invalid',
-    'at most three phantom seats',
-  );
+  check(seats.length <= MAX_SEATS, 'invalid', `at most ${MAX_SEATS} seats in all`);
   check(
     new Set(seats.map((s) => s.id)).size === seats.length,
     'invalid',

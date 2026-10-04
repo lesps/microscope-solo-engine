@@ -181,8 +181,9 @@ from the remaining pile. `purpose: 'scene.spread'` with `targetId` and `role` (`
 
 ### `OracleAsked`
 
-`{ entryId?, call: { question, odds, effectiveOdds, roll, answer, qualifierRoll?, qualifier?, seq } }`
-— attaches to the Scene when `entryId` is given.
+`{ entryId?, call: { question, odds, effectiveOdds, roll, answer, qualifierRoll?, qualifier?, seq, askedBy? } }`
+— attaches to the Scene when `entryId` is given. `askedBy` is the seat that asked, set in group
+games (optional; older logs have none).
 
 ### `OverrideUsed`
 

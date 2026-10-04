@@ -149,3 +149,17 @@ describe('manuscript branches', () => {
     });
   });
 });
+
+describe('group games in the play-order manuscript', () => {
+  it('credits each Oracle question to the seat that asked it', () => {
+    const d = new Driver();
+    setupGame(d, { players: 2 });
+    d.run({ type: 'StartRound' });
+    d.run({ type: 'AskOracle', question: 'Will it rain?', odds: 5, askedBy: 'player2' });
+    d.run({ type: 'AskOracle', question: 'Unattributed?', odds: 5 });
+    const md = playOrderManuscript(d.events);
+    expect(md).toMatch(/Oracle: “Will it rain\?”.* \*\(asked by Player 2\)\*/);
+    expect(md).toContain('Oracle: “Unattributed?”');
+    expect(md).not.toMatch(/Unattributed\?”[^\n]*asked by/);
+  });
+});

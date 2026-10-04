@@ -213,6 +213,8 @@ export interface OracleCall {
   qualifierRoll?: number;
   qualifier?: 'but' | 'and';
   seq: number;
+  /** The seat that asked, in group games. */
+  askedBy?: Id;
 }
 
 export interface Placement {
